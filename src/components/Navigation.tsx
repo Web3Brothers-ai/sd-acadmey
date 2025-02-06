@@ -11,7 +11,7 @@ const navItems = [
   { label: 'Admission', href: '/admission' },
   { label: 'Gallery', href: '#gallery' },
   { label: 'Notices', href: '/notices' },
-  { label: 'Contact', href: '#contact' }
+  { label: 'Contact', href: '/enquiry' }
 ];
 
 export const Navigation = () => {

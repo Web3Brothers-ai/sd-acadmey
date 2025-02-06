@@ -52,7 +52,7 @@ const Admission = () => {
             </div>
             <Button 
               className="mt-8 bg-sdblue hover:bg-sdblue/90"
-              onClick={() => navigate("/#contact")}
+              onClick={() => navigate("/enquiry")}
             >
               Submit Enquiry
             </Button>

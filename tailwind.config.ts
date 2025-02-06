@@ -64,10 +64,21 @@ export default {
           "0%, 100%": { transform: "rotateY(0deg)" },
           "50%": { transform: "rotateY(180deg)" },
         },
+        "fade-in-up": {
+          "0%": {
+            opacity: "0",
+            transform: "translateY(20px)",
+          },
+          "100%": {
+            opacity: "1",
+            transform: "translateY(0)",
+          },
+        },
       },
       animation: {
         "slide-left": "slide-left 20s linear infinite",
         "card-flip": "card-flip 6s infinite",
+        "fade-in-up": "fade-in-up 0.5s ease-out forwards",
       },
     },
   },

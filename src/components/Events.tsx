@@ -1,5 +1,8 @@
+
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Calendar, Trophy, Bell } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { Button } from './ui/button';
 
 const events = [
   {
@@ -23,13 +26,28 @@ const events = [
 ];
 
 export const Events = () => {
+  const navigate = useNavigate();
+
   return (
     <section className="py-20 bg-white">
       <div className="container mx-auto px-4">
-        <h2 className="text-4xl font-bold text-center text-sdblue mb-12">Events & Announcements</h2>
+        <div className="flex justify-between items-center mb-12">
+          <h2 className="text-4xl font-bold text-sdblue">Events & Announcements</h2>
+          <Button 
+            variant="outline"
+            onClick={() => navigate('/notices')}
+            className="text-sdblue hover:bg-sdblue/10"
+          >
+            View All Notices
+          </Button>
+        </div>
         <div className="grid md:grid-cols-3 gap-8">
           {events.map((event, index) => (
-            <Card key={index} className="transform transition-transform hover:scale-105">
+            <Card 
+              key={index} 
+              className="transform transition-transform hover:scale-105 cursor-pointer"
+              onClick={() => navigate('/notices')}
+            >
               <CardHeader>
                 <div className="w-12 h-12 bg-sdblue rounded-full flex items-center justify-center mb-4">
                   <event.icon className="w-6 h-6 text-white" />

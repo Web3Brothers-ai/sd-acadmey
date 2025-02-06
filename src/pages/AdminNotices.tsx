@@ -7,6 +7,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/components/ui/use-toast';
 import { useNavigate } from 'react-router-dom';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 
 export default function AdminNotices() {
   const [title, setTitle] = useState('');
@@ -16,6 +17,7 @@ export default function AdminNotices() {
   const [time, setTime] = useState('');
   const [category, setCategory] = useState('event');
   const [image, setImage] = useState<File | null>(null);
+  const [aspectRatio, setAspectRatio] = useState('16:9');
   const { toast } = useToast();
   const navigate = useNavigate();
 
@@ -25,11 +27,26 @@ export default function AdminNotices() {
     }
   };
 
+  const getAspectRatioDescription = () => {
+    switch (aspectRatio) {
+      case '16:9':
+        return 'Landscape (1920x1080)';
+      case '4:3':
+        return 'Standard (1600x1200)';
+      case '1:1':
+        return 'Square (1000x1000)';
+      case '9:16':
+        return 'Portrait (1080x1920)';
+      case '21:9':
+        return 'Ultra-wide (2560x1080)';
+      default:
+        return '';
+    }
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // In a real app, you would upload the image and create notice in your backend
-    // For demo, we'll store in localStorage
     const newNotice = {
       id: Date.now(),
       title,
@@ -38,7 +55,8 @@ export default function AdminNotices() {
       time,
       venue,
       category,
-      imageUrl: image ? URL.createObjectURL(image) : null
+      imageUrl: image ? URL.createObjectURL(image) : null,
+      aspectRatio
     };
 
     const existingNotices = JSON.parse(localStorage.getItem('notices') || '[]');
@@ -74,14 +92,37 @@ export default function AdminNotices() {
             </Select>
           </div>
 
-          <div>
-            <label className="block text-sm font-medium mb-2">Cover Image</label>
-            <Input 
-              type="file" 
-              accept="image/*"
-              onChange={handleImageChange}
-              className="w-full"
-            />
+          <div className="space-y-4">
+            <div>
+              <label className="block text-sm font-medium mb-2">Image Aspect Ratio</label>
+              <Select defaultValue={aspectRatio} onValueChange={(value) => setAspectRatio(value)}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select aspect ratio" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="16:9">16:9 - Landscape</SelectItem>
+                  <SelectItem value="4:3">4:3 - Standard</SelectItem>
+                  <SelectItem value="1:1">1:1 - Square</SelectItem>
+                  <SelectItem value="9:16">9:16 - Portrait</SelectItem>
+                  <SelectItem value="21:9">21:9 - Ultra-wide</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium mb-2">Cover Image</label>
+              <Input 
+                type="file" 
+                accept="image/*"
+                onChange={handleImageChange}
+                className="w-full"
+              />
+              <Alert className="mt-2">
+                <AlertDescription>
+                  Please upload an image with {getAspectRatioDescription()} aspect ratio for the best display
+                </AlertDescription>
+              </Alert>
+            </div>
           </div>
           
           <div>

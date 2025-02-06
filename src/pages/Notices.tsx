@@ -12,6 +12,7 @@ interface Notice {
   venue: string;
   category: string;
   imageUrl?: string | null;
+  aspectRatio?: string;
 }
 
 const Notices = () => {
@@ -21,6 +22,24 @@ const Notices = () => {
     const storedNotices = JSON.parse(localStorage.getItem('notices') || '[]');
     setNotices(storedNotices);
   }, []);
+
+  const getImageClassName = (aspectRatio?: string) => {
+    const baseClasses = "w-full object-cover rounded-lg";
+    switch (aspectRatio) {
+      case '16:9':
+        return `${baseClasses} h-[calc(9/16*100%)]`;
+      case '4:3':
+        return `${baseClasses} h-[calc(3/4*100%)]`;
+      case '1:1':
+        return `${baseClasses} aspect-square`;
+      case '9:16':
+        return `${baseClasses} h-[calc(16/9*100%)]`;
+      case '21:9':
+        return `${baseClasses} h-[calc(9/21*100%)]`;
+      default:
+        return `${baseClasses} h-64`;
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -39,7 +58,7 @@ const Notices = () => {
                   <img 
                     src={notice.imageUrl} 
                     alt={notice.title}
-                    className="w-full h-64 object-cover rounded-lg"
+                    className={getImageClassName(notice.aspectRatio)}
                   />
                 </div>
               )}

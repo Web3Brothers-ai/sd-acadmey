@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { Navigation } from "@/components/Navigation";
 import { Hero } from "@/components/Hero";
 import { LeadershipCards } from "@/components/LeadershipCards";
@@ -10,43 +9,55 @@ import { Events } from "@/components/Events";
 import { Facilities } from "@/components/Facilities";
 import { Achievements } from "@/components/Achievements";
 import { Footer } from "@/components/Footer";
+import { useScrollAnimation } from "@/utils/useScrollAnimation";
 
 const Index = () => {
-  useEffect(() => {
-    const observerOptions = {
-      root: null,
-      rootMargin: '0px',
-      threshold: 0.1
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.remove('opacity-0', 'translate-y-10');
-          entry.target.classList.add('opacity-100', 'translate-y-0');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, observerOptions);
-
-    const animatedElements = document.querySelectorAll('[data-aos]');
-    animatedElements.forEach(el => observer.observe(el));
-
-    return () => observer.disconnect();
-  }, []);
+  const leadershipRef = useScrollAnimation();
+  const teachersRef = useScrollAnimation();
+  const achievementsRef = useScrollAnimation();
+  const testimonialsRef = useScrollAnimation();
+  const eventsRef = useScrollAnimation();
+  const galleryRef = useScrollAnimation();
+  const facilitiesRef = useScrollAnimation();
+  const enquiryRef = useScrollAnimation();
 
   return (
     <div className="min-h-screen">
       <Navigation />
       <Hero />
-      <LeadershipCards />
-      <TeachersSection />
-      <Achievements />
-      <Testimonials />
-      <Events />
-      <Gallery />
-      <Facilities />
-      <EnquiryForm />
+      
+      <div ref={leadershipRef} className="transition-all duration-500">
+        <LeadershipCards />
+      </div>
+      
+      <div ref={teachersRef} className="transition-all duration-500">
+        <TeachersSection />
+      </div>
+      
+      <div ref={achievementsRef} className="transition-all duration-500">
+        <Achievements />
+      </div>
+      
+      <div ref={testimonialsRef} className="transition-all duration-500">
+        <Testimonials />
+      </div>
+      
+      <div ref={eventsRef} className="transition-all duration-500">
+        <Events />
+      </div>
+      
+      <div ref={galleryRef} className="transition-all duration-500">
+        <Gallery />
+      </div>
+      
+      <div ref={facilitiesRef} className="transition-all duration-500">
+        <Facilities />
+      </div>
+      
+      <div ref={enquiryRef} className="transition-all duration-500">
+        <EnquiryForm />
+      </div>
+      
       <Footer />
     </div>
   );

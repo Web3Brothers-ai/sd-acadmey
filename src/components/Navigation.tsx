@@ -46,7 +46,7 @@ export const Navigation = () => {
           <div className="flex items-center">
             <a href="/" className="flex-shrink-0 flex items-center gap-3">
               <img 
-                src="/lovable-uploads/319008bf-cf23-450b-9ba4-2460eaaf8736.png"
+                src="/lovable-uploads/74233a1b-ee7c-42d2-b3dc-5c32c52d8378.png"
                 alt="S.D. Academy & Tendercare Playway Logo" 
                 className="h-16 w-16 transition-transform duration-300 hover:scale-105" 
               />

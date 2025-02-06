@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { Button } from './ui/button';
@@ -31,13 +32,16 @@ export const Navigation = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-20">
           <div className="flex items-center">
-            <a href="/" className="flex-shrink-0 flex items-center">
+            <a href="/" className="flex-shrink-0 flex items-center gap-3">
               <img 
-                src="/logo.svg" 
-                alt="S.D. Academy Logo" 
-                className="h-12 w-auto transition-transform duration-300 hover:scale-105" 
+                src="/lovable-uploads/319008bf-cf23-450b-9ba4-2460eaaf8736.png"
+                alt="S.D. Academy & Tendercare Playway Logo" 
+                className="h-16 w-16 transition-transform duration-300 hover:scale-105" 
               />
-              <span className="ml-3 text-2xl font-bold text-sdblue">S.D. Academy</span>
+              <div className="flex flex-col">
+                <span className="text-xl font-bold text-sdblue">S.D. Academy</span>
+                <span className="text-sm text-gray-600">& Tendercare Playway</span>
+              </div>
             </a>
           </div>
 

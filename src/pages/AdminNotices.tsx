@@ -27,6 +27,23 @@ export default function AdminNotices() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    // In a real app, you would upload the image and create notice in your backend
+    // For demo, we'll store in localStorage
+    const newNotice = {
+      id: Date.now(),
+      title,
+      date,
+      description,
+      time,
+      venue,
+      category,
+      imageUrl: image ? URL.createObjectURL(image) : null
+    };
+
+    const existingNotices = JSON.parse(localStorage.getItem('notices') || '[]');
+    localStorage.setItem('notices', JSON.stringify([...existingNotices, newNotice]));
+
     toast({
       title: "Notice Added",
       description: "The notice has been successfully added.",

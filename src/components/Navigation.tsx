@@ -1,8 +1,7 @@
-
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { Button } from './ui/button';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const navItems = [
   { label: 'Home', href: '/' },
@@ -10,7 +9,7 @@ const navItems = [
   { label: 'Academics', href: '#academics' },
   { label: 'Admissions', href: '#admissions' },
   { label: 'Gallery', href: '#gallery' },
-  { label: 'Notices', href: '#notices' },
+  { label: 'Notices', href: '/notices' },
   { label: 'Contact', href: '#contact' }
 ];
 
@@ -18,6 +17,7 @@ export const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
   const isAdmin = localStorage.getItem('isAdmin') === 'true';
 
   useEffect(() => {
@@ -40,27 +40,22 @@ export const Navigation = () => {
   const handleNavClick = (href: string) => {
     setIsOpen(false);
     
-    if (href === '/') {
-      navigate('/');
-      setTimeout(() => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }, 100);
-    } else if (href.startsWith('#')) {
-      setTimeout(() => {
-        const element = document.querySelector(href);
-        if (element) {
-          const navHeight = 80; // Height of the navigation bar
-          const elementPosition = element.getBoundingClientRect().top;
-          const offsetPosition = elementPosition + window.pageYOffset - navHeight;
-          
-          window.scrollTo({
-            top: offsetPosition,
-            behavior: 'smooth'
-          });
-        }
-      }, 100);
-    } else {
+    if (href.startsWith('/')) {
       navigate(href);
+    } else if (href.startsWith('#') && location.pathname === '/') {
+      const element = document.querySelector(href);
+      if (element) {
+        const navHeight = 80;
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - navHeight;
+        
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+      }
+    } else if (href.startsWith('#')) {
+      navigate('/', { state: { scrollTo: href } });
     }
   };
 

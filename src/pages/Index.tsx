@@ -1,3 +1,4 @@
+
 import { Navigation } from "@/components/Navigation";
 import { Hero } from "@/components/Hero";
 import { LeadershipCards } from "@/components/LeadershipCards";
@@ -10,8 +11,11 @@ import { Facilities } from "@/components/Facilities";
 import { Achievements } from "@/components/Achievements";
 import { Footer } from "@/components/Footer";
 import { useScrollAnimation } from "@/utils/useScrollAnimation";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 const Index = () => {
+  const location = useLocation();
   const leadershipRef = useScrollAnimation();
   const teachersRef = useScrollAnimation();
   const achievementsRef = useScrollAnimation();
@@ -20,6 +24,22 @@ const Index = () => {
   const galleryRef = useScrollAnimation();
   const facilitiesRef = useScrollAnimation();
   const enquiryRef = useScrollAnimation();
+
+  useEffect(() => {
+    if (location.state?.scrollTo) {
+      const element = document.querySelector(location.state.scrollTo);
+      if (element) {
+        const navHeight = 80;
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - navHeight;
+        
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+      }
+    }
+  }, [location.state]);
 
   return (
     <div className="min-h-screen">

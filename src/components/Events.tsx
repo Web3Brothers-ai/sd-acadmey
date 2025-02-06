@@ -9,19 +9,22 @@ const events = [
     title: "Annual Sports Day",
     date: "March 15, 2024",
     description: "Join us for a day of athletic excellence and team spirit.",
-    icon: Trophy
+    icon: Trophy,
+    category: "Event"
   },
   {
     title: "Science Fair",
     date: "April 5, 2024",
     description: "Showcasing innovative projects from our brilliant students.",
-    icon: Bell
+    icon: Bell,
+    category: "Academic"
   },
   {
     title: "Parent-Teacher Meeting",
     date: "April 20, 2024",
     description: "Discussing student progress and academic achievements.",
-    icon: Calendar
+    icon: Calendar,
+    category: "Meeting"
   }
 ];
 
@@ -29,7 +32,7 @@ export const Events = () => {
   const navigate = useNavigate();
 
   return (
-    <section className="py-20 bg-white">
+    <section className="py-20 bg-white" id="notices">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center mb-12">
           <h2 className="text-4xl font-bold text-sdblue">Events & Announcements</h2>
@@ -45,7 +48,7 @@ export const Events = () => {
           {events.map((event, index) => (
             <Card 
               key={index} 
-              className="transform transition-transform hover:scale-105 cursor-pointer"
+              className="transform transition-all hover:scale-105 cursor-pointer shadow-md hover:shadow-xl"
               onClick={() => navigate('/notices')}
             >
               <CardHeader>
@@ -56,7 +59,10 @@ export const Events = () => {
                 <p className="text-gray-500">{event.date}</p>
               </CardHeader>
               <CardContent>
-                <p className="text-gray-700">{event.description}</p>
+                <p className="text-gray-700 mb-4">{event.description}</p>
+                <span className="inline-block px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">
+                  {event.category}
+                </span>
               </CardContent>
             </Card>
           ))}

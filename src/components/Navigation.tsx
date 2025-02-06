@@ -6,12 +6,12 @@ import { useNavigate } from 'react-router-dom';
 
 const navItems = [
   { label: 'Home', href: '/' },
-  { label: 'About Us', href: '#' },
-  { label: 'Academics', href: '#' },
-  { label: 'Admissions', href: '#' },
-  { label: 'Gallery', href: '#' },
-  { label: 'Notices', href: '#' },
-  { label: 'Contact', href: '#' }
+  { label: 'About Us', href: '#about' },
+  { label: 'Academics', href: '#academics' },
+  { label: 'Admissions', href: '#admissions' },
+  { label: 'Gallery', href: '#gallery' },
+  { label: 'Notices', href: '#notices' },
+  { label: 'Contact', href: '#contact' }
 ];
 
 export const Navigation = () => {
@@ -34,6 +34,18 @@ export const Navigation = () => {
       navigate('/admin/dashboard');
     } else {
       navigate('/login');
+    }
+  };
+
+  const handleNavClick = (href: string) => {
+    setIsOpen(false);
+    if (href.startsWith('#')) {
+      const element = document.querySelector(href);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      navigate(href);
     }
   };
 
@@ -60,13 +72,13 @@ export const Navigation = () => {
           {/* Desktop navigation */}
           <div className="hidden md:flex md:items-center md:space-x-8">
             {navItems.map((item) => (
-              <a
+              <button
                 key={item.label}
-                href={item.href}
+                onClick={() => handleNavClick(item.href)}
                 className="text-gray-700 hover:text-sdblue px-3 py-2 text-sm font-medium transition-all duration-300 hover:-translate-y-1"
               >
                 {item.label}
-              </a>
+              </button>
             ))}
             <Button 
               className="bg-sdblue hover:bg-sdblue/90 transition-all duration-300 hover:-translate-y-1"
@@ -94,14 +106,13 @@ export const Navigation = () => {
       <div className={`md:hidden transition-all duration-300 ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
         <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white shadow-lg">
           {navItems.map((item) => (
-            <a
+            <button
               key={item.label}
-              href={item.href}
-              className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-sdblue hover:bg-gray-50 rounded-md transition-colors"
-              onClick={() => setIsOpen(false)}
+              onClick={() => handleNavClick(item.href)}
+              className="block w-full text-left px-3 py-2 text-base font-medium text-gray-700 hover:text-sdblue hover:bg-gray-50 rounded-md transition-colors"
             >
               {item.label}
-            </a>
+            </button>
           ))}
           <Button 
             className="w-full mt-4 bg-sdblue hover:bg-sdblue/90"

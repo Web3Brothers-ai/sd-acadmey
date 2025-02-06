@@ -5,19 +5,19 @@ import { Card } from '@/components/ui/card';
 const leaders = [
   {
     title: 'Principal',
-    name: 'Dr. Sarah Johnson',
+    name: 'Mrs. Shruti Singh',
     message: 'At S.D. Academy, we believe in nurturing not just academic excellence, but character and creativity.',
     image: '/lovable-uploads/f14cad96-6fcf-4794-974e-fcd1f75c9701.png'
   },
   {
     title: 'Founder',
-    name: 'Mr. David Smith',
+    name: 'Dr. HN Singh',
     message: 'Our vision is to create a learning environment that inspires innovation and leadership.',
     image: '/lovable-uploads/5f858153-c223-4655-ab7d-62b23245f96b.png'
   },
   {
     title: 'Director',
-    name: 'Mrs. Emily Brown',
+    name: 'Mr. S Rajesh Singh',
     message: 'We are committed to providing world-class education while maintaining our cultural values.',
     image: '/lovable-uploads/724a10ed-bec3-460a-97a4-2c88e1e94e90.png'
   }
@@ -39,16 +39,20 @@ export const LeadershipCards = () => {
               onMouseEnter={() => setActiveCard(index)}
               onMouseLeave={() => setActiveCard(null)}
             >
-              <div className="relative w-48 h-48 mx-auto mb-4">
-                <img 
-                  src={leader.image} 
-                  alt={leader.name}
-                  className="rounded-full object-cover w-full h-full"
-                />
+              <div className="relative w-40 h-40 mx-auto mb-6">
+                <div className="w-full h-full overflow-hidden rounded-full">
+                  <img 
+                    src={leader.image} 
+                    alt={leader.name}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
               </div>
-              <h3 className="text-xl font-bold text-sdblue mb-2 text-center">{leader.title}</h3>
-              <h4 className="text-lg text-gray-600 mb-4 text-center">{leader.name}</h4>
-              <p className="text-gray-500 text-center">{leader.message}</p>
+              <div className="text-center space-y-3">
+                <h3 className="text-xl font-bold text-sdblue">{leader.title}</h3>
+                <h4 className="text-lg text-gray-600">{leader.name}</h4>
+                <p className="text-gray-500">{leader.message}</p>
+              </div>
             </Card>
           ))}
         </div>

@@ -2,19 +2,23 @@
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { Button } from './ui/button';
+import { useNavigate } from 'react-router-dom';
 
 const navItems = [
-  { label: 'Home', href: '#' },
+  { label: 'Home', href: '/' },
   { label: 'About Us', href: '#' },
   { label: 'Academics', href: '#' },
   { label: 'Admissions', href: '#' },
   { label: 'Gallery', href: '#' },
+  { label: 'Notices', href: '#' },
   { label: 'Contact', href: '#' }
 ];
 
 export const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const navigate = useNavigate();
+  const isAdmin = localStorage.getItem('isAdmin') === 'true';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,6 +28,14 @@ export const Navigation = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const handleLoginClick = () => {
+    if (isAdmin) {
+      navigate('/admin/dashboard');
+    } else {
+      navigate('/login');
+    }
+  };
 
   return (
     <nav className={`fixed w-full z-50 transition-all duration-300 ${
@@ -58,8 +70,9 @@ export const Navigation = () => {
             ))}
             <Button 
               className="bg-sdblue hover:bg-sdblue/90 transition-all duration-300 hover:-translate-y-1"
+              onClick={handleLoginClick}
             >
-              Apply Now
+              {isAdmin ? 'Dashboard' : 'Admin Login'}
             </Button>
           </div>
 
@@ -92,9 +105,12 @@ export const Navigation = () => {
           ))}
           <Button 
             className="w-full mt-4 bg-sdblue hover:bg-sdblue/90"
-            onClick={() => setIsOpen(false)}
+            onClick={() => {
+              handleLoginClick();
+              setIsOpen(false);
+            }}
           >
-            Apply Now
+            {isAdmin ? 'Dashboard' : 'Admin Login'}
           </Button>
         </div>
       </div>

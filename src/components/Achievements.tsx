@@ -1,6 +1,13 @@
 
 import { Trophy, Award, GraduationCap, Star } from 'lucide-react';
-import { Card, CardContent } from '@/components/ui/card';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+} from "@/components/ui/carousel";
+import { useEffect } from "react";
+import useEmblaCarousel from 'embla-carousel-react';
+import Autoplay from 'embla-carousel-autoplay';
 
 const achievements = [
   {
@@ -34,39 +41,51 @@ const achievements = [
 ];
 
 export const Achievements = () => {
+  const autoplayOptions = {
+    delay: 3000,
+    rootNode: (emblaRoot: HTMLElement) => emblaRoot.parentElement,
+  };
+
+  const [emblaRef] = useEmblaCarousel({ loop: true }, [Autoplay(autoplayOptions)]);
+
   return (
     <section className="py-20 bg-gray-50">
       <div className="container mx-auto px-4">
         <h2 className="text-4xl font-bold text-center text-sdblue mb-12 animate-fade-in">Our Achievements</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {achievements.map((achievement, index) => (
-            <div
-              key={index}
-              className="opacity-0 translate-y-10 transition-all duration-700"
-              style={{ animationDelay: `${index * 200}ms` }}
-              data-aos="fade-up"
-            >
-              <Card className="hover:shadow-lg transition-shadow duration-300 overflow-hidden">
-                <div className="relative h-48 overflow-hidden">
+        <Carousel
+          ref={emblaRef}
+          className="w-full max-w-5xl mx-auto"
+          opts={{
+            align: "start",
+            loop: true,
+          }}
+        >
+          <CarouselContent>
+            {achievements.map((achievement, index) => (
+              <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+                <div className="relative h-[400px] overflow-hidden rounded-lg">
                   <img 
                     src={achievement.image} 
                     alt={achievement.title}
-                    className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500"
+                    className="w-full h-full object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-                </div>
-                <CardContent className="p-6 text-center relative">
-                  <div className="w-16 h-16 bg-sdblue rounded-full flex items-center justify-center mx-auto mb-4 -mt-12 relative z-10 border-4 border-white">
-                    <achievement.icon className="w-8 h-8 text-white" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent">
+                    <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                      <div className="mb-4 flex justify-center">
+                        <div className="w-16 h-16 bg-sdblue/90 rounded-full flex items-center justify-center">
+                          <achievement.icon className="w-8 h-8 text-white" />
+                        </div>
+                      </div>
+                      <h3 className="text-3xl font-bold mb-2">{achievement.count}</h3>
+                      <h4 className="text-xl font-semibold mb-2">{achievement.title}</h4>
+                      <p className="text-gray-200">{achievement.description}</p>
+                    </div>
                   </div>
-                  <h3 className="text-2xl font-bold text-sdblue mb-2">{achievement.count}</h3>
-                  <h4 className="text-xl font-semibold mb-2">{achievement.title}</h4>
-                  <p className="text-gray-600">{achievement.description}</p>
-                </CardContent>
-              </Card>
-            </div>
-          ))}
-        </div>
+                </div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+        </Carousel>
       </div>
     </section>
   );

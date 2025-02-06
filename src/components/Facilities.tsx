@@ -1,5 +1,5 @@
 import { Card, CardContent } from '@/components/ui/card';
-import { Library, Monitor, Flask, Trophy, Bus } from 'lucide-react';
+import { Library, Monitor, Microscope, Trophy, Bus } from 'lucide-react';
 
 const facilities = [
   {
@@ -15,7 +15,7 @@ const facilities = [
   {
     title: "Science Lab",
     description: "Well-equipped laboratories for practical learning",
-    icon: Flask
+    icon: Microscope
   },
   {
     title: "Sports Complex",

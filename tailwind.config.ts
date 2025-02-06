@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -18,9 +19,15 @@ export default {
       },
     },
     extend: {
+      fontFamily: {
+        montserrat: ['Montserrat', 'sans-serif'],
+        lato: ['Lato', 'sans-serif'],
+      },
       colors: {
-        sdblue: "#1a365d",
-        sdgold: "#ffd700",
+        sdblue: "#0096C7",
+        sdgreen: "#A7D129",
+        sdred: "#D62828",
+        sdyellow: "#F1C40F",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -55,14 +62,19 @@ export default {
           foreground: "hsl(var(--card-foreground))",
         },
       },
+      borderRadius: {
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
+      },
       keyframes: {
-        "slide-left": {
-          "0%": { transform: "translateX(100%)" },
-          "100%": { transform: "translateX(-100%)" },
+        "accordion-down": {
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
         },
-        "card-flip": {
-          "0%, 100%": { transform: "rotateY(0deg)" },
-          "50%": { transform: "rotateY(180deg)" },
+        "accordion-up": {
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
         },
         "fade-in-up": {
           "0%": {
@@ -76,8 +88,8 @@ export default {
         },
       },
       animation: {
-        "slide-left": "slide-left 20s linear infinite",
-        "card-flip": "card-flip 6s infinite",
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
         "fade-in-up": "fade-in-up 0.5s ease-out forwards",
       },
     },

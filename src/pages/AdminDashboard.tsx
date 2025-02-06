@@ -60,6 +60,12 @@ export default function AdminDashboard() {
           >
             Manage Teachers
           </Button>
+          <Button 
+            className="h-32 text-lg"
+            onClick={() => navigate('/admin/testimonials')}
+          >
+            Manage Video Testimonials
+          </Button>
         </div>
 
         <div className="mt-12">

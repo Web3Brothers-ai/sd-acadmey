@@ -6,6 +6,7 @@ import { TeachersSection } from "@/components/TeachersSection";
 import { Gallery } from "@/components/Gallery";
 import { EnquiryForm } from "@/components/EnquiryForm";
 import { Testimonials } from "@/components/Testimonials";
+import { VideoTestimonials } from "@/components/VideoTestimonials";
 import { Events } from "@/components/Events";
 import { Facilities } from "@/components/Facilities";
 import { Achievements } from "@/components/Achievements";
@@ -20,6 +21,7 @@ const Index = () => {
   const teachersRef = useScrollAnimation();
   const achievementsRef = useScrollAnimation();
   const testimonialsRef = useScrollAnimation();
+  const videoTestimonialsRef = useScrollAnimation();
   const eventsRef = useScrollAnimation();
   const galleryRef = useScrollAnimation();
   const facilitiesRef = useScrollAnimation();
@@ -60,6 +62,10 @@ const Index = () => {
       
       <div ref={testimonialsRef} className="transition-all duration-500">
         <Testimonials />
+      </div>
+      
+      <div ref={videoTestimonialsRef} className="transition-all duration-500">
+        <VideoTestimonials />
       </div>
       
       <div ref={eventsRef} className="transition-all duration-500">

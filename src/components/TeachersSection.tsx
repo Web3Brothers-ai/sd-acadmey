@@ -15,7 +15,11 @@ export const TeachersSection = () => {
 
   useEffect(() => {
     const storedTeachers = JSON.parse(localStorage.getItem('teachers') || '[]');
-    setTeachers(storedTeachers);
+    // Remove duplicates based on id
+    const uniqueTeachers = storedTeachers.filter((teacher: Teacher, index: number, self: Teacher[]) =>
+      index === self.findIndex((t) => t.id === teacher.id)
+    );
+    setTeachers(uniqueTeachers);
   }, []);
 
   useEffect(() => {
@@ -30,21 +34,24 @@ export const TeachersSection = () => {
       }
     };
 
-    const intervalId = setInterval(scroll, 30);
-    return () => clearInterval(intervalId);
-  }, []);
+    // Only start auto-scroll if there are more than 4 teachers
+    const intervalId = teachers.length > 4 ? setInterval(scroll, 30) : null;
+    return () => {
+      if (intervalId) clearInterval(intervalId);
+    };
+  }, [teachers.length]);
 
   return (
     <section className="py-20 bg-white overflow-hidden">
       <h2 className="text-4xl font-bold text-center text-sdblue mb-12">Our Teachers</h2>
       <div 
         ref={scrollRef}
-        className="flex space-x-8 overflow-x-hidden"
+        className={`flex space-x-8 ${teachers.length > 4 ? 'overflow-x-hidden' : 'overflow-x-auto justify-center'}`}
       >
         {teachers.length > 0 ? (
-          [...teachers, ...teachers].map((teacher, index) => (
+          teachers.map((teacher) => (
             <div 
-              key={index}
+              key={teacher.id}
               className="flex-none w-64 p-4"
             >
               <div className="bg-white rounded-lg shadow-lg p-6 transform transition-transform hover:scale-105">

@@ -10,6 +10,9 @@ import AdminDashboard from "./pages/AdminDashboard";
 import AdminNotices from "./pages/AdminNotices";
 import NotFound from "./pages/NotFound";
 import Notices from "./pages/Notices";
+import AboutUs from "./pages/AboutUs";
+import Academic from "./pages/Academic";
+import Admission from "./pages/Admission";
 
 const queryClient = new QueryClient();
 
@@ -25,6 +28,9 @@ const App = () => (
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
           <Route path="/admin/notices" element={<AdminNotices />} />
           <Route path="/notices" element={<Notices />} />
+          <Route path="/about" element={<AboutUs />} />
+          <Route path="/academic" element={<Academic />} />
+          <Route path="/admission" element={<Admission />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

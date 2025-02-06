@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { Button } from './ui/button';
@@ -5,9 +6,9 @@ import { useNavigate, useLocation } from 'react-router-dom';
 
 const navItems = [
   { label: 'Home', href: '/' },
-  { label: 'About Us', href: '#about' },
-  { label: 'Academics', href: '#academics' },
-  { label: 'Admissions', href: '#admissions' },
+  { label: 'About Us', href: '/about' },
+  { label: 'Academic', href: '/academic' },
+  { label: 'Admission', href: '/admission' },
   { label: 'Gallery', href: '#gallery' },
   { label: 'Notices', href: '/notices' },
   { label: 'Contact', href: '#contact' }

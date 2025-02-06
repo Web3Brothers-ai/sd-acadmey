@@ -7,13 +7,13 @@ const leaders = [
     title: 'Principal',
     name: 'Mrs. Shruti Singh',
     message: 'At S.D. Academy, we believe in nurturing not just academic excellence, but character and creativity.',
-    image: 'https://images.unsplash.com/photo-1649972904349-6e44c42644a7'
+    image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80'
   },
   {
     title: 'Founder',
     name: 'Dr. HN Singh',
     message: 'Our vision is to create a learning environment that inspires innovation and leadership.',
-    image: 'https://images.unsplash.com/photo-1581092795360-fd1ca04f0952'
+    image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80'
   },
   {
     title: 'Director',

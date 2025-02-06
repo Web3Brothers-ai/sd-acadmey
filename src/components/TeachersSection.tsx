@@ -1,12 +1,36 @@
 import { useRef, useEffect } from 'react';
 
 const teachers = [
-  { name: 'John Doe', subject: 'Mathematics', image: '/placeholder.svg' },
-  { name: 'Jane Smith', subject: 'Science', image: '/placeholder.svg' },
-  { name: 'Mike Johnson', subject: 'English', image: '/placeholder.svg' },
-  { name: 'Sarah Wilson', subject: 'History', image: '/placeholder.svg' },
-  { name: 'Robert Brown', subject: 'Physics', image: '/placeholder.svg' },
-  { name: 'Emma Davis', subject: 'Chemistry', image: '/placeholder.svg' },
+  { 
+    name: 'John Doe', 
+    subject: 'Mathematics', 
+    image: 'https://images.unsplash.com/photo-1544717305-2782549b5136?q=80' 
+  },
+  { 
+    name: 'Jane Smith', 
+    subject: 'Science', 
+    image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80' 
+  },
+  { 
+    name: 'Mike Johnson', 
+    subject: 'English', 
+    image: 'https://images.unsplash.com/photo-1544717302-de2939b7ef71?q=80' 
+  },
+  { 
+    name: 'Sarah Wilson', 
+    subject: 'History', 
+    image: 'https://images.unsplash.com/photo-1557862921-37829c790f19?q=80' 
+  },
+  { 
+    name: 'Robert Brown', 
+    subject: 'Physics', 
+    image: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80' 
+  },
+  { 
+    name: 'Emma Davis', 
+    subject: 'Chemistry', 
+    image: 'https://images.unsplash.com/photo-1590650516494-0c8e4a4dd67e?q=80' 
+  },
 ];
 
 export const TeachersSection = () => {

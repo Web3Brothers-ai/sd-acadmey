@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/components/ui/use-toast';
 import { useNavigate } from 'react-router-dom';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 export default function AdminNotices() {
   const [title, setTitle] = useState('');
@@ -13,7 +14,7 @@ export default function AdminNotices() {
   const [description, setDescription] = useState('');
   const [venue, setVenue] = useState('');
   const [time, setTime] = useState('');
-  const [category, setCategory] = useState('');
+  const [category, setCategory] = useState('event');
   const [image, setImage] = useState<File | null>(null);
   const { toast } = useToast();
   const navigate = useNavigate();
@@ -26,7 +27,6 @@ export default function AdminNotices() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // In a real app, this would send data to a backend
     toast({
       title: "Notice Added",
       description: "The notice has been successfully added.",
@@ -38,11 +38,27 @@ export default function AdminNotices() {
     <div>
       <Navigation />
       <div className="max-w-4xl mx-auto px-4 pt-24 pb-12">
-        <h1 className="text-3xl font-bold text-sdblue mb-8">Add New Notice</h1>
+        <h1 className="text-3xl font-bold text-sdblue mb-8">Add New Notice/Event</h1>
         
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label className="block text-sm font-medium mb-2">Notice Image</label>
+            <label className="block text-sm font-medium mb-2">Type</label>
+            <Select defaultValue={category} onValueChange={(value) => setCategory(value)}>
+              <SelectTrigger>
+                <SelectValue placeholder="Select type" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="event">Event</SelectItem>
+                <SelectItem value="function">Function</SelectItem>
+                <SelectItem value="holiday">Holiday</SelectItem>
+                <SelectItem value="notice">Notice</SelectItem>
+                <SelectItem value="activity">Activity</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium mb-2">Cover Image</label>
             <Input 
               type="file" 
               accept="image/*"
@@ -56,17 +72,7 @@ export default function AdminNotices() {
             <Input
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              placeholder="Enter notice title"
-              required
-            />
-          </div>
-          
-          <div>
-            <label className="block text-sm font-medium mb-2">Category</label>
-            <Input
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-              placeholder="e.g., Event, Academic, Activity"
+              placeholder="Enter title"
               required
             />
           </div>
@@ -114,7 +120,7 @@ export default function AdminNotices() {
             />
           </div>
           
-          <Button type="submit" className="w-full">Add Notice</Button>
+          <Button type="submit" className="w-full">Add {category.charAt(0).toUpperCase() + category.slice(1)}</Button>
         </form>
       </div>
     </div>

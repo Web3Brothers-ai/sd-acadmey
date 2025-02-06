@@ -7,19 +7,19 @@ const leaders = [
     title: 'Principal',
     name: 'Mrs. Shruti Singh',
     message: 'At S.D. Academy, we believe in nurturing not just academic excellence, but character and creativity.',
-    image: '/lovable-uploads/f14cad96-6fcf-4794-974e-fcd1f75c9701.png'
+    image: '/lovable-uploads/ab67892d-17d6-44e9-92b5-28dd0b1aeab9.png'
   },
   {
     title: 'Founder',
     name: 'Dr. HN Singh',
     message: 'Our vision is to create a learning environment that inspires innovation and leadership.',
-    image: '/lovable-uploads/5f858153-c223-4655-ab7d-62b23245f96b.png'
+    image: '/lovable-uploads/ab67892d-17d6-44e9-92b5-28dd0b1aeab9.png'
   },
   {
     title: 'Director',
     name: 'Mr. S Rajesh Singh',
     message: 'We are committed to providing world-class education while maintaining our cultural values.',
-    image: '/lovable-uploads/724a10ed-bec3-460a-97a4-2c88e1e94e90.png'
+    image: '/lovable-uploads/ab67892d-17d6-44e9-92b5-28dd0b1aeab9.png'
   }
 ];
 
@@ -39,20 +39,25 @@ export const LeadershipCards = () => {
               onMouseEnter={() => setActiveCard(index)}
               onMouseLeave={() => setActiveCard(null)}
             >
-              <div className="relative w-40 h-40 mx-auto mb-6 overflow-hidden">
-                <div className="w-40 h-40 rounded-full overflow-hidden border-2 border-sdblue">
+              <div className="relative w-48 h-48 mx-auto mb-6">
+                <div className="w-full h-full rounded-full overflow-hidden border-4 border-sdblue shadow-lg">
                   <img 
                     src={leader.image} 
                     alt={leader.name}
                     className="w-full h-full object-cover"
                     loading="eager"
+                    style={{
+                      objectFit: 'cover',
+                      width: '100%',
+                      height: '100%'
+                    }}
                   />
                 </div>
               </div>
               <div className="text-center space-y-3">
-                <h3 className="text-xl font-bold text-sdblue">{leader.title}</h3>
-                <h4 className="text-lg text-gray-600">{leader.name}</h4>
-                <p className="text-gray-500">{leader.message}</p>
+                <h3 className="text-2xl font-bold text-sdblue">{leader.title}</h3>
+                <h4 className="text-xl font-semibold text-gray-700">{leader.name}</h4>
+                <p className="text-gray-600 leading-relaxed">{leader.message}</p>
               </div>
             </Card>
           ))}

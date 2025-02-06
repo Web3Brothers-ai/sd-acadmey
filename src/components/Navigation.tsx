@@ -39,7 +39,10 @@ export const Navigation = () => {
 
   const handleNavClick = (href: string) => {
     setIsOpen(false);
-    if (href.startsWith('#')) {
+    if (href === '/') {
+      navigate('/');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else if (href.startsWith('#')) {
       const element = document.querySelector(href);
       if (element) {
         element.scrollIntoView({ behavior: 'smooth' });
@@ -51,26 +54,26 @@ export const Navigation = () => {
 
   return (
     <nav className={`fixed w-full z-50 transition-all duration-300 ${
-      scrolled ? 'bg-white/95 backdrop-blur-md shadow-md' : 'bg-transparent'
+      scrolled ? 'bg-white shadow-md' : 'bg-white/95 backdrop-blur-md'
     }`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4">
         <div className="flex justify-between h-20">
           <div className="flex items-center">
-            <a href="/" className="flex-shrink-0 flex items-center gap-3">
+            <button onClick={() => handleNavClick('/')} className="flex-shrink-0 flex items-center gap-3">
               <img 
                 src="/lovable-uploads/74233a1b-ee7c-42d2-b3dc-5c32c52d8378.png"
-                alt="S.D. Academy & Tendercare Playway Logo" 
-                className="h-16 w-16 transition-transform duration-300 hover:scale-105" 
+                alt="S.D. Academy Logo" 
+                className="h-16 w-16 object-contain transition-transform duration-300 hover:scale-105" 
               />
               <div className="flex flex-col">
                 <span className="text-xl font-bold text-sdblue">S.D. Academy</span>
                 <span className="text-sm text-gray-600">& Tendercare Playway</span>
               </div>
-            </a>
+            </button>
           </div>
 
           {/* Desktop navigation */}
-          <div className="hidden md:flex md:items-center md:space-x-8">
+          <div className="hidden md:flex md:items-center md:space-x-6">
             {navItems.map((item) => (
               <button
                 key={item.label}
@@ -103,7 +106,11 @@ export const Navigation = () => {
       </div>
 
       {/* Mobile menu */}
-      <div className={`md:hidden transition-all duration-300 ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+      <div 
+        className={`md:hidden transition-all duration-300 ${
+          isOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
+        }`}
+      >
         <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white shadow-lg">
           {navItems.map((item) => (
             <button

@@ -40,13 +40,17 @@ export const LeadershipCards = () => {
               onMouseLeave={() => setActiveCard(null)}
             >
               <div className="relative w-40 h-40 mx-auto mb-6">
-                <div className="w-full h-full overflow-hidden rounded-full">
-                  <img 
-                    src={leader.image} 
-                    alt={leader.name}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
+                <img 
+                  src={leader.image} 
+                  alt={leader.name}
+                  className="w-full h-full object-cover rounded-full"
+                  style={{
+                    aspectRatio: '1/1',
+                    objectFit: 'cover',
+                    minHeight: '160px',
+                    minWidth: '160px'
+                  }}
+                />
               </div>
               <div className="text-center space-y-3">
                 <h3 className="text-xl font-bold text-sdblue">{leader.title}</h3>

@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -92,7 +91,24 @@ export default {
         "accordion-up": "accordion-up 0.2s ease-out",
         "fade-in-up": "fade-in-up 0.5s ease-out forwards",
       },
+      textShadow: {
+        'glow': '0 0 10px rgba(255,255,255,0.8), 0 0 20px rgba(255,255,255,0.8), 0 0 30px rgba(255,255,255,0.8)',
+        'lg': '2px 2px 4px rgba(0,0,0,0.5)',
+      },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    require("tailwindcss-animate"),
+    function({ addUtilities }: { addUtilities: Function }) {
+      const newUtilities = {
+        '.text-shadow-glow': {
+          'text-shadow': '0 0 10px rgba(255,255,255,0.8), 0 0 20px rgba(255,255,255,0.8), 0 0 30px rgba(255,255,255,0.8)',
+        },
+        '.text-shadow-lg': {
+          'text-shadow': '2px 2px 4px rgba(0,0,0,0.5)',
+        },
+      }
+      addUtilities(newUtilities)
+    },
+  ],
 } satisfies Config;

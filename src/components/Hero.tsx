@@ -1,7 +1,6 @@
 
 import { Button } from "./ui/button";
 import { useEffect, useState } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Events } from "./Events";
 
 const backgroundImages = [
@@ -37,16 +36,6 @@ export const Hero = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const nextSlide = () => {
-    setCurrentImageIndex((prev) => (prev + 1) % backgroundImages.length);
-  };
-
-  const prevSlide = () => {
-    setCurrentImageIndex((prev) => 
-      prev === 0 ? backgroundImages.length - 1 : prev - 1
-    );
-  };
-
   return (
     <div className="relative h-screen w-full">
       {backgroundImages.map((url, index) => (
@@ -66,19 +55,6 @@ export const Hero = () => {
           <div className="absolute inset-0 bg-black/50" />
         </div>
       ))}
-
-      <button
-        onClick={prevSlide}
-        className="absolute left-4 top-1/2 -translate-y-1/2 z-20 text-white/80 p-2 rounded-full bg-black/20 hover:bg-black/40 transition-colors"
-      >
-        <ChevronLeft className="w-6 h-6" />
-      </button>
-      <button
-        onClick={nextSlide}
-        className="absolute right-[420px] top-1/2 -translate-y-1/2 z-20 text-white/80 p-2 rounded-full bg-black/20 hover:bg-black/40 transition-colors"
-      >
-        <ChevronRight className="w-6 h-6" />
-      </button>
 
       <div className="absolute inset-0 flex items-center justify-center z-10">
         <div className="text-center space-y-6 px-4 mr-[400px]">
@@ -111,7 +87,7 @@ export const Hero = () => {
           >
             <Button
               size="lg"
-              className="bg-sdblue/80 hover:bg-sdblue text-white text-lg px-6 py-5 rounded-lg shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 backdrop-blur-sm"
+              className="bg-[#9b87f5]/80 hover:bg-[#9b87f5] text-white text-lg px-6 py-5 rounded-lg shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 backdrop-blur-sm"
               onClick={() => document.getElementById('notices')?.scrollIntoView({ behavior: 'smooth' })}
             >
               Explore More

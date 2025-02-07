@@ -16,11 +16,13 @@ export default function DetailedGallery() {
   const [sections, setSections] = useState<string[]>([]);
 
   useEffect(() => {
-    const storedImages = JSON.parse(localStorage.getItem('gallery') || '[]');
+    const storedImages = JSON.parse(localStorage.getItem('gallery') || '[]') as GalleryImage[];
     setGalleryImages(storedImages);
     
-    // Get unique sections
-    const uniqueSections = Array.from(new Set(storedImages.map((img: GalleryImage) => img.section)));
+    // Get unique sections and explicitly type as string[]
+    const uniqueSections = Array.from(
+      new Set(storedImages.map((img: GalleryImage) => img.section))
+    ) as string[];
     setSections(uniqueSections);
   }, []);
 

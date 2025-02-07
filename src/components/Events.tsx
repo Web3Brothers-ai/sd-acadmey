@@ -82,17 +82,17 @@ export const Events = () => {
   };
 
   return (
-    <div className="fixed right-4 top-24 z-40 max-w-md w-full transform transition-transform duration-300 hover:translate-x-0 translate-x-[calc(100%-3rem)] md:w-[400px] lg:w-[450px]">
-      <div className="bg-[#1A1F2C]/95 backdrop-blur-md shadow-2xl rounded-l-2xl border-l border-t border-b border-gray-700 overflow-hidden">
-        <div className="flex items-center gap-2 p-3 bg-[#7E69AB] rounded-tl-2xl">
-          <h2 className="text-xl font-bold text-white">NOTICE & CIRCULARS</h2>
+    <div className="fixed right-4 top-32 z-40 max-w-md w-full transform transition-transform duration-300 hover:translate-x-0 translate-x-[calc(100%-2.5rem)] md:w-[380px] lg:w-[420px]">
+      <div className="bg-[#1A1F2C]/90 backdrop-blur-md shadow-2xl rounded-l-2xl border-l border-t border-b border-gray-700/50 overflow-hidden">
+        <div className="flex items-center gap-2 p-2.5 bg-[#7E69AB] rounded-tl-2xl">
+          <h2 className="text-lg font-bold text-white">NOTICE & CIRCULARS</h2>
         </div>
         
-        <div className="relative h-[400px] md:h-[450px] overflow-hidden">
+        <div className="relative h-[350px] md:h-[400px] overflow-hidden">
           {notices.map((notice, index) => (
             <div
               key={notice.id}
-              className={`absolute inset-0 p-3 transition-all duration-500 ease-in-out ${
+              className={`absolute inset-0 p-2.5 transition-all duration-500 ease-in-out ${
                 index === currentNoticeIndex 
                   ? 'translate-x-0 opacity-100' 
                   : index < currentNoticeIndex 
@@ -100,23 +100,23 @@ export const Events = () => {
                     : 'translate-x-full opacity-0'
               }`}
             >
-              <div className="bg-[#1A1F2C]/50 backdrop-blur-sm rounded-xl p-4 shadow-lg border border-gray-700 h-full">
-                <div className="flex justify-between items-start mb-3">
-                  <h3 className="text-lg font-semibold text-white pr-2">{notice.title}</h3>
+              <div className="bg-[#1A1F2C]/50 backdrop-blur-sm rounded-xl p-3 shadow-lg border border-gray-700/50 h-full flex flex-col">
+                <div className="flex justify-between items-start mb-2">
+                  <h3 className="text-base font-semibold text-white pr-2 line-clamp-2">{notice.title}</h3>
                   {notice.isNew && (
-                    <span className="inline-block px-2 py-0.5 text-xs font-bold bg-red-500 text-white rounded shrink-0">
+                    <span className="inline-block px-2 py-0.5 text-[10px] font-bold bg-red-500 text-white rounded shrink-0">
                       NEW
                     </span>
                   )}
                 </div>
-                <p className="text-gray-300 mb-3 text-sm">{notice.description}</p>
-                <div className="flex justify-between items-center mt-auto">
-                  <span className="text-xs text-gray-400">{notice.date}</span>
+                <p className="text-gray-300 mb-2 text-sm line-clamp-3">{notice.description}</p>
+                <div className="flex justify-between items-center mt-auto pt-2">
+                  <span className="text-[11px] text-gray-400">{notice.date}</span>
                   <Button 
                     variant="outline"
                     size="sm"
                     onClick={() => navigate('/notices')}
-                    className="text-white border-gray-600 hover:bg-gray-700 text-xs"
+                    className="text-white border-gray-600 hover:bg-gray-700 text-[11px] h-7 px-2"
                   >
                     Read More
                   </Button>
@@ -126,24 +126,24 @@ export const Events = () => {
           ))}
         </div>
 
-        <div className="flex justify-between p-2 border-t border-gray-700">
+        <div className="flex justify-between p-1.5 border-t border-gray-700/50">
           <Button
             variant="ghost"
             size="sm"
             onClick={prevNotice}
-            className="text-white hover:text-gray-300 hover:bg-gray-700 text-xs"
+            className="text-white hover:text-gray-300 hover:bg-gray-700 text-[11px] h-7"
           >
-            <ChevronLeft className="w-4 h-4 mr-1" />
+            <ChevronLeft className="w-3.5 h-3.5 mr-1" />
             Previous
           </Button>
           <Button
             variant="ghost"
             size="sm"
             onClick={nextNotice}
-            className="text-white hover:text-gray-300 hover:bg-gray-700 text-xs"
+            className="text-white hover:text-gray-300 hover:bg-gray-700 text-[11px] h-7"
           >
             Next
-            <ChevronRight className="w-4 h-4 ml-1" />
+            <ChevronRight className="w-3.5 h-3.5 ml-1" />
           </Button>
         </div>
       </div>

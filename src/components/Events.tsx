@@ -41,31 +41,7 @@ export const Events = () => {
         date: "15th January 2025",
         description: "CBSE has released the date sheet for Class XII board examinations 2024-25.",
         category: "Examination",
-        isNew: true
-      },
-      {
-        id: 4,
-        title: "CBSE EXAM DATE SHEET 2024-25 OF CLASS X",
-        date: "15th January 2025",
-        description: "CBSE has released the date sheet for Class X board examinations 2024-25.",
-        category: "Examination",
-        isNew: true
-      },
-      {
-        id: 5,
-        title: "Change of School Timings",
-        date: "1st February 2025",
-        description: "New school timings will be effective from February 1st, 2025.",
-        category: "General",
-        isNew: true
-      },
-      {
-        id: 6,
-        title: "COMMENCING OF NEW ACADEMIC SESSION : 2024-25",
-        date: "1st April 2025",
-        description: "The new academic session will commence from April 1st, 2025.",
-        category: "Academic",
-        isNew: true
+        isNew: false
       }
     ];
     
@@ -83,7 +59,7 @@ export const Events = () => {
   return (
     <div className="fixed top-0 right-0 w-[400px] h-screen bg-gradient-to-b from-[#8B1650] to-[#1A1F2C] shadow-2xl z-50">
       <div className="flex items-center gap-2 p-4 bg-[#8B1650] border-b border-white/10">
-        <Bell className="w-5 h-5 text-white" />
+        <Bell className="w-5 h-5 text-white animate-pulse" />
         <h2 className="text-xl font-bold text-white tracking-wide">NOTICE & CIRCULARS</h2>
       </div>
       
@@ -131,7 +107,7 @@ export const Events = () => {
         ))}
       </div>
 
-      <div className="flex justify-between p-3 border-t border-white/10 bg-[#8B1650]/50">
+      <div className="absolute bottom-0 left-0 right-0 flex justify-between p-3 border-t border-white/10 bg-[#8B1650]/50 backdrop-blur-sm">
         <Button
           variant="ghost"
           size="sm"

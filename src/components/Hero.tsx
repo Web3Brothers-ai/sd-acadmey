@@ -47,7 +47,6 @@ export const Hero = () => {
 
   return (
     <div className="relative h-screen w-[calc(100%-400px)]">
-      {/* Background Images */}
       {backgroundImages.map((url, index) => (
         <div
           key={url}
@@ -67,7 +66,6 @@ export const Hero = () => {
         </div>
       ))}
 
-      {/* Navigation Arrows */}
       <button
         onClick={prevSlide}
         className="absolute left-4 top-1/2 -translate-y-1/2 z-20 text-white/80 p-2 rounded-full bg-black/20 hover:bg-black/40 transition-colors"
@@ -81,7 +79,6 @@ export const Hero = () => {
         <ChevronRight className="w-6 h-6" />
       </button>
 
-      {/* Content */}
       <div className="absolute inset-0 flex items-center justify-center z-10">
         <div className="text-center space-y-6 px-4">
           <div

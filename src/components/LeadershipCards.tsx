@@ -19,7 +19,7 @@ const leaders = [
     title: 'Director',
     name: 'Mr. S Rajesh Singh',
     message: 'We are committed to providing world-class education while maintaining our cultural values.',
-    image: '/lovable-uploads/0fe59a87-7cb6-44e6-bb95-cbf73b2562fa.png'
+    image: 'https://images.unsplash.com/photo-1581092795360-fd1ca04f0952?q=80'
   }
 ];
 

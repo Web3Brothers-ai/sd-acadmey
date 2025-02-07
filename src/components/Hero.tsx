@@ -45,7 +45,7 @@ export const Hero = () => {
               onClick={() => document.getElementById('notices')?.scrollIntoView({ behavior: 'smooth' })}
               style={{ animationDelay: '2.5s' }}
             >
-              <span className="relative z-10 animate-text-shimmer transition-all duration-300 group-hover:font-bold active:font-bold">Discover More</span>
+              <span className="relative z-10 font-medium text-lg transition-all duration-300 group-hover:font-extrabold group-hover:tracking-wide active:font-extrabold active:tracking-wide">Discover More</span>
               <div className="absolute inset-0 border-2 border-white transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
             </Button>
           </div>

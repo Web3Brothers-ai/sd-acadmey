@@ -57,7 +57,7 @@ export const Hero = () => {
       ))}
 
       <div className="absolute inset-0 flex items-center justify-center z-10">
-        <div className="text-center space-y-6 px-4 mr-[400px]">
+        <div className="text-center space-y-6 px-4 mr-[300px]">
           <div
             className={`transform transition-all duration-1000 ${
               showTitle ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'

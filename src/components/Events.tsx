@@ -56,7 +56,7 @@ export const Events = () => {
   const allNotices = [...notices, ...notices];
 
   return (
-    <div className="absolute top-0 right-0 w-[400px] h-screen bg-[#1A1F2C] shadow-2xl">
+    <div className="absolute top-0 right-0 w-[300px] h-screen bg-[#1A1F2C] shadow-2xl">
       <div className="flex items-center gap-2 p-4 bg-[#7E69AB] border-b border-white/10">
         <Bell className="w-5 h-5 text-white animate-pulse" />
         <h2 className="text-xl font-bold text-white tracking-wide">NOTICE & CIRCULARS</h2>
@@ -99,16 +99,18 @@ export const Events = () => {
         </div>
       </div>
 
-      <style jsx>{`
-        @keyframes scroll {
-          0% {
-            transform: translateY(0);
+      <style>
+        {`
+          @keyframes scroll {
+            0% {
+              transform: translateY(0);
+            }
+            100% {
+              transform: translateY(-50%);
+            }
           }
-          100% {
-            transform: translateY(-50%);
-          }
-        }
-      `}</style>
+        `}
+      </style>
     </div>
   );
 };

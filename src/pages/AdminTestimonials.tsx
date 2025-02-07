@@ -5,11 +5,14 @@ import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
 import { useState } from "react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Label } from "@/components/ui/label";
 
 export default function AdminTestimonials() {
   const [video, setVideo] = useState<File | null>(null);
   const [name, setName] = useState("");
-  const [type, setType] = useState<"parent" | "teacher">("parent");
+  const [type, setType] = useState<"parent" | "student">("parent");
+  const [studentClass, setStudentClass] = useState("");
   const { toast } = useToast();
 
   const handleVideoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,7 +28,8 @@ export default function AdminTestimonials() {
       id: Date.now(),
       url: video ? URL.createObjectURL(video) : null,
       type,
-      name
+      name,
+      ...(type === "student" && { class: studentClass })
     };
 
     const existingTestimonials = JSON.parse(localStorage.getItem('videoTestimonials') || '[]');
@@ -39,6 +43,7 @@ export default function AdminTestimonials() {
     setVideo(null);
     setName("");
     setType("parent");
+    setStudentClass("");
   };
 
   return (
@@ -69,18 +74,37 @@ export default function AdminTestimonials() {
             />
           </div>
           
-          <div>
-            <label className="block text-sm font-medium mb-2">Type</label>
-            <Select value={type} onValueChange={(value: "parent" | "teacher") => setType(value)}>
-              <SelectTrigger>
-                <SelectValue placeholder="Select type" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="parent">Parent</SelectItem>
-                <SelectItem value="teacher">Teacher</SelectItem>
-              </SelectContent>
-            </Select>
+          <div className="space-y-3">
+            <label className="block text-sm font-medium">Type</label>
+            <RadioGroup value={type} onValueChange={(value: "parent" | "student") => setType(value)}>
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem value="parent" id="parent" />
+                <Label htmlFor="parent">Parent</Label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem value="student" id="student" />
+                <Label htmlFor="student">Student</Label>
+              </div>
+            </RadioGroup>
           </div>
+
+          {type === "student" && (
+            <div>
+              <label className="block text-sm font-medium mb-2">Class</label>
+              <Select value={studentClass} onValueChange={setStudentClass}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select class" />
+                </SelectTrigger>
+                <SelectContent>
+                  {[...Array(12)].map((_, i) => (
+                    <SelectItem key={i + 1} value={String(i + 1)}>
+                      Class {i + 1}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          )}
           
           <Button type="submit" className="w-full">Add Video Testimonial</Button>
         </form>

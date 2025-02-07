@@ -4,8 +4,9 @@ import { useState } from 'react';
 interface VideoTestimonial {
   id: number;
   url: string;
-  type: 'parent' | 'teacher';
+  type: 'parent' | 'student';
   name: string;
+  class?: string;
 }
 
 export const VideoTestimonials = () => {
@@ -13,6 +14,25 @@ export const VideoTestimonials = () => {
   const [testimonials, setTestimonials] = useState<VideoTestimonial[]>(() => {
     return JSON.parse(localStorage.getItem('videoTestimonials') || '[]');
   });
+
+  const handleMouseEnter = (id: number) => {
+    setHoveredVideo(id);
+    const videoElement = document.getElementById(`video-${id}`) as HTMLVideoElement;
+    if (videoElement) {
+      videoElement.play();
+      videoElement.muted = false;
+    }
+  };
+
+  const handleMouseLeave = (id: number) => {
+    setHoveredVideo(null);
+    const videoElement = document.getElementById(`video-${id}`) as HTMLVideoElement;
+    if (videoElement) {
+      videoElement.pause();
+      videoElement.muted = true;
+      videoElement.currentTime = 0;
+    }
+  };
 
   return (
     <section className="py-20 bg-gray-50">
@@ -23,22 +43,25 @@ export const VideoTestimonials = () => {
             <div 
               key={testimonial.id}
               className="aspect-[9/16] relative rounded-lg overflow-hidden shadow-lg"
-              onMouseEnter={() => setHoveredVideo(testimonial.id)}
-              onMouseLeave={() => setHoveredVideo(null)}
+              onMouseEnter={() => handleMouseEnter(testimonial.id)}
+              onMouseLeave={() => handleMouseLeave(testimonial.id)}
             >
               <video
+                id={`video-${testimonial.id}`}
                 src={testimonial.url}
                 className="w-full h-full object-cover"
                 loop
                 playsInline
-                autoPlay={hoveredVideo === testimonial.id}
-                muted={hoveredVideo !== testimonial.id}
+                muted
               >
                 Your browser does not support the video tag.
               </video>
               <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-4">
                 <p className="font-medium">{testimonial.name}</p>
-                <p className="text-sm capitalize">{testimonial.type}</p>
+                <p className="text-sm capitalize">
+                  {testimonial.type}
+                  {testimonial.class && ` - Class ${testimonial.class}`}
+                </p>
               </div>
             </div>
           ))}

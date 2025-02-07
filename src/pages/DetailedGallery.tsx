@@ -11,17 +11,45 @@ interface GalleryImage {
   section: string;
 }
 
+const demoImages: GalleryImage[] = [
+  {
+    id: 1,
+    url: "https://images.unsplash.com/photo-1460574283810-2aab119d8511",
+    caption: "School Diwali Celebration",
+    section: "Diwali"
+  },
+  {
+    id: 2,
+    url: "https://images.unsplash.com/photo-1500673922987-e212871fec22",
+    caption: "Diwali Lights",
+    section: "Diwali"
+  },
+  {
+    id: 3,
+    url: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05",
+    caption: "Christmas Celebration",
+    section: "Christmas"
+  },
+  {
+    id: 4,
+    url: "https://images.unsplash.com/photo-1582562124811-c09040d0a901",
+    caption: "Eid Celebration",
+    section: "Eid"
+  }
+];
+
 export default function DetailedGallery() {
   const [galleryImages, setGalleryImages] = useState<GalleryImage[]>([]);
   const [sections, setSections] = useState<string[]>([]);
 
   useEffect(() => {
     const storedImages = JSON.parse(localStorage.getItem('gallery') || '[]') as GalleryImage[];
-    setGalleryImages(storedImages);
+    // Combine demo images with stored images if there are no stored images
+    const combinedImages = storedImages.length > 0 ? storedImages : demoImages;
+    setGalleryImages(combinedImages);
     
-    // Get unique sections and explicitly type as string[]
     const uniqueSections = Array.from(
-      new Set(storedImages.map((img: GalleryImage) => img.section))
+      new Set(combinedImages.map((img: GalleryImage) => img.section))
     ) as string[];
     setSections(uniqueSections);
   }, []);

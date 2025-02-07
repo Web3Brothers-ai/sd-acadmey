@@ -81,8 +81,8 @@ export const Events = () => {
   };
 
   return (
-    <div className="absolute top-0 left-0 w-1/4 h-screen bg-[#1A1F2C]/90 backdrop-blur-md shadow-2xl">
-      <div className="flex items-center gap-2 p-2 bg-[#7E69AB]">
+    <div className="fixed top-0 right-0 w-1/4 h-screen bg-[#1A1F2C]/90 backdrop-blur-md shadow-2xl z-50">
+      <div className="flex items-center gap-2 p-2 bg-[#7E69AB] border-b border-gray-700/50">
         <h2 className="text-base font-bold text-white">NOTICE & CIRCULARS</h2>
       </div>
       
@@ -98,7 +98,7 @@ export const Events = () => {
                   : 'translate-x-full opacity-0'
             }`}
           >
-            <div className="bg-[#1A1F2C]/50 backdrop-blur-sm rounded-xl p-2.5 shadow-lg border border-gray-700/50">
+            <div className="bg-[#1A1F2C]/50 backdrop-blur-sm rounded-xl p-2.5 shadow-lg border border-gray-700/50 hover:border-[#7E69AB]/50 transition-all duration-300">
               <div className="flex justify-between items-start mb-1.5">
                 <h3 className="text-sm font-semibold text-white pr-2 line-clamp-2">{notice.title}</h3>
                 {notice.isNew && (

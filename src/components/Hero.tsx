@@ -46,7 +46,7 @@ export const Hero = () => {
   };
 
   return (
-    <div className="relative h-screen w-full overflow-hidden">
+    <div className="relative h-[80vh] w-full overflow-hidden">
       {/* Background Images */}
       {backgroundImages.map((url, index) => (
         <div
@@ -83,13 +83,13 @@ export const Hero = () => {
 
       {/* Content */}
       <div className="absolute inset-0 flex items-center justify-center z-10">
-        <div className="text-center space-y-8 px-4">
+        <div className="text-center space-y-6 px-4">
           <div
             className={`transform transition-all duration-1000 ${
               showTitle ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'
             }`}
           >
-            <h1 className="text-7xl md:text-8xl font-bold text-[#F1F0FB] mb-4 tracking-wider drop-shadow-2xl">
+            <h1 className="text-6xl md:text-7xl font-bold text-[#F1F0FB] mb-4 tracking-wider drop-shadow-2xl">
               <span className="inline-block hover:scale-110 transition-transform duration-300 animate-text-shimmer">S.</span>
               <span className="inline-block hover:scale-110 transition-transform duration-300 animate-text-shimmer ml-2">D.</span>
               <span className="inline-block hover:scale-110 transition-transform duration-300 animate-text-shimmer ml-2">Academy</span>
@@ -101,7 +101,7 @@ export const Hero = () => {
               showSubtitle ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'
             }`}
           >
-            <p className="text-3xl md:text-4xl text-[#E5DEFF] font-light drop-shadow-lg">
+            <p className="text-2xl md:text-3xl text-[#E5DEFF] font-light drop-shadow-lg">
               Shaping Tomorrow's Leaders Today
             </p>
           </div>
@@ -113,7 +113,7 @@ export const Hero = () => {
           >
             <Button
               size="lg"
-              className="bg-sdblue/80 hover:bg-sdblue text-white text-xl px-8 py-6 rounded-lg shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 backdrop-blur-sm"
+              className="bg-sdblue/80 hover:bg-sdblue text-white text-lg px-6 py-5 rounded-lg shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 backdrop-blur-sm"
               onClick={() => document.getElementById('notices')?.scrollIntoView({ behavior: 'smooth' })}
             >
               Explore More

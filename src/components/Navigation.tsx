@@ -69,36 +69,43 @@ export const Navigation = () => {
           <div className="flex items-center">
             <button 
               onClick={() => handleNavClick('/')} 
-              className="flex-shrink-0 flex items-center gap-3"
+              className="flex-shrink-0 flex items-center gap-3 group"
             >
               <img 
                 src="/lovable-uploads/74233a1b-ee7c-42d2-b3dc-5c32c52d8378.png"
                 alt="S.D. Academy Logo" 
-                className="h-16 w-16 object-contain transition-transform duration-300 hover:scale-105" 
+                className="h-16 w-16 object-contain transition-transform duration-300 group-hover:scale-110" 
               />
               <div className="flex flex-col">
-                <span className="text-xl font-bold text-sdblue">S.D. Academy</span>
-                <span className="text-sm text-gray-600">& Tendercare Playway</span>
+                <span className="text-xl font-bold text-sdblue transform transition-all duration-300 group-hover:translate-x-2">S.D. Academy</span>
+                <span className="text-sm text-gray-600 transform transition-all duration-300 group-hover:translate-x-1">& Tendercare Playway</span>
               </div>
             </button>
           </div>
 
           {/* Desktop navigation */}
           <div className="hidden md:flex md:items-center md:space-x-6">
-            {navItems.map((item) => (
+            {navItems.map((item, index) => (
               <button
                 key={item.label}
                 onClick={() => handleNavClick(item.href)}
-                className="text-gray-700 hover:text-sdblue px-3 py-2 text-sm font-medium transition-all duration-300 hover:-translate-y-1"
+                className="text-gray-700 hover:text-sdblue px-3 py-2 text-sm font-medium transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                style={{
+                  animationDelay: `${index * 100}ms`,
+                  animation: 'fade-in 0.5s ease-out forwards'
+                }}
               >
                 {item.label}
               </button>
             ))}
             <Button 
-              className="bg-sdblue hover:bg-sdblue/90 transition-all duration-300 hover:-translate-y-1"
+              className="relative bg-sdblue hover:bg-sdblue/90 transition-all duration-300 hover:-translate-y-1 group overflow-hidden"
               onClick={handleLoginClick}
             >
-              {isAdmin ? 'Dashboard' : 'Admin Login'}
+              <span className="relative z-10">
+                {isAdmin ? 'Dashboard' : 'Admin Login'}
+              </span>
+              <div className="absolute inset-0 border-2 border-white transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
             </Button>
           </div>
 

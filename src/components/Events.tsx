@@ -82,70 +82,68 @@ export const Events = () => {
   };
 
   return (
-    <div className="fixed right-4 top-24 z-40 max-w-[300px] w-full transform transition-transform duration-300 hover:translate-x-0 translate-x-[calc(100%-2.5rem)] md:w-[320px] lg:w-[350px]">
-      <div className="bg-[#1A1F2C]/90 backdrop-blur-md shadow-2xl rounded-l-2xl border-l border-t border-b border-gray-700/50 overflow-hidden">
-        <div className="flex items-center gap-2 p-2 bg-[#7E69AB] rounded-tl-2xl">
-          <h2 className="text-base font-bold text-white">NOTICE & CIRCULARS</h2>
-        </div>
-        
-        <div className="relative h-[300px] md:h-[320px] overflow-hidden">
-          {notices.map((notice, index) => (
-            <div
-              key={notice.id}
-              className={`absolute inset-0 p-2 transition-all duration-500 ease-in-out ${
-                index === currentNoticeIndex 
-                  ? 'translate-x-0 opacity-100' 
-                  : index < currentNoticeIndex 
-                    ? '-translate-x-full opacity-0' 
-                    : 'translate-x-full opacity-0'
-              }`}
-            >
-              <div className="bg-[#1A1F2C]/50 backdrop-blur-sm rounded-xl p-2.5 shadow-lg border border-gray-700/50 h-full flex flex-col">
-                <div className="flex justify-between items-start mb-1.5">
-                  <h3 className="text-sm font-semibold text-white pr-2 line-clamp-2">{notice.title}</h3>
-                  {notice.isNew && (
-                    <span className="inline-block px-1.5 py-0.5 text-[9px] font-bold bg-red-500 text-white rounded shrink-0">
-                      NEW
-                    </span>
-                  )}
-                </div>
-                <p className="text-gray-300 mb-2 text-xs line-clamp-3">{notice.description}</p>
-                <div className="flex justify-between items-center mt-auto pt-1.5">
-                  <span className="text-[10px] text-gray-400">{notice.date}</span>
-                  <Button 
-                    variant="outline"
-                    size="sm"
-                    onClick={() => navigate('/notices')}
-                    className="text-white border-gray-600 hover:bg-gray-700 text-[10px] h-6 px-2"
-                  >
-                    Read More
-                  </Button>
-                </div>
+    <div className="w-[25%] h-screen float-right bg-[#1A1F2C]/90 backdrop-blur-md shadow-2xl overflow-hidden">
+      <div className="flex items-center gap-2 p-2 bg-[#7E69AB]">
+        <h2 className="text-base font-bold text-white">NOTICE & CIRCULARS</h2>
+      </div>
+      
+      <div className="h-[calc(100vh-120px)] overflow-y-auto">
+        {notices.map((notice, index) => (
+          <div
+            key={notice.id}
+            className={`p-2 transition-all duration-500 ease-in-out ${
+              index === currentNoticeIndex 
+                ? 'translate-x-0 opacity-100' 
+                : index < currentNoticeIndex 
+                  ? '-translate-x-full opacity-0' 
+                  : 'translate-x-full opacity-0'
+            }`}
+          >
+            <div className="bg-[#1A1F2C]/50 backdrop-blur-sm rounded-xl p-2.5 shadow-lg border border-gray-700/50">
+              <div className="flex justify-between items-start mb-1.5">
+                <h3 className="text-sm font-semibold text-white pr-2 line-clamp-2">{notice.title}</h3>
+                {notice.isNew && (
+                  <span className="inline-block px-1.5 py-0.5 text-[9px] font-bold bg-red-500 text-white rounded shrink-0">
+                    NEW
+                  </span>
+                )}
+              </div>
+              <p className="text-gray-300 mb-2 text-xs line-clamp-3">{notice.description}</p>
+              <div className="flex justify-between items-center mt-auto pt-1.5">
+                <span className="text-[10px] text-gray-400">{notice.date}</span>
+                <Button 
+                  variant="outline"
+                  size="sm"
+                  onClick={() => navigate('/notices')}
+                  className="text-white border-gray-600 hover:bg-gray-700 text-[10px] h-6 px-2"
+                >
+                  Read More
+                </Button>
               </div>
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
+      </div>
 
-        <div className="flex justify-between p-1 border-t border-gray-700/50">
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={prevNotice}
-            className="text-white hover:text-gray-300 hover:bg-gray-700 text-[10px] h-6"
-          >
-            <ChevronLeft className="w-3 h-3 mr-1" />
-            Previous
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={nextNotice}
-            className="text-white hover:text-gray-300 hover:bg-gray-700 text-[10px] h-6"
-          >
-            Next
-            <ChevronRight className="w-3 h-3 ml-1" />
-          </Button>
-        </div>
+      <div className="flex justify-between p-1 border-t border-gray-700/50">
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={prevNotice}
+          className="text-white hover:text-gray-300 hover:bg-gray-700 text-[10px] h-6"
+        >
+          <ChevronLeft className="w-3 h-3 mr-1" />
+          Previous
+        </Button>
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={nextNotice}
+          className="text-white hover:text-gray-300 hover:bg-gray-700 text-[10px] h-6"
+        >
+          Next
+          <ChevronRight className="w-3 h-3 ml-1" />
+        </Button>
       </div>
     </div>
   );

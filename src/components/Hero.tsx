@@ -46,7 +46,7 @@ export const Hero = () => {
   };
 
   return (
-    <div className="relative h-[80vh] w-full overflow-hidden">
+    <div className="relative h-screen w-[75%] float-left overflow-hidden">
       {/* Background Images */}
       {backgroundImages.map((url, index) => (
         <div
@@ -89,7 +89,7 @@ export const Hero = () => {
               showTitle ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'
             }`}
           >
-            <h1 className="text-6xl md:text-7xl font-bold text-[#F1F0FB] mb-4 tracking-wider drop-shadow-2xl">
+            <h1 className="text-5xl md:text-6xl font-bold text-[#F1F0FB] mb-4 tracking-wider drop-shadow-2xl">
               <span className="inline-block hover:scale-110 transition-transform duration-300 animate-text-shimmer">S.</span>
               <span className="inline-block hover:scale-110 transition-transform duration-300 animate-text-shimmer ml-2">D.</span>
               <span className="inline-block hover:scale-110 transition-transform duration-300 animate-text-shimmer ml-2">Academy</span>
@@ -101,7 +101,7 @@ export const Hero = () => {
               showSubtitle ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'
             }`}
           >
-            <p className="text-2xl md:text-3xl text-[#E5DEFF] font-light drop-shadow-lg">
+            <p className="text-xl md:text-2xl text-[#E5DEFF] font-light drop-shadow-lg">
               Shaping Tomorrow's Leaders Today
             </p>
           </div>

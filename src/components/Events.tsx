@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { Button } from './ui/button';
 import { useEffect, useState } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Bell } from 'lucide-react';
 
 interface Notice {
   id: number;
@@ -81,16 +81,17 @@ export const Events = () => {
   };
 
   return (
-    <div className="fixed top-0 right-0 w-1/4 h-screen bg-[#1A1F2C]/90 backdrop-blur-md shadow-2xl z-50">
-      <div className="flex items-center gap-2 p-2 bg-[#7E69AB] border-b border-gray-700/50">
-        <h2 className="text-base font-bold text-white">NOTICE & CIRCULARS</h2>
+    <div className="fixed top-0 right-0 w-[400px] h-screen bg-gradient-to-b from-[#8B1650] to-[#1A1F2C] shadow-2xl z-50">
+      <div className="flex items-center gap-2 p-4 bg-[#8B1650] border-b border-white/10">
+        <Bell className="w-5 h-5 text-white" />
+        <h2 className="text-xl font-bold text-white tracking-wide">NOTICE & CIRCULARS</h2>
       </div>
       
-      <div className="h-[calc(100vh-120px)] overflow-y-auto">
+      <div className="h-[calc(100vh-120px)] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-transparent">
         {notices.map((notice, index) => (
           <div
             key={notice.id}
-            className={`p-2 transition-all duration-500 ease-in-out ${
+            className={`p-3 transition-all duration-500 ease-in-out ${
               index === currentNoticeIndex 
                 ? 'translate-x-0 opacity-100' 
                 : index < currentNoticeIndex 
@@ -98,23 +99,29 @@ export const Events = () => {
                   : 'translate-x-full opacity-0'
             }`}
           >
-            <div className="bg-[#1A1F2C]/50 backdrop-blur-sm rounded-xl p-2.5 shadow-lg border border-gray-700/50 hover:border-[#7E69AB]/50 transition-all duration-300">
-              <div className="flex justify-between items-start mb-1.5">
-                <h3 className="text-sm font-semibold text-white pr-2 line-clamp-2">{notice.title}</h3>
+            <div className="bg-white/5 backdrop-blur-sm rounded-lg p-4 shadow-lg border border-white/10 hover:border-white/20 transition-all duration-300 group">
+              <div className="flex justify-between items-start mb-2">
+                <h3 className="text-base font-semibold text-white/90 pr-2 line-clamp-2 group-hover:text-white transition-colors">
+                  {notice.title}
+                </h3>
                 {notice.isNew && (
-                  <span className="inline-block px-1.5 py-0.5 text-[9px] font-bold bg-red-500 text-white rounded shrink-0">
+                  <span className="inline-flex items-center px-2 py-1 text-[10px] font-bold bg-red-500 text-white rounded-full animate-pulse">
                     NEW
                   </span>
                 )}
               </div>
-              <p className="text-gray-300 mb-2 text-xs line-clamp-3">{notice.description}</p>
-              <div className="flex justify-between items-center mt-auto pt-1.5">
-                <span className="text-[10px] text-gray-400">{notice.date}</span>
+              <p className="text-gray-300 mb-3 text-sm line-clamp-3 group-hover:text-gray-200 transition-colors">
+                {notice.description}
+              </p>
+              <div className="flex justify-between items-center mt-auto pt-2 border-t border-white/10">
+                <span className="text-xs text-gray-400 group-hover:text-gray-300 transition-colors">
+                  {notice.date}
+                </span>
                 <Button 
                   variant="outline"
                   size="sm"
                   onClick={() => navigate('/notices')}
-                  className="text-white border-gray-600 hover:bg-gray-700 text-[10px] h-6 px-2"
+                  className="text-white border-white/20 hover:bg-white/10 hover:text-white text-xs h-7 px-3 transition-all duration-300"
                 >
                   Read More
                 </Button>
@@ -124,24 +131,24 @@ export const Events = () => {
         ))}
       </div>
 
-      <div className="flex justify-between p-1 border-t border-gray-700/50">
+      <div className="flex justify-between p-3 border-t border-white/10 bg-[#8B1650]/50">
         <Button
           variant="ghost"
           size="sm"
           onClick={prevNotice}
-          className="text-white hover:text-gray-300 hover:bg-gray-700 text-[10px] h-6"
+          className="text-white hover:text-white hover:bg-white/10 text-xs h-7"
         >
-          <ChevronLeft className="w-3 h-3 mr-1" />
+          <ChevronLeft className="w-4 h-4 mr-1" />
           Previous
         </Button>
         <Button
           variant="ghost"
           size="sm"
           onClick={nextNotice}
-          className="text-white hover:text-gray-300 hover:bg-gray-700 text-[10px] h-6"
+          className="text-white hover:text-white hover:bg-white/10 text-xs h-7"
         >
           Next
-          <ChevronRight className="w-3 h-3 ml-1" />
+          <ChevronRight className="w-4 h-4 ml-1" />
         </Button>
       </div>
     </div>

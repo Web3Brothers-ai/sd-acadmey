@@ -63,20 +63,20 @@ export const Hero = () => {
             decoding="async"
             fetchPriority={index === 0 ? "high" : "low"}
           />
-          <div className="absolute inset-0 bg-black/40" />
+          <div className="absolute inset-0 bg-black/50" />
         </div>
       ))}
 
       {/* Navigation Arrows */}
       <button
         onClick={prevSlide}
-        className="absolute left-4 top-1/2 -translate-y-1/2 z-20 text-white p-2 rounded-full bg-black/30 hover:bg-black/50 transition-colors"
+        className="absolute left-4 top-1/2 -translate-y-1/2 z-20 text-white/80 p-2 rounded-full bg-black/20 hover:bg-black/40 transition-colors"
       >
         <ChevronLeft className="w-6 h-6" />
       </button>
       <button
         onClick={nextSlide}
-        className="absolute right-4 top-1/2 -translate-y-1/2 z-20 text-white p-2 rounded-full bg-black/30 hover:bg-black/50 transition-colors"
+        className="absolute right-4 top-1/2 -translate-y-1/2 z-20 text-white/80 p-2 rounded-full bg-black/20 hover:bg-black/40 transition-colors"
       >
         <ChevronRight className="w-6 h-6" />
       </button>
@@ -89,10 +89,10 @@ export const Hero = () => {
               showTitle ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'
             }`}
           >
-            <h1 className="text-7xl md:text-8xl font-bold text-white mb-4 tracking-wider">
-              <span className="inline-block hover:scale-110 transition-transform duration-300 text-shadow-glow">S.</span>
-              <span className="inline-block hover:scale-110 transition-transform duration-300 text-shadow-glow ml-2">D.</span>
-              <span className="inline-block hover:scale-110 transition-transform duration-300 text-shadow-glow ml-2">Academy</span>
+            <h1 className="text-7xl md:text-8xl font-bold text-[#F1F0FB] mb-4 tracking-wider drop-shadow-2xl">
+              <span className="inline-block hover:scale-110 transition-transform duration-300 animate-text-shimmer">S.</span>
+              <span className="inline-block hover:scale-110 transition-transform duration-300 animate-text-shimmer ml-2">D.</span>
+              <span className="inline-block hover:scale-110 transition-transform duration-300 animate-text-shimmer ml-2">Academy</span>
             </h1>
           </div>
 
@@ -101,7 +101,7 @@ export const Hero = () => {
               showSubtitle ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'
             }`}
           >
-            <p className="text-3xl md:text-4xl text-white font-light text-shadow-lg">
+            <p className="text-3xl md:text-4xl text-[#E5DEFF] font-light drop-shadow-lg">
               Shaping Tomorrow's Leaders Today
             </p>
           </div>
@@ -113,7 +113,7 @@ export const Hero = () => {
           >
             <Button
               size="lg"
-              className="bg-sdblue hover:bg-sdblue/90 text-white text-xl px-8 py-6 rounded-lg shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1"
+              className="bg-sdblue/80 hover:bg-sdblue text-white text-xl px-8 py-6 rounded-lg shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 backdrop-blur-sm"
               onClick={() => document.getElementById('notices')?.scrollIntoView({ behavior: 'smooth' })}
             >
               Explore More

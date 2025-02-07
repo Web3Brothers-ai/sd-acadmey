@@ -1,25 +1,26 @@
 
 import { useState } from 'react';
 import { Card } from '@/components/ui/card';
+import { Library, Monitor, Microscope, Trophy, Bus } from 'lucide-react';
 
 const leaders = [
   {
     title: 'Principal',
     name: 'Mrs. Shruti Singh',
     message: 'At S.D. Academy, we believe in nurturing not just academic excellence, but character and creativity.',
-    image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80'
+    image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=300&q=80'
   },
   {
     title: 'Founder',
     name: 'Dr. HN Singh',
     message: 'Our vision is to create a learning environment that inspires innovation and leadership.',
-    image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80'
+    image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=300&q=80'
   },
   {
     title: 'Director',
     name: 'Mr. S Rajesh Singh',
     message: 'We are committed to providing world-class education while maintaining our cultural values.',
-    image: 'https://images.unsplash.com/photo-1581092795360-fd1ca04f0952?q=80'
+    image: 'https://images.unsplash.com/photo-1581092795360-fd1ca04f0952?auto=format&fit=crop&w=300&q=80'
   }
 ];
 
@@ -46,6 +47,8 @@ export const LeadershipCards = () => {
                     alt={leader.name}
                     className="w-full h-full object-cover"
                     loading="eager"
+                    decoding="async"
+                    fetchPriority="high"
                     style={{
                       objectFit: 'cover',
                       width: '100%',
@@ -66,3 +69,4 @@ export const LeadershipCards = () => {
     </section>
   );
 };
+

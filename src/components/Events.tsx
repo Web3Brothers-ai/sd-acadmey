@@ -1,6 +1,4 @@
-
 import { useNavigate } from 'react-router-dom';
-import { Button } from './ui/button';
 import { useEffect, useState } from 'react';
 import { Bell } from 'lucide-react';
 
@@ -52,14 +50,13 @@ export const Events = () => {
     }
   ];
 
-  // Double the notices array to ensure smooth continuous scroll
   const allNotices = [...notices, ...notices];
 
   return (
-    <div className="absolute top-0 right-0 w-[300px] h-screen bg-[#1A1F2C] shadow-2xl">
+    <div className="absolute top-0 right-0 w-[250px] h-screen bg-[#1A1F2C] shadow-2xl">
       <div className="flex items-center gap-2 p-4 bg-[#7E69AB] border-b border-white/10">
         <Bell className="w-5 h-5 text-white animate-pulse" />
-        <h2 className="text-xl font-bold text-white tracking-wide">NOTICE & CIRCULARS</h2>
+        <h2 className="text-lg font-bold text-white tracking-wide">NOTICE & CIRCULARS</h2>
       </div>
       
       <div 
@@ -78,7 +75,7 @@ export const Events = () => {
           {allNotices.map((notice) => (
             <div
               key={notice.id}
-              className="p-4 border-b border-white/10 hover:bg-white/5 transition-colors cursor-pointer"
+              className="p-3 border-b border-white/10 hover:bg-white/5 transition-colors cursor-pointer"
               onClick={() => navigate('/notices')}
             >
               <div className="flex items-start gap-2">

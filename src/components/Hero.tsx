@@ -57,13 +57,13 @@ export const Hero = () => {
       ))}
 
       <div className="absolute inset-0 flex items-center justify-center z-10">
-        <div className="text-center space-y-6 px-4 mr-[300px]">
+        <div className="text-center space-y-6 px-4 mr-[250px] max-w-3xl">
           <div
             className={`transform transition-all duration-1000 ${
               showTitle ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'
             }`}
           >
-            <h1 className="text-5xl md:text-6xl font-bold text-[#F1F0FB] mb-4 tracking-wider drop-shadow-2xl">
+            <h1 className="text-6xl md:text-7xl font-bold text-[#F1F0FB] mb-4 tracking-wider drop-shadow-2xl">
               <span className="inline-block hover:scale-110 transition-transform duration-300 animate-text-shimmer">S.</span>
               <span className="inline-block hover:scale-110 transition-transform duration-300 animate-text-shimmer ml-2">D.</span>
               <span className="inline-block hover:scale-110 transition-transform duration-300 animate-text-shimmer ml-2">Academy</span>
@@ -75,7 +75,7 @@ export const Hero = () => {
               showSubtitle ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'
             }`}
           >
-            <p className="text-xl md:text-2xl text-[#E5DEFF] font-light drop-shadow-lg">
+            <p className="text-2xl md:text-3xl text-[#E5DEFF] font-light drop-shadow-lg">
               Shaping Tomorrow's Leaders Today
             </p>
           </div>
@@ -87,7 +87,7 @@ export const Hero = () => {
           >
             <Button
               size="lg"
-              className="bg-[#9b87f5]/80 hover:bg-[#9b87f5] text-white text-lg px-6 py-5 rounded-lg shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 backdrop-blur-sm"
+              className="bg-[#9b87f5]/80 hover:bg-[#9b87f5] text-white text-xl px-8 py-6 rounded-lg shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 backdrop-blur-sm"
               onClick={() => document.getElementById('notices')?.scrollIntoView({ behavior: 'smooth' })}
             >
               Explore More

@@ -1,3 +1,4 @@
+
 import { Navigation } from "@/components/Navigation";
 import { Hero } from "@/components/Hero";
 import { LeadershipCards } from "@/components/LeadershipCards";
@@ -9,7 +10,6 @@ import { VideoTestimonials } from "@/components/VideoTestimonials";
 import { Events } from "@/components/Events";
 import { Facilities } from "@/components/Facilities";
 import { Achievements } from "@/components/Achievements";
-import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
 import { useScrollAnimation } from "@/utils/useScrollAnimation";
 import { useEffect, useCallback } from "react";
@@ -26,7 +26,6 @@ const Index = () => {
   const galleryRef = useScrollAnimation();
   const facilitiesRef = useScrollAnimation();
   const enquiryRef = useScrollAnimation();
-  const contactRef = useScrollAnimation();
 
   const scrollToElement = useCallback((selector: string) => {
     const element = document.querySelector(selector);
@@ -89,10 +88,6 @@ const Index = () => {
       
       <div ref={enquiryRef} className="transition-transform duration-300 will-change-transform">
         <EnquiryForm />
-      </div>
-      
-      <div ref={contactRef} className="transition-transform duration-300 will-change-transform">
-        <Contact />
       </div>
       
       <Footer />

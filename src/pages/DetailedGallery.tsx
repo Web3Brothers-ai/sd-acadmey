@@ -1,8 +1,6 @@
-
 import { Navigation } from "@/components/Navigation";
 import { useEffect, useState } from "react";
 import { Card } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 interface GalleryImage {
   id: number;

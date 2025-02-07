@@ -11,27 +11,34 @@ interface VideoTestimonial {
 
 export const VideoTestimonials = () => {
   const [hoveredVideo, setHoveredVideo] = useState<number | null>(null);
-  const [testimonials, setTestimonials] = useState<VideoTestimonial[]>(() => {
-    return JSON.parse(localStorage.getItem('videoTestimonials') || '[]');
-  });
+  const demoTestimonials: VideoTestimonial[] = [
+    {
+      id: 1,
+      url: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d",
+      type: "parent",
+      name: "Jane Smith"
+    },
+    {
+      id: 2,
+      url: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158",
+      type: "student",
+      name: "Tom Brown",
+      class: "10"
+    },
+    {
+      id: 3,
+      url: "https://images.unsplash.com/photo-1519389950473-47ba0277781c",
+      type: "parent",
+      name: "Robert Wilson"
+    }
+  ];
 
   const handleMouseEnter = (id: number) => {
     setHoveredVideo(id);
-    const videoElement = document.getElementById(`video-${id}`) as HTMLVideoElement;
-    if (videoElement) {
-      videoElement.play();
-      videoElement.muted = false;
-    }
   };
 
   const handleMouseLeave = (id: number) => {
     setHoveredVideo(null);
-    const videoElement = document.getElementById(`video-${id}`) as HTMLVideoElement;
-    if (videoElement) {
-      videoElement.pause();
-      videoElement.muted = true;
-      videoElement.currentTime = 0;
-    }
   };
 
   return (
@@ -39,23 +46,18 @@ export const VideoTestimonials = () => {
       <div className="container mx-auto px-4">
         <h2 className="text-4xl font-bold text-center text-sdblue mb-12">Video Testimonials</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {testimonials.map((testimonial) => (
+          {demoTestimonials.map((testimonial) => (
             <div 
               key={testimonial.id}
               className="aspect-[9/16] relative rounded-lg overflow-hidden shadow-lg"
               onMouseEnter={() => handleMouseEnter(testimonial.id)}
               onMouseLeave={() => handleMouseLeave(testimonial.id)}
             >
-              <video
-                id={`video-${testimonial.id}`}
+              <img
                 src={testimonial.url}
+                alt={`${testimonial.name}'s testimonial`}
                 className="w-full h-full object-cover"
-                loop
-                playsInline
-                muted
-              >
-                Your browser does not support the video tag.
-              </video>
+              />
               <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-4">
                 <p className="font-medium">{testimonial.name}</p>
                 <p className="text-sm capitalize">

@@ -81,7 +81,7 @@ export const Events = () => {
   };
 
   return (
-    <div className="absolute top-0 right-0 w-1/4 h-screen bg-[#1A1F2C]/90 backdrop-blur-md shadow-2xl">
+    <div className="absolute top-0 left-0 w-1/4 h-screen bg-[#1A1F2C]/90 backdrop-blur-md shadow-2xl">
       <div className="flex items-center gap-2 p-2 bg-[#7E69AB]">
         <h2 className="text-base font-bold text-white">NOTICE & CIRCULARS</h2>
       </div>

@@ -14,12 +14,14 @@ interface GalleryImage {
   url: string;
   caption: string;
   section: string;
+  showOnHome?: boolean;
 }
 
 export default function AdminGallery() {
   const [image, setImage] = useState<File | null>(null);
   const [caption, setCaption] = useState("");
   const [section, setSection] = useState("");
+  const [showOnHome, setShowOnHome] = useState(false);
   const [sections, setSections] = useState<string[]>([]);
   const [galleryImages, setGalleryImages] = useState<GalleryImage[]>([]);
   const { toast } = useToast();
@@ -46,7 +48,8 @@ export default function AdminGallery() {
       id: Date.now(),
       url: image ? URL.createObjectURL(image) : null,
       caption: caption,
-      section: section
+      section: section,
+      showOnHome: showOnHome
     };
 
     const updatedImages = [...galleryImages, newImage];
@@ -66,6 +69,7 @@ export default function AdminGallery() {
     setImage(null);
     setCaption("");
     setSection("");
+    setShowOnHome(false);
   };
 
   const handleDeleteImage = (imageId: number) => {
@@ -79,6 +83,19 @@ export default function AdminGallery() {
     toast({
       title: "Image Deleted",
       description: "The image has been removed from the gallery.",
+    });
+  };
+
+  const toggleShowOnHome = (imageId: number) => {
+    const updatedImages = galleryImages.map(img => 
+      img.id === imageId ? { ...img, showOnHome: !img.showOnHome } : img
+    );
+    setGalleryImages(updatedImages);
+    localStorage.setItem('gallery', JSON.stringify(updatedImages));
+
+    toast({
+      title: "Image Updated",
+      description: `Image will ${updatedImages.find(img => img.id === imageId)?.showOnHome ? 'now' : 'no longer'} be shown on home page.`,
     });
   };
 
@@ -138,6 +155,19 @@ export default function AdminGallery() {
                     ))}
                   </datalist>
                 </div>
+
+                <div className="flex items-center space-x-2">
+                  <input
+                    type="checkbox"
+                    id="showOnHome"
+                    checked={showOnHome}
+                    onChange={(e) => setShowOnHome(e.target.checked)}
+                    className="w-4 h-4 text-sdblue"
+                  />
+                  <label htmlFor="showOnHome" className="text-sm font-medium">
+                    Show on Home Page
+                  </label>
+                </div>
                 
                 <Button 
                   type="submit" 
@@ -150,19 +180,52 @@ export default function AdminGallery() {
           </div>
 
           <div className="perspective-1000">
-            <h2 className="text-xl font-semibold mb-4 text-sdblue">Manage Existing Images</h2>
-            <Tabs defaultValue={sections[0]} className="w-full">
+            <Tabs defaultValue="all" className="w-full">
               <TabsList className="flex flex-wrap justify-start mb-8 bg-gradient-to-r from-gray-50 to-white p-1 rounded-lg">
+                <TabsTrigger value="all" className="px-4 py-2">All Images</TabsTrigger>
+                <TabsTrigger value="home" className="px-4 py-2">Home Page Images</TabsTrigger>
                 {sections.map((section) => (
                   <TabsTrigger 
                     key={section} 
                     value={section} 
-                    className="px-4 py-2 transform hover:scale-105 transition-all duration-300"
+                    className="px-4 py-2"
                   >
                     {section}
                   </TabsTrigger>
                 ))}
               </TabsList>
+
+              <TabsContent value="all">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  {galleryImages.map((image) => (
+                    <ImageCard 
+                      key={image.id}
+                      image={image}
+                      onDelete={handleDeleteImage}
+                      onToggleHome={toggleShowOnHome}
+                      hoveredCard={hoveredCard}
+                      setHoveredCard={setHoveredCard}
+                    />
+                  ))}
+                </div>
+              </TabsContent>
+
+              <TabsContent value="home">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  {galleryImages
+                    .filter(img => img.showOnHome)
+                    .map((image) => (
+                      <ImageCard 
+                        key={image.id}
+                        image={image}
+                        onDelete={handleDeleteImage}
+                        onToggleHome={toggleShowOnHome}
+                        hoveredCard={hoveredCard}
+                        setHoveredCard={setHoveredCard}
+                      />
+                    ))}
+                </div>
+              </TabsContent>
 
               {sections.map((section) => (
                 <TabsContent key={section} value={section}>
@@ -170,36 +233,15 @@ export default function AdminGallery() {
                     {galleryImages
                       .filter((img) => img.section === section)
                       .map((image) => (
-                        <Card 
-                          key={image.id} 
-                          className={`
-                            relative overflow-hidden transform transition-all duration-500
-                            hover:scale-105 hover:shadow-2xl
-                            ${hoveredCard === image.id ? 'rotate-y-180' : ''}
-                          `}
-                          onMouseEnter={() => setHoveredCard(image.id)}
-                          onMouseLeave={() => setHoveredCard(null)}
-                        >
-                          <Button
-                            variant="destructive"
-                            size="icon"
-                            className="absolute top-2 right-2 z-10 opacity-0 group-hover:opacity-100 transition-opacity transform hover:scale-110"
-                            onClick={() => handleDeleteImage(image.id)}
-                          >
-                            <X className="h-4 w-4" />
-                          </Button>
-                          <div className="aspect-video">
-                            <img 
-                              src={image.url} 
-                              alt={image.caption}
-                              className="w-full h-full object-cover transform transition-transform duration-500 hover:scale-110"
-                            />
-                          </div>
-                          <div className="p-4 bg-gradient-to-b from-transparent to-gray-50">
-                            <p className="text-sm font-medium text-sdblue">{image.caption}</p>
-                          </div>
-                        </Card>
-                    ))}
+                        <ImageCard 
+                          key={image.id}
+                          image={image}
+                          onDelete={handleDeleteImage}
+                          onToggleHome={toggleShowOnHome}
+                          hoveredCard={hoveredCard}
+                          setHoveredCard={setHoveredCard}
+                        />
+                      ))}
                   </div>
                 </TabsContent>
               ))}
@@ -210,3 +252,58 @@ export default function AdminGallery() {
     </div>
   );
 }
+
+interface ImageCardProps {
+  image: GalleryImage;
+  onDelete: (id: number) => void;
+  onToggleHome: (id: number) => void;
+  hoveredCard: number | null;
+  setHoveredCard: (id: number | null) => void;
+}
+
+const ImageCard = ({ image, onDelete, onToggleHome, hoveredCard, setHoveredCard }: ImageCardProps) => {
+  return (
+    <Card 
+      className={`
+        relative overflow-hidden transform transition-all duration-500
+        hover:scale-105 hover:shadow-2xl
+        ${hoveredCard === image.id ? 'rotate-y-180' : ''}
+      `}
+      onMouseEnter={() => setHoveredCard(image.id)}
+      onMouseLeave={() => setHoveredCard(null)}
+    >
+      <div className="absolute top-2 right-2 z-10 space-x-2 opacity-0 group-hover:opacity-100 transition-opacity">
+        <Button
+          variant="destructive"
+          size="icon"
+          className="transform hover:scale-110"
+          onClick={() => onDelete(image.id)}
+        >
+          <X className="h-4 w-4" />
+        </Button>
+      </div>
+      <div className="aspect-video">
+        <img 
+          src={image.url} 
+          alt={image.caption}
+          className="w-full h-full object-cover transform transition-transform duration-500 hover:scale-110"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+      <div className="p-4 bg-gradient-to-b from-transparent to-gray-50">
+        <p className="text-sm font-medium text-sdblue mb-2">{image.caption}</p>
+        <div className="flex items-center space-x-2">
+          <Button 
+            variant="outline" 
+            size="sm"
+            onClick={() => onToggleHome(image.id)}
+            className={`text-xs ${image.showOnHome ? 'bg-sdblue text-white' : ''}`}
+          >
+            {image.showOnHome ? 'Remove from Home' : 'Show on Home'}
+          </Button>
+        </div>
+      </div>
+    </Card>
+  );
+};

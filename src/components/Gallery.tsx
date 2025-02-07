@@ -36,20 +36,31 @@ export const Gallery = () => {
   const navigate = useNavigate();
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [homeImages, setHomeImages] = useState<any[]>([]);
+
+  useEffect(() => {
+    const allImages = JSON.parse(localStorage.getItem('gallery') || '[]');
+    const selectedHomeImages = allImages.filter((img: any) => img.showOnHome);
+    
+    // If no images are selected for home, use default images
+    setHomeImages(selectedHomeImages.length > 0 ? selectedHomeImages : images);
+  }, []);
 
   useEffect(() => {
     // Preload next image
-    const nextIndex = (currentIndex + 1) % images.length;
-    const img = new Image();
-    img.src = images[nextIndex].url;
-  }, [currentIndex]);
+    if (homeImages.length > 0) {
+      const nextIndex = (currentIndex + 1) % homeImages.length;
+      const img = new Image();
+      img.src = homeImages[nextIndex].url;
+    }
+  }, [currentIndex, homeImages]);
 
   const goToNext = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % homeImages.length);
   };
 
   const goToPrevious = () => {
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
+    setCurrentIndex((prevIndex) => (prevIndex - 1 + homeImages.length) % homeImages.length);
   };
 
   return (
@@ -60,15 +71,15 @@ export const Gallery = () => {
         <div className="relative max-w-4xl mx-auto">
           <div className="aspect-[16/9] relative overflow-hidden rounded-lg">
             <img 
-              src={images[currentIndex].url} 
-              alt={images[currentIndex].caption}
+              src={homeImages[currentIndex]?.url} 
+              alt={homeImages[currentIndex]?.caption}
               className="w-full h-full object-cover transition-opacity duration-500"
               loading="eager"
               decoding="async"
               fetchPriority="high"
             />
             <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-4">
-              <p className="text-center">{images[currentIndex].caption}</p>
+              <p className="text-center">{homeImages[currentIndex]?.caption}</p>
             </div>
           </div>
           
@@ -92,7 +103,7 @@ export const Gallery = () => {
         </div>
 
         <div className="grid grid-cols-3 md:grid-cols-6 gap-4 mt-8">
-          {images.map((image, index) => (
+          {homeImages.map((image, index) => (
             <div 
               key={index}
               className={`aspect-square cursor-pointer transition-all duration-300 ${
@@ -138,4 +149,3 @@ export const Gallery = () => {
     </section>
   );
 };
-

@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { Dialog } from '@/components/ui/dialog';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from './ui/button';
+import { useNavigate } from 'react-router-dom';
 
 const images = [
   {
@@ -32,13 +33,14 @@ const images = [
 ];
 
 export const Gallery = () => {
+  const navigate = useNavigate();
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 5000); // Change image every 5 seconds
+    }, 5000);
 
     return () => clearInterval(interval);
   }, []);
@@ -103,6 +105,15 @@ export const Gallery = () => {
               />
             </div>
           ))}
+        </div>
+
+        <div className="text-center mt-8">
+          <Button 
+            onClick={() => navigate('/gallery')}
+            className="bg-sdblue hover:bg-sdblue/90"
+          >
+            View All Photos
+          </Button>
         </div>
 
         <Dialog 

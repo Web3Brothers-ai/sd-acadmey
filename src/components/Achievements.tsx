@@ -52,7 +52,6 @@ export const Achievements = () => {
   const [emblaRef] = useEmblaCarousel({ loop: true }, [Autoplay(autoplayOptions)]);
 
   useEffect(() => {
-    // Store achievements in localStorage for the detailed page
     localStorage.setItem('achievements', JSON.stringify(achievements));
   }, []);
 

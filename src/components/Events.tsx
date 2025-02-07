@@ -1,3 +1,4 @@
+
 import { useNavigate } from 'react-router-dom';
 import { Button } from './ui/button';
 import { useEffect, useState } from 'react';
@@ -57,7 +58,7 @@ export const Events = () => {
   };
 
   return (
-    <div className="fixed top-0 right-0 w-[400px] h-screen bg-gradient-to-b from-[#8B1650] to-[#1A1F2C] shadow-2xl z-50">
+    <div className="absolute top-0 right-0 w-[400px] h-screen bg-gradient-to-b from-[#8B1650] to-[#1A1F2C] shadow-2xl">
       <div className="flex items-center gap-2 p-4 bg-[#8B1650] border-b border-white/10">
         <Bell className="w-5 h-5 text-white animate-pulse" />
         <h2 className="text-xl font-bold text-white tracking-wide">NOTICE & CIRCULARS</h2>

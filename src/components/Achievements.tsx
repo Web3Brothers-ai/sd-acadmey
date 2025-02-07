@@ -8,6 +8,8 @@ import {
 import { useEffect } from "react";
 import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
+import { useNavigate } from 'react-router-dom';
+import { Button } from './ui/button';
 
 const achievements = [
   {
@@ -41,12 +43,18 @@ const achievements = [
 ];
 
 export const Achievements = () => {
+  const navigate = useNavigate();
   const autoplayOptions = {
     delay: 3000,
     rootNode: (emblaRoot: HTMLElement) => emblaRoot.parentElement,
   };
 
   const [emblaRef] = useEmblaCarousel({ loop: true }, [Autoplay(autoplayOptions)]);
+
+  useEffect(() => {
+    // Store achievements in localStorage for the detailed page
+    localStorage.setItem('achievements', JSON.stringify(achievements));
+  }, []);
 
   return (
     <section className="py-20 bg-gray-50">
@@ -63,11 +71,12 @@ export const Achievements = () => {
           <CarouselContent>
             {achievements.map((achievement, index) => (
               <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-                <div className="relative h-[400px] overflow-hidden rounded-lg">
+                <div className="relative h-[400px] overflow-hidden rounded-lg cursor-pointer group"
+                     onClick={() => navigate('/achievements')}>
                   <img 
                     src={achievement.image} 
                     alt={achievement.title}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent">
                     <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
@@ -86,6 +95,15 @@ export const Achievements = () => {
             ))}
           </CarouselContent>
         </Carousel>
+        
+        <div className="text-center mt-8">
+          <Button 
+            onClick={() => navigate('/achievements')}
+            className="bg-sdblue hover:bg-sdblue/90"
+          >
+            View All Achievements
+          </Button>
+        </div>
       </div>
     </section>
   );

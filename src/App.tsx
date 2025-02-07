@@ -17,6 +17,8 @@ import Enquiry from "./pages/Enquiry";
 import AdminGallery from "./pages/AdminGallery";
 import AdminTeachers from "./pages/AdminTeachers";
 import AdminTestimonials from "./pages/AdminTestimonials";
+import DetailedAchievements from "./pages/DetailedAchievements";
+import DetailedGallery from "./pages/DetailedGallery";
 
 const queryClient = new QueryClient();
 
@@ -39,6 +41,8 @@ const App = () => (
           <Route path="/academic" element={<Academic />} />
           <Route path="/admission" element={<Admission />} />
           <Route path="/enquiry" element={<Enquiry />} />
+          <Route path="/achievements" element={<DetailedAchievements />} />
+          <Route path="/gallery" element={<DetailedGallery />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

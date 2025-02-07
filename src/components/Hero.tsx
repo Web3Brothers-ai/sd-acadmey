@@ -2,6 +2,7 @@
 import { Button } from "./ui/button";
 import { useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Events } from "./Events";
 
 const backgroundImages = [
   'https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=1920&q=80',
@@ -47,7 +48,7 @@ export const Hero = () => {
   };
 
   return (
-    <div className="relative h-screen w-[calc(100%-400px)]">
+    <div className="relative h-screen w-full">
       {backgroundImages.map((url, index) => (
         <div
           key={url}
@@ -61,7 +62,6 @@ export const Hero = () => {
             className="w-full h-full object-cover"
             loading={index === 0 ? "eager" : "lazy"}
             decoding="async"
-            fetchPriority={index === 0 ? "high" : "low"}
           />
           <div className="absolute inset-0 bg-black/50" />
         </div>
@@ -75,13 +75,13 @@ export const Hero = () => {
       </button>
       <button
         onClick={nextSlide}
-        className="absolute right-4 top-1/2 -translate-y-1/2 z-20 text-white/80 p-2 rounded-full bg-black/20 hover:bg-black/40 transition-colors"
+        className="absolute right-[420px] top-1/2 -translate-y-1/2 z-20 text-white/80 p-2 rounded-full bg-black/20 hover:bg-black/40 transition-colors"
       >
         <ChevronRight className="w-6 h-6" />
       </button>
 
       <div className="absolute inset-0 flex items-center justify-center z-10">
-        <div className="text-center space-y-6 px-4">
+        <div className="text-center space-y-6 px-4 mr-[400px]">
           <div
             className={`transform transition-all duration-1000 ${
               showTitle ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'
@@ -119,6 +119,8 @@ export const Hero = () => {
           </div>
         </div>
       </div>
+
+      <Events />
     </div>
   );
 };

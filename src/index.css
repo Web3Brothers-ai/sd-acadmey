@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -140,6 +139,7 @@
 
 .animate-fade-in {
   animation: fade-in 0.5s ease-out forwards;
+  opacity: 0;
 }
 
 .animate-slide-in {

@@ -27,14 +27,14 @@ export const Hero = () => {
         <div className="max-w-4xl mx-auto px-4 perspective-1000">
           <div className={`transform transition-all duration-1000 ${showTitle ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}>
             <h1 className="text-6xl md:text-7xl font-bold text-white mb-4 drop-shadow-[0_5px_5px_rgba(0,0,0,0.5)]">
-              <span className="inline-block transform hover:scale-110 transition-transform duration-300">S.</span>
-              <span className="inline-block transform hover:scale-110 transition-transform duration-300 ml-2">D.</span>
-              <span className="inline-block transform hover:scale-110 transition-transform duration-300 ml-2">Academy</span>
+              <span className="inline-block transform hover:scale-110 transition-transform duration-300 animate-fade-in" style={{ animationDelay: '0.5s' }}>S.</span>
+              <span className="inline-block transform hover:scale-110 transition-transform duration-300 animate-fade-in ml-2" style={{ animationDelay: '1s' }}>D.</span>
+              <span className="inline-block transform hover:scale-110 transition-transform duration-300 animate-fade-in ml-2" style={{ animationDelay: '1.5s' }}>Academy</span>
             </h1>
           </div>
           
           <div className={`transform transition-all duration-1000 ${showSubtitle ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}>
-            <p className="text-2xl md:text-3xl text-white mb-8 drop-shadow-[0_3px_3px_rgba(0,0,0,0.5)]">
+            <p className="text-2xl md:text-3xl text-white mb-8 drop-shadow-[0_3px_3px_rgba(0,0,0,0.5)] animate-fade-in" style={{ animationDelay: '2s' }}>
               Tender Care and Excellence in Education
             </p>
           </div>
@@ -42,8 +42,9 @@ export const Hero = () => {
           <div className={`transform transition-all duration-1000 ${showButton ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}>
             <Button 
               size="lg"
-              className="relative bg-sdblue hover:bg-sdblue/90 text-white overflow-hidden group"
+              className="relative bg-sdblue hover:bg-sdblue/90 text-white overflow-hidden group animate-fade-in"
               onClick={() => document.getElementById('notices')?.scrollIntoView({ behavior: 'smooth' })}
+              style={{ animationDelay: '2.5s' }}
             >
               <span className="relative z-10">Discover More</span>
               <div className="absolute inset-0 border-2 border-white transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>

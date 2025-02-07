@@ -1,3 +1,4 @@
+
 import { useEffect, useRef } from 'react';
 
 export const useScrollAnimation = () => {
@@ -8,7 +9,9 @@ export const useScrollAnimation = () => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add('animate-fade-in-up');
+            requestAnimationFrame(() => {
+              entry.target.classList.add('animate-fade-in-up');
+            });
             observer.unobserve(entry.target);
           }
         });

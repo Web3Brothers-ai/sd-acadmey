@@ -12,7 +12,7 @@ import { Facilities } from "@/components/Facilities";
 import { Achievements } from "@/components/Achievements";
 import { Footer } from "@/components/Footer";
 import { useScrollAnimation } from "@/utils/useScrollAnimation";
-import { useEffect } from "react";
+import { useEffect, useCallback } from "react";
 import { useLocation } from "react-router-dom";
 
 const Index = () => {
@@ -27,79 +27,67 @@ const Index = () => {
   const facilitiesRef = useScrollAnimation();
   const enquiryRef = useScrollAnimation();
 
+  const scrollToElement = useCallback((selector: string) => {
+    const element = document.querySelector(selector);
+    if (element) {
+      const navHeight = 80;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - navHeight;
+      
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    }
+  }, []);
+
   useEffect(() => {
     if (location.state?.scrollTo) {
-      const element = document.querySelector(location.state.scrollTo);
-      if (element) {
-        const navHeight = 80;
-        const elementPosition = element.getBoundingClientRect().top;
-        const offsetPosition = elementPosition + window.pageYOffset - navHeight;
-        
-        window.scrollTo({
-          top: offsetPosition,
-          behavior: 'smooth'
-        });
-      }
+      requestAnimationFrame(() => {
+        scrollToElement(location.state.scrollTo);
+      });
     }
-  }, [location.state]);
+  }, [location.state, scrollToElement]);
 
   return (
-    <div className="min-h-screen perspective-1000">
+    <div className="min-h-screen">
       <Navigation />
       <Hero />
       
-      <div ref={leadershipRef} className="preserve-3d transition-all duration-500 hover:translate-z-8">
-        <div className="touch-scale">
-          <LeadershipCards />
-        </div>
+      <div ref={leadershipRef} className="transition-transform duration-300 will-change-transform">
+        <LeadershipCards />
       </div>
       
-      <div ref={teachersRef} className="preserve-3d transition-all duration-500">
-        <div className="touch-scale animate-scale-in">
-          <TeachersSection />
-        </div>
+      <div ref={teachersRef} className="transition-transform duration-300 will-change-transform">
+        <TeachersSection />
       </div>
       
-      <div ref={achievementsRef} className="preserve-3d transition-all duration-500">
-        <div className="touch-scale animate-float">
-          <Achievements />
-        </div>
+      <div ref={achievementsRef} className="transition-transform duration-300 will-change-transform">
+        <Achievements />
       </div>
       
-      <div ref={testimonialsRef} className="preserve-3d transition-all duration-500">
-        <div className="touch-scale">
-          <Testimonials />
-        </div>
+      <div ref={testimonialsRef} className="transition-transform duration-300 will-change-transform">
+        <Testimonials />
       </div>
       
-      <div ref={videoTestimonialsRef} className="preserve-3d transition-all duration-500">
-        <div className="touch-scale">
-          <VideoTestimonials />
-        </div>
+      <div ref={videoTestimonialsRef} className="transition-transform duration-300 will-change-transform">
+        <VideoTestimonials />
       </div>
       
-      <div ref={eventsRef} className="preserve-3d transition-all duration-500">
-        <div className="touch-scale animate-scale-in">
-          <Events />
-        </div>
+      <div ref={eventsRef} className="transition-transform duration-300 will-change-transform">
+        <Events />
       </div>
       
-      <div ref={galleryRef} className="preserve-3d transition-all duration-500">
-        <div className="touch-scale">
-          <Gallery />
-        </div>
+      <div ref={galleryRef} className="transition-transform duration-300 will-change-transform">
+        <Gallery />
       </div>
       
-      <div ref={facilitiesRef} className="preserve-3d transition-all duration-500">
-        <div className="touch-scale">
-          <Facilities />
-        </div>
+      <div ref={facilitiesRef} className="transition-transform duration-300 will-change-transform">
+        <Facilities />
       </div>
       
-      <div ref={enquiryRef} className="preserve-3d transition-all duration-500">
-        <div className="touch-scale">
-          <EnquiryForm />
-        </div>
+      <div ref={enquiryRef} className="transition-transform duration-300 will-change-transform">
+        <EnquiryForm />
       </div>
       
       <Footer />

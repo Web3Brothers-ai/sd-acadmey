@@ -81,12 +81,12 @@ export const Events = () => {
   };
 
   return (
-    <div className="w-[25%] h-[600px] float-right bg-[#1A1F2C]/90 backdrop-blur-md shadow-2xl overflow-hidden">
+    <div className="absolute top-0 right-0 w-1/4 h-screen bg-[#1A1F2C]/90 backdrop-blur-md shadow-2xl">
       <div className="flex items-center gap-2 p-2 bg-[#7E69AB]">
         <h2 className="text-base font-bold text-white">NOTICE & CIRCULARS</h2>
       </div>
       
-      <div className="h-[calc(100%-120px)] overflow-y-auto">
+      <div className="h-[calc(100vh-120px)] overflow-y-auto">
         {notices.map((notice, index) => (
           <div
             key={notice.id}

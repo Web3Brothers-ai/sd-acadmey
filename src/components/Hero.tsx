@@ -46,7 +46,7 @@ export const Hero = () => {
   };
 
   return (
-    <div className="relative h-[600px] w-[75%] float-left">
+    <div className="relative h-screen w-full">
       {/* Background Images */}
       {backgroundImages.map((url, index) => (
         <div

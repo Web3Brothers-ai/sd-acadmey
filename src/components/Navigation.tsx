@@ -1,12 +1,21 @@
 
 import { useState, useEffect } from 'react';
-import { Menu, X, Calendar, Book, Users, Phone, LogIn } from 'lucide-react';
+import { Menu, X, Calendar, Book, Users, Phone, LogIn, ChevronDown } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 const navItems = [
   { label: 'Home', href: '/', icon: Users },
   { label: 'About Us', href: '/about', icon: Users },
-  { label: 'Academic', href: '/academic', icon: Book },
+  {
+    label: 'Academic',
+    href: '/academic',
+    icon: Book,
+    subItems: [
+      { label: 'Primary Section', href: '/academic/primary' },
+      { label: 'Middle Section', href: '/academic/middle' },
+      { label: 'Senior Section', href: '/academic/senior' }
+    ]
+  },
   { label: 'Admission', href: '/admission', icon: Users },
   { label: 'Gallery', href: '#gallery', icon: Users },
   { label: 'Contact', href: '/enquiry', icon: Phone },
@@ -16,6 +25,7 @@ const navItems = [
 export const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -30,6 +40,7 @@ export const Navigation = () => {
 
   const handleNavClick = (href: string) => {
     setIsOpen(false);
+    setActiveDropdown(null);
     
     if (href.startsWith('/')) {
       navigate(href);
@@ -82,22 +93,48 @@ export const Navigation = () => {
           {/* Desktop navigation */}
           <div className="hidden md:flex md:items-center md:space-x-4">
             {navItems.map((item, index) => (
-              <button
-                key={item.label}
-                onClick={() => handleNavClick(item.href)}
-                className={`flex items-center gap-2 text-gray-700 hover:text-sdblue px-3 py-2 text-sm font-medium transition-all duration-300 hover:-translate-y-1 hover:shadow-lg rounded-md ${
-                  item.label === 'Admin Login' 
-                    ? 'bg-gradient-to-r from-sdblue to-blue-600 text-white hover:from-blue-600 hover:to-sdblue' 
-                    : ''
-                }`}
-                style={{
-                  animationDelay: `${index * 100}ms`,
-                  animation: 'fade-in 0.5s ease-out forwards'
-                }}
-              >
-                <item.icon className="w-4 h-4" />
-                {item.label}
-              </button>
+              <div key={item.label} className="relative group">
+                <button
+                  onClick={() => {
+                    if (!item.subItems) {
+                      handleNavClick(item.href);
+                    } else {
+                      setActiveDropdown(activeDropdown === item.label ? null : item.label);
+                    }
+                  }}
+                  className={`flex items-center gap-2 text-gray-700 hover:text-sdblue px-3 py-2 text-sm font-medium transition-all duration-300 hover:-translate-y-1 hover:shadow-lg rounded-md ${
+                    item.label === 'Admin Login' 
+                      ? 'bg-gradient-to-r from-sdblue to-blue-600 text-white hover:from-blue-600 hover:to-sdblue' 
+                      : ''
+                  }`}
+                  style={{
+                    animationDelay: `${index * 100}ms`,
+                    animation: 'fade-in 0.5s ease-out forwards'
+                  }}
+                >
+                  <item.icon className="w-4 h-4" />
+                  {item.label}
+                  {item.subItems && <ChevronDown className="w-4 h-4 ml-1" />}
+                </button>
+                
+                {item.subItems && (
+                  <div className={`absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 transition-all duration-200 ${
+                    activeDropdown === item.label ? 'opacity-100 visible' : 'opacity-0 invisible'
+                  }`}>
+                    <div className="py-1">
+                      {item.subItems.map((subItem) => (
+                        <button
+                          key={subItem.label}
+                          onClick={() => handleNavClick(subItem.href)}
+                          className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        >
+                          {subItem.label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
             ))}
           </div>
 
@@ -121,18 +158,42 @@ export const Navigation = () => {
       >
         <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white shadow-lg">
           {navItems.map((item) => (
-            <button
-              key={item.label}
-              onClick={() => handleNavClick(item.href)}
-              className={`flex items-center gap-2 w-full text-left px-3 py-2 text-base font-medium text-gray-700 hover:text-sdblue hover:bg-gray-50 rounded-md transition-colors ${
-                item.label === 'Admin Login' 
-                  ? 'bg-gradient-to-r from-sdblue to-blue-600 text-white hover:from-blue-600 hover:to-sdblue' 
-                  : ''
-              }`}
-            >
-              <item.icon className="w-4 h-4" />
-              {item.label}
-            </button>
+            <div key={item.label}>
+              <button
+                onClick={() => {
+                  if (!item.subItems) {
+                    handleNavClick(item.href);
+                  } else {
+                    setActiveDropdown(activeDropdown === item.label ? null : item.label);
+                  }
+                }}
+                className={`flex items-center justify-between w-full text-left px-3 py-2 text-base font-medium text-gray-700 hover:text-sdblue hover:bg-gray-50 rounded-md transition-colors ${
+                  item.label === 'Admin Login' 
+                    ? 'bg-gradient-to-r from-sdblue to-blue-600 text-white hover:from-blue-600 hover:to-sdblue' 
+                    : ''
+                }`}
+              >
+                <div className="flex items-center gap-2">
+                  <item.icon className="w-4 h-4" />
+                  {item.label}
+                </div>
+                {item.subItems && <ChevronDown className="w-4 h-4" />}
+              </button>
+              
+              {item.subItems && activeDropdown === item.label && (
+                <div className="pl-4 space-y-1">
+                  {item.subItems.map((subItem) => (
+                    <button
+                      key={subItem.label}
+                      onClick={() => handleNavClick(subItem.href)}
+                      className="block w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md"
+                    >
+                      {subItem.label}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
           ))}
         </div>
       </div>

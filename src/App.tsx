@@ -12,6 +12,9 @@ import NotFound from "./pages/NotFound";
 import Notices from "./pages/Notices";
 import AboutUs from "./pages/AboutUs";
 import Academic from "./pages/Academic";
+import PrimarySection from "./pages/PrimarySection";
+import MiddleSection from "./pages/MiddleSection";
+import SeniorSection from "./pages/SeniorSection";
 import Admission from "./pages/Admission";
 import Enquiry from "./pages/Enquiry";
 import AdminGallery from "./pages/AdminGallery";
@@ -39,6 +42,9 @@ const App = () => (
           <Route path="/notices" element={<Notices />} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/academic" element={<Academic />} />
+          <Route path="/academic/primary" element={<PrimarySection />} />
+          <Route path="/academic/middle" element={<MiddleSection />} />
+          <Route path="/academic/senior" element={<SeniorSection />} />
           <Route path="/admission" element={<Admission />} />
           <Route path="/enquiry" element={<Enquiry />} />
           <Route path="/achievements" element={<DetailedAchievements />} />

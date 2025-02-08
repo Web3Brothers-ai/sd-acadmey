@@ -1,6 +1,10 @@
+
 import { Navigation } from "@/components/Navigation";
 import { useEffect, useState } from "react";
 import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
+import { ArrowLeft } from "lucide-react";
 
 interface GalleryImage {
   id: number;
@@ -37,6 +41,7 @@ const demoImages: GalleryImage[] = [
 ];
 
 export default function DetailedGallery() {
+  const navigate = useNavigate();
   const [galleryImages, setGalleryImages] = useState<GalleryImage[]>([]);
   const [sections, setSections] = useState<string[]>([]);
 
@@ -55,7 +60,17 @@ export default function DetailedGallery() {
     <div>
       <Navigation />
       <div className="max-w-7xl mx-auto px-4 pt-24 pb-12">
-        <h1 className="text-4xl font-bold text-center text-sdblue mb-12 animate-fade-in">School Gallery</h1>
+        <div className="flex items-center gap-4 mb-8">
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={() => navigate(-1)}
+            className="hover:bg-gray-100"
+          >
+            <ArrowLeft className="h-4 w-4" />
+          </Button>
+          <h1 className="text-4xl font-bold text-sdblue">School Gallery</h1>
+        </div>
         
         {sections.map((section) => (
           <div 

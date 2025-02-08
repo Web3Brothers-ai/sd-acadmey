@@ -3,6 +3,7 @@ import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
+import { ArrowLeft } from "lucide-react";
 
 const Admission = () => {
   const navigate = useNavigate();
@@ -12,8 +13,19 @@ const Admission = () => {
       <Navigation />
       
       <div className="pt-20 px-4 md:px-8 max-w-7xl mx-auto">
+        <div className="flex items-center gap-4 mb-8">
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={() => navigate(-1)}
+            className="hover:bg-gray-100"
+          >
+            <ArrowLeft className="h-4 w-4" />
+          </Button>
+          <h1 className="text-4xl font-bold text-sdblue">Admission Process</h1>
+        </div>
+
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-sdblue mb-4">Admission Process</h1>
           <p className="text-gray-600 max-w-2xl mx-auto">Join our vibrant learning community</p>
         </div>
 

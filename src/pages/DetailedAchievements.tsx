@@ -2,6 +2,9 @@
 import { Navigation } from "@/components/Navigation";
 import { useEffect, useState } from "react";
 import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
+import { ArrowLeft } from "lucide-react";
 
 interface Achievement {
   id: number;
@@ -12,6 +15,7 @@ interface Achievement {
 }
 
 export default function DetailedAchievements() {
+  const navigate = useNavigate();
   const [achievements, setAchievements] = useState<Achievement[]>([]);
 
   useEffect(() => {
@@ -23,7 +27,17 @@ export default function DetailedAchievements() {
     <div>
       <Navigation />
       <div className="max-w-7xl mx-auto px-4 pt-24 pb-12">
-        <h1 className="text-4xl font-bold text-center text-sdblue mb-12 animate-fade-in">Our Achievements</h1>
+        <div className="flex items-center gap-4 mb-8">
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={() => navigate(-1)}
+            className="hover:bg-gray-100"
+          >
+            <ArrowLeft className="h-4 w-4" />
+          </Button>
+          <h1 className="text-4xl font-bold text-sdblue">Our Achievements</h1>
+        </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {achievements.map((achievement) => (

@@ -1,9 +1,10 @@
+
 import { Card, CardContent } from '@/components/ui/card';
 import { Library, Monitor, Microscope, Trophy, Bus } from 'lucide-react';
 
 const facilities = [
   {
-    title: "Modern Library",
+    title: "Library",
     description: "Extensive collection of books and digital resources",
     icon: Library
   },

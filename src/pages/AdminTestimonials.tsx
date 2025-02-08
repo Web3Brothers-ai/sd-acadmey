@@ -9,24 +9,28 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 
 export default function AdminTestimonials() {
-  const [video, setVideo] = useState<File | null>(null);
+  const [youtubeUrl, setYoutubeUrl] = useState("");
   const [name, setName] = useState("");
   const [type, setType] = useState<"parent" | "student">("parent");
   const [studentClass, setStudentClass] = useState("");
   const { toast } = useToast();
 
-  const handleVideoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      setVideo(e.target.files[0]);
+  const getEmbedUrl = (url: string) => {
+    try {
+      const videoId = url.split('v=')[1].split('&')[0];
+      return `https://www.youtube.com/embed/${videoId}`;
+    } catch (error) {
+      return url; // Return original URL if parsing fails
     }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
+    const embedUrl = getEmbedUrl(youtubeUrl);
     const newTestimonial = {
       id: Date.now(),
-      url: video ? URL.createObjectURL(video) : null,
+      youtubeUrl: embedUrl,
       type,
       name,
       ...(type === "student" && { class: studentClass })
@@ -40,7 +44,7 @@ export default function AdminTestimonials() {
       description: "The video testimonial has been successfully added.",
     });
 
-    setVideo(null);
+    setYoutubeUrl("");
     setName("");
     setType("parent");
     setStudentClass("");
@@ -54,12 +58,12 @@ export default function AdminTestimonials() {
         
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label className="block text-sm font-medium mb-2">Video</label>
+            <label className="block text-sm font-medium mb-2">YouTube Video URL</label>
             <Input 
-              type="file" 
-              accept="video/*"
-              onChange={handleVideoChange}
-              className="w-full"
+              type="url" 
+              value={youtubeUrl}
+              onChange={(e) => setYoutubeUrl(e.target.value)}
+              placeholder="Enter YouTube video URL"
               required
             />
           </div>

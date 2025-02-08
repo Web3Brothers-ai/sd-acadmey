@@ -38,12 +38,19 @@ export const Events = () => {
   }, []);
 
   const handleNoticeClick = (pdfUrl: string) => {
-    // Open PDF in new tab if URL is valid
-    if (pdfUrl) {
-      window.open(pdfUrl, '_blank');
-    } else {
+    if (!pdfUrl) {
       console.error('Invalid PDF URL');
+      return;
     }
+
+    // Create an anchor element
+    const link = document.createElement('a');
+    link.href = pdfUrl;
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   return (

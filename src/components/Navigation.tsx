@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Menu, X, Calendar, Book, Users, Phone, LogIn, ChevronDown } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -90,7 +89,6 @@ export const Navigation = () => {
             </button>
           </div>
 
-          {/* Desktop navigation */}
           <div className="hidden md:flex md:items-center md:space-x-4">
             {navItems.map((item, index) => (
               <div 
@@ -106,10 +104,6 @@ export const Navigation = () => {
                       ? 'bg-gradient-to-r from-sdblue to-blue-600 text-white hover:from-blue-600 hover:to-sdblue' 
                       : ''
                   }`}
-                  style={{
-                    animationDelay: `${index * 100}ms`,
-                    animation: 'fade-in 0.5s ease-out forwards'
-                  }}
                 >
                   <item.icon className="w-4 h-4" />
                   {item.label}
@@ -139,7 +133,6 @@ export const Navigation = () => {
             ))}
           </div>
 
-          {/* Mobile menu button */}
           <div className="flex items-center md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
@@ -151,7 +144,6 @@ export const Navigation = () => {
         </div>
       </div>
 
-      {/* Mobile menu */}
       <div 
         className={`md:hidden transition-all duration-300 ${
           isOpen ? 'block' : 'hidden'

@@ -123,28 +123,6 @@ export const Events = () => {
               </div>
             </div>
           ))}
-          {/* Duplicate notices for continuous scrolling */}
-          {notices.map((notice) => (
-            <div
-              key={`${notice.id}-duplicate`}
-              className="p-3 border-b border-white/20 hover:bg-white/10 transition-all duration-300 cursor-pointer backdrop-blur-sm"
-              onClick={() => handleNoticeClick(notice.pdfUrl)}
-            >
-              <div className="flex items-start gap-2">
-                <span className="text-[#FEF7CD] mt-1">♦</span>
-                <div className="flex-1">
-                  <p className="text-[#E5DEFF] text-sm font-medium hover:text-white transition-colors">
-                    {notice.title}
-                    {notice.isNew && (
-                      <span className="ml-2 inline-flex items-center px-2 py-0.5 text-[10px] font-bold bg-gradient-to-r from-[#F97316] to-[#D946EF] text-white rounded-full animate-pulse">
-                        NEW
-                      </span>
-                    )}
-                  </p>
-                </div>
-              </div>
-            </div>
-          ))}
         </div>
       </div>
 

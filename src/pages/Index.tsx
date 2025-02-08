@@ -7,7 +7,6 @@ import { Gallery } from "@/components/Gallery";
 import { EnquiryForm } from "@/components/EnquiryForm";
 import { Testimonials } from "@/components/Testimonials";
 import { VideoTestimonials } from "@/components/VideoTestimonials";
-import { Events } from "@/components/Events";
 import { Facilities } from "@/components/Facilities";
 import { Achievements } from "@/components/Achievements";
 import { Footer } from "@/components/Footer";
@@ -22,7 +21,6 @@ const Index = () => {
   const achievementsRef = useScrollAnimation();
   const testimonialsRef = useScrollAnimation();
   const videoTestimonialsRef = useScrollAnimation();
-  const eventsRef = useScrollAnimation();
   const galleryRef = useScrollAnimation();
   const facilitiesRef = useScrollAnimation();
   const enquiryRef = useScrollAnimation();
@@ -72,10 +70,6 @@ const Index = () => {
       
       <div ref={videoTestimonialsRef} className="transition-transform duration-300 will-change-transform">
         <VideoTestimonials />
-      </div>
-      
-      <div ref={eventsRef} className="transition-transform duration-300 will-change-transform">
-        <Events />
       </div>
       
       <div ref={galleryRef} className="transition-transform duration-300 will-change-transform">

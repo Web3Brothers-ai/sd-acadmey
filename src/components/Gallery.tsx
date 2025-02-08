@@ -42,12 +42,10 @@ export const Gallery = () => {
     const allImages = JSON.parse(localStorage.getItem('gallery') || '[]');
     const selectedHomeImages = allImages.filter((img: any) => img.showOnHome);
     
-    // If no images are selected for home, use default images
     setHomeImages(selectedHomeImages.length > 0 ? selectedHomeImages : images);
   }, []);
 
   useEffect(() => {
-    // Preload next image
     if (homeImages.length > 0) {
       const nextIndex = (currentIndex + 1) % homeImages.length;
       const img = new Image();

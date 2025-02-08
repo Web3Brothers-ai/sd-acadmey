@@ -1,6 +1,8 @@
+
 import { useState, useEffect } from 'react';
 import { Menu, X, Calendar, Book, Users, Phone, LogIn, ChevronDown } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const navItems = [
   { label: 'Home', href: '/', icon: Users },
@@ -27,6 +29,7 @@ export const Navigation = () => {
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
   const navigate = useNavigate();
   const location = useLocation();
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -71,18 +74,18 @@ export const Navigation = () => {
           <div className="flex items-center flex-shrink-0">
             <button 
               onClick={() => handleNavClick('/')} 
-              className="flex items-center gap-3 group"
+              className="flex items-center gap-2 sm:gap-3 group"
             >
               <img 
                 src="/lovable-uploads/74233a1b-ee7c-42d2-b3dc-5c32c52d8378.png"
                 alt="S.D. Academy Logo" 
-                className="h-16 w-16 object-contain transition-transform duration-300 group-hover:scale-110" 
+                className="h-12 w-12 sm:h-16 sm:w-16 object-contain transition-transform duration-300 group-hover:scale-110" 
               />
               <div className="flex flex-col">
-                <span className="text-xl font-bold bg-gradient-to-r from-sdblue to-blue-600 bg-clip-text text-transparent transform transition-all duration-300 group-hover:translate-x-2">
+                <span className="text-lg sm:text-xl font-bold bg-gradient-to-r from-sdblue to-blue-600 bg-clip-text text-transparent transform transition-all duration-300 group-hover:translate-x-2">
                   S.D. Academy
                 </span>
-                <span className="text-sm text-gray-600 transform transition-all duration-300 group-hover:translate-x-1">
+                <span className="text-xs sm:text-sm text-gray-600 transform transition-all duration-300 group-hover:translate-x-1">
                   & Tendercare Playway
                 </span>
               </div>
@@ -90,7 +93,7 @@ export const Navigation = () => {
           </div>
 
           <div className="hidden md:flex md:items-center md:space-x-4">
-            {navItems.map((item, index) => (
+            {navItems.map((item) => (
               <div 
                 key={item.label} 
                 className="relative group"
@@ -152,40 +155,45 @@ export const Navigation = () => {
         <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white shadow-lg">
           {navItems.map((item) => (
             <div key={item.label}>
-              <button
-                onClick={() => {
-                  if (!item.subItems) {
-                    handleNavClick(item.href);
-                  } else {
-                    setHoveredItem(hoveredItem === item.label ? null : item.label);
-                  }
-                }}
-                className={`flex items-center justify-between w-full text-left px-3 py-2 text-base font-medium text-gray-700 hover:text-sdblue hover:bg-gray-50 rounded-md transition-colors ${
-                  item.label === 'Admin Login' 
-                    ? 'bg-gradient-to-r from-sdblue to-blue-600 text-white hover:from-blue-600 hover:to-sdblue' 
-                    : ''
-                }`}
+              <div
+                className="relative"
+                onMouseEnter={() => !isMobile && setHoveredItem(item.label)}
+                onMouseLeave={() => !isMobile && setHoveredItem(null)}
+                onClick={() => isMobile && setHoveredItem(hoveredItem === item.label ? null : item.label)}
               >
-                <div className="flex items-center gap-2">
-                  <item.icon className="w-4 h-4" />
-                  {item.label}
-                </div>
-                {item.subItems && <ChevronDown className="w-4 h-4" />}
-              </button>
-              
-              {item.subItems && hoveredItem === item.label && (
-                <div className="pl-4 space-y-1">
-                  {item.subItems.map((subItem) => (
-                    <button
-                      key={subItem.label}
-                      onClick={() => handleNavClick(subItem.href)}
-                      className="block w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md"
-                    >
-                      {subItem.label}
-                    </button>
-                  ))}
-                </div>
-              )}
+                <button
+                  onClick={() => {
+                    if (!item.subItems) {
+                      handleNavClick(item.href);
+                    }
+                  }}
+                  className={`flex items-center justify-between w-full text-left px-3 py-2 text-base font-medium text-gray-700 hover:text-sdblue hover:bg-gray-50 rounded-md transition-colors ${
+                    item.label === 'Admin Login' 
+                      ? 'bg-gradient-to-r from-sdblue to-blue-600 text-white hover:from-blue-600 hover:to-sdblue' 
+                      : ''
+                  }`}
+                >
+                  <div className="flex items-center gap-2">
+                    <item.icon className="w-4 h-4" />
+                    {item.label}
+                  </div>
+                  {item.subItems && <ChevronDown className="w-4 h-4" />}
+                </button>
+                
+                {item.subItems && hoveredItem === item.label && (
+                  <div className="pl-4 space-y-1 bg-gray-50 rounded-md mt-1">
+                    {item.subItems.map((subItem) => (
+                      <button
+                        key={subItem.label}
+                        onClick={() => handleNavClick(subItem.href)}
+                        className="block w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md"
+                      >
+                        {subItem.label}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
           ))}
         </div>

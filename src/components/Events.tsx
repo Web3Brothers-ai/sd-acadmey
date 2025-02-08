@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Bell } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 interface Notice {
   id: number;
@@ -17,6 +18,7 @@ export const Events = () => {
   const [isPaused, setIsPaused] = useState(false);
   const [notices, setNotices] = useState<Notice[]>([]);
   const { toast } = useToast();
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     const storedNotices = JSON.parse(localStorage.getItem('scrollingNotices') || '[]');
@@ -83,35 +85,47 @@ export const Events = () => {
     }
   };
 
+  const containerClasses = isMobile
+    ? "fixed bottom-0 left-0 w-full h-16 bg-gradient-to-r from-[#243949] to-[#517fa4] shadow-lg z-40"
+    : "absolute top-0 right-0 w-[250px] h-screen bg-gradient-to-br from-[#243949] to-[#517fa4] shadow-2xl";
+
+  const noticesContainerClasses = isMobile
+    ? "flex items-center gap-4 px-4 h-full overflow-x-auto whitespace-nowrap"
+    : "relative h-[calc(100vh-64px)] overflow-hidden";
+
   return (
-    <div className="absolute top-0 right-0 w-[250px] h-screen bg-gradient-to-br from-[#243949] to-[#517fa4] shadow-2xl">
+    <div className={containerClasses}>
       <div className="flex items-center gap-2 p-4 bg-gradient-to-r from-[#8B5CF6] to-[#D946EF] border-b border-white/20">
         <Bell className="w-5 h-5 text-white animate-pulse" />
         <h2 className="text-lg font-bold text-white tracking-wide">NOTICE & CIRCULARS</h2>
       </div>
       
       <div 
-        className="relative h-[calc(100vh-64px)] overflow-hidden"
+        className={noticesContainerClasses}
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
       >
         <div 
-          className={`transform flex flex-col gap-0.5`}
+          className={`transform ${isMobile ? 'flex' : 'flex flex-col gap-0.5'}`}
           style={{
-            animation: isPaused ? 'none' : 'scroll 20s linear infinite',
+            animation: isPaused ? 'none' : `scroll 20s linear infinite`,
             willChange: 'transform'
           }}
         >
           {notices.map((notice) => (
             <div
               key={notice.id}
-              className="p-3 border-b border-white/20 hover:bg-white/10 transition-all duration-300 cursor-pointer backdrop-blur-sm"
+              className={`${
+                isMobile 
+                  ? 'flex-shrink-0 px-4 py-2'
+                  : 'p-3 border-b border-white/20 hover:bg-white/10'
+              } transition-all duration-300 cursor-pointer backdrop-blur-sm`}
               onClick={() => handleNoticeClick(notice.pdfUrl)}
             >
               <div className="flex items-start gap-2">
                 <span className="text-[#FEF7CD] mt-1">♦</span>
                 <div className="flex-1">
-                  <p className="text-[#E5DEFF] text-sm font-medium hover:text-white transition-colors">
+                  <p className="text-[#E5DEFF] text-sm font-medium hover:text-white transition-colors whitespace-normal">
                     {notice.title}
                     {notice.isNew && (
                       <span className="ml-2 inline-flex items-center px-2 py-0.5 text-[10px] font-bold bg-gradient-to-r from-[#F97316] to-[#D946EF] text-white rounded-full animate-pulse">

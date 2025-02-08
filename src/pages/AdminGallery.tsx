@@ -1,4 +1,3 @@
-
 import { Navigation } from "@/components/Navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -7,7 +6,8 @@ import { useState, useEffect } from "react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { X } from "lucide-react";
+import { X, ArrowLeft } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 interface GalleryImage {
   id: number;
@@ -18,6 +18,7 @@ interface GalleryImage {
 }
 
 export default function AdminGallery() {
+  const navigate = useNavigate();
   const [image, setImage] = useState<File | null>(null);
   const [caption, setCaption] = useState("");
   const [section, setSection] = useState("");
@@ -103,9 +104,19 @@ export default function AdminGallery() {
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white perspective-1000">
       <Navigation />
       <div className="max-w-7xl mx-auto px-4 pt-24 pb-12">
-        <h1 className="text-3xl font-bold text-sdblue mb-8 animate-fade-in">
-          Manage Gallery
-        </h1>
+        <div className="flex items-center gap-4 mb-8">
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={() => navigate(-1)}
+            className="hover:bg-gray-100"
+          >
+            <ArrowLeft className="h-4 w-4" />
+          </Button>
+          <h1 className="text-3xl font-bold text-sdblue animate-fade-in">
+            Manage Gallery
+          </h1>
+        </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div className="transform hover:scale-105 transition-transform duration-300">

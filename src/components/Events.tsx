@@ -1,3 +1,4 @@
+
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Bell } from 'lucide-react';
@@ -5,52 +6,23 @@ import { Bell } from 'lucide-react';
 interface Notice {
   id: number;
   title: string;
+  pdfUrl: string;
   isNew?: boolean;
 }
 
 export const Events = () => {
   const navigate = useNavigate();
   const [isPaused, setIsPaused] = useState(false);
+  const [notices, setNotices] = useState<Notice[]>([]);
 
-  const notices: Notice[] = [
-    {
-      id: 1,
-      title: "Result declared of admission test held on 5th January 2025",
-      isNew: true
-    },
-    {
-      id: 2,
-      title: "Registrations Open For Class- NUR to VI, IX & XI (Science & Commerce), For 2025-26 ,Admission Test Date- 09th Feb 2025 (Sunday)",
-      isNew: true
-    },
-    {
-      id: 3,
-      title: "CBSE EXAM DATE SHEET 2024-25 OF CLASS XII",
-      isNew: true
-    },
-    {
-      id: 4,
-      title: "CBSE EXAM DATE SHEET 2024-25 OF CLASS X",
-      isNew: true
-    },
-    {
-      id: 5,
-      title: "Change of School Timings",
-      isNew: true
-    },
-    {
-      id: 6,
-      title: "COMMENCING OF NEW ACADEMIC SESSION : 2024-25",
-      isNew: true
-    },
-    {
-      id: 7,
-      title: "CBSE Advisory to the Schools, Parents and Students",
-      isNew: true
-    }
-  ];
+  useEffect(() => {
+    const storedNotices = JSON.parse(localStorage.getItem('scrollingNotices') || '[]');
+    setNotices(storedNotices);
+  }, []);
 
-  const allNotices = [...notices, ...notices];
+  const handleNoticeClick = (pdfUrl: string) => {
+    window.open(pdfUrl, '_blank');
+  };
 
   return (
     <div className="absolute top-0 right-0 w-[250px] h-screen bg-[#1A1F2C] shadow-2xl">
@@ -72,11 +44,11 @@ export const Events = () => {
             animation: isPaused ? 'none' : 'scroll 30s linear infinite'
           }}
         >
-          {allNotices.map((notice) => (
+          {notices.map((notice) => (
             <div
               key={notice.id}
               className="p-3 border-b border-white/10 hover:bg-white/5 transition-colors cursor-pointer"
-              onClick={() => navigate('/notices')}
+              onClick={() => handleNoticeClick(notice.pdfUrl)}
             >
               <div className="flex items-start gap-2">
                 <span className="text-white mt-1">♦</span>

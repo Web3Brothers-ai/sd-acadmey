@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Navigation } from '@/components/Navigation';
 import { Card } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { useToast } from '@/components/ui/use-toast';
 
 interface EnquiryData {
   name: string;
@@ -13,9 +15,20 @@ interface EnquiryData {
   date: string;
 }
 
+interface Notice {
+  id: number;
+  title: string;
+  pdfUrl: string;
+  isNew?: boolean;
+}
+
 export default function AdminDashboard() {
   const navigate = useNavigate();
   const [enquiries, setEnquiries] = useState<EnquiryData[]>([]);
+  const [notices, setNotices] = useState<Notice[]>([]);
+  const [newNoticeTitle, setNewNoticeTitle] = useState('');
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const { toast } = useToast();
 
   useEffect(() => {
     const isAdmin = localStorage.getItem('isAdmin');
@@ -25,11 +38,64 @@ export default function AdminDashboard() {
     
     const storedEnquiries = JSON.parse(localStorage.getItem('enquiries') || '[]');
     setEnquiries(storedEnquiries);
+    
+    const storedNotices = JSON.parse(localStorage.getItem('scrollingNotices') || '[]');
+    setNotices(storedNotices);
   }, [navigate]);
 
   const handleLogout = () => {
     localStorage.removeItem('isAdmin');
     navigate('/login');
+  };
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files[0]) {
+      setSelectedFile(event.target.files[0]);
+    }
+  };
+
+  const handleAddNotice = async () => {
+    if (!newNoticeTitle || !selectedFile) {
+      toast({
+        title: "Error",
+        description: "Please provide both title and PDF file",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    // In a real application, you would upload the file to a server
+    // For now, we'll create a temporary URL
+    const pdfUrl = URL.createObjectURL(selectedFile);
+    
+    const newNotice: Notice = {
+      id: Date.now(),
+      title: newNoticeTitle,
+      pdfUrl,
+      isNew: true
+    };
+
+    const updatedNotices = [...notices, newNotice];
+    localStorage.setItem('scrollingNotices', JSON.stringify(updatedNotices));
+    setNotices(updatedNotices);
+    setNewNoticeTitle('');
+    setSelectedFile(null);
+
+    toast({
+      title: "Success",
+      description: "Notice added successfully",
+    });
+  };
+
+  const handleDeleteNotice = (id: number) => {
+    const updatedNotices = notices.filter(notice => notice.id !== id);
+    localStorage.setItem('scrollingNotices', JSON.stringify(updatedNotices));
+    setNotices(updatedNotices);
+    
+    toast({
+      title: "Success",
+      description: "Notice deleted successfully",
+    });
   };
 
   return (
@@ -50,12 +116,6 @@ export default function AdminDashboard() {
           </Button>
           <Button 
             className="h-32 text-lg"
-            onClick={() => navigate('/admin/notices')}
-          >
-            Manage Notices
-          </Button>
-          <Button 
-            className="h-32 text-lg"
             onClick={() => navigate('/admin/teachers')}
           >
             Manage Teachers
@@ -66,6 +126,43 @@ export default function AdminDashboard() {
           >
             Manage Video Testimonials
           </Button>
+        </div>
+
+        <div className="mb-12">
+          <h2 className="text-2xl font-bold text-sdblue mb-6">Manage Scrolling Notices</h2>
+          <Card className="p-6">
+            <div className="grid gap-4">
+              <Input
+                placeholder="Enter notice title"
+                value={newNoticeTitle}
+                onChange={(e) => setNewNoticeTitle(e.target.value)}
+              />
+              <Input
+                type="file"
+                accept=".pdf"
+                onChange={handleFileChange}
+              />
+              <Button onClick={handleAddNotice}>Add Notice</Button>
+            </div>
+
+            <div className="mt-6">
+              <h3 className="font-semibold mb-4">Current Notices</h3>
+              <div className="space-y-2">
+                {notices.map((notice) => (
+                  <div key={notice.id} className="flex items-center justify-between p-2 bg-gray-50 rounded">
+                    <span>{notice.title}</span>
+                    <Button 
+                      variant="destructive" 
+                      size="sm"
+                      onClick={() => handleDeleteNotice(notice.id)}
+                    >
+                      Delete
+                    </Button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Card>
         </div>
 
         <div className="mt-12">

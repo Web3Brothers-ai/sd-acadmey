@@ -20,11 +20,11 @@ export const Events = () => {
 
   useEffect(() => {
     const storedNotices = JSON.parse(localStorage.getItem('scrollingNotices') || '[]');
-    console.log('Stored notices:', storedNotices); // Debug log
+    console.log('Stored notices:', storedNotices);
     
     const updatedNotices = storedNotices.map((notice: Notice) => {
       const now = new Date().getTime();
-      const twoDaysAgo = now - (2 * 24 * 60 * 60 * 1000); // 2 days in milliseconds
+      const twoDaysAgo = now - (2 * 24 * 60 * 60 * 1000);
       
       if (!notice.createdAt) {
         return { ...notice, isNew: false };
@@ -41,7 +41,7 @@ export const Events = () => {
   }, []);
 
   const handleNoticeClick = (pdfUrl: string) => {
-    console.log('Attempting to open PDF URL:', pdfUrl); // Debug log
+    console.log('Attempting to open PDF URL:', pdfUrl);
     
     if (!pdfUrl) {
       toast({
@@ -52,9 +52,8 @@ export const Events = () => {
       return;
     }
 
-    // Validate URL format
     try {
-      new URL(pdfUrl); // This will throw if URL is invalid
+      new URL(pdfUrl);
     } catch (error) {
       console.error('Invalid URL format:', error);
       toast({
@@ -68,7 +67,6 @@ export const Events = () => {
     try {
       const newWindow = window.open(pdfUrl, '_blank');
       if (newWindow === null) {
-        // If window.open returns null, it was likely blocked by a popup blocker
         toast({
           title: "Error",
           description: "Popup blocked. Please allow popups for this site.",
@@ -86,8 +84,8 @@ export const Events = () => {
   };
 
   return (
-    <div className="absolute top-0 right-0 w-[250px] h-screen bg-[#1A1F2C] shadow-2xl">
-      <div className="flex items-center gap-2 p-4 bg-[#7E69AB] border-b border-white/10">
+    <div className="absolute top-0 right-0 w-[250px] h-screen bg-gradient-to-br from-[#243949] to-[#517fa4] shadow-2xl">
+      <div className="flex items-center gap-2 p-4 bg-gradient-to-r from-[#8B5CF6] to-[#D946EF] border-b border-white/20">
         <Bell className="w-5 h-5 text-white animate-pulse" />
         <h2 className="text-lg font-bold text-white tracking-wide">NOTICE & CIRCULARS</h2>
       </div>
@@ -107,16 +105,16 @@ export const Events = () => {
           {notices.map((notice) => (
             <div
               key={notice.id}
-              className="p-3 border-b border-white/10 hover:bg-white/5 transition-colors cursor-pointer"
+              className="p-3 border-b border-white/20 hover:bg-white/10 transition-all duration-300 cursor-pointer backdrop-blur-sm"
               onClick={() => handleNoticeClick(notice.pdfUrl)}
             >
               <div className="flex items-start gap-2">
-                <span className="text-white mt-1">♦</span>
+                <span className="text-[#FEF7CD] mt-1">♦</span>
                 <div className="flex-1">
-                  <p className="text-white text-sm">
+                  <p className="text-[#E5DEFF] text-sm font-medium hover:text-white transition-colors">
                     {notice.title}
                     {notice.isNew && (
-                      <span className="ml-2 inline-flex items-center px-2 py-0.5 text-[10px] font-bold bg-[#F97316] text-white rounded-full">
+                      <span className="ml-2 inline-flex items-center px-2 py-0.5 text-[10px] font-bold bg-gradient-to-r from-[#F97316] to-[#D946EF] text-white rounded-full animate-pulse">
                         NEW
                       </span>
                     )}
@@ -129,16 +127,16 @@ export const Events = () => {
           {notices.map((notice) => (
             <div
               key={`${notice.id}-duplicate`}
-              className="p-3 border-b border-white/10 hover:bg-white/5 transition-colors cursor-pointer"
+              className="p-3 border-b border-white/20 hover:bg-white/10 transition-all duration-300 cursor-pointer backdrop-blur-sm"
               onClick={() => handleNoticeClick(notice.pdfUrl)}
             >
               <div className="flex items-start gap-2">
-                <span className="text-white mt-1">♦</span>
+                <span className="text-[#FEF7CD] mt-1">♦</span>
                 <div className="flex-1">
-                  <p className="text-white text-sm">
+                  <p className="text-[#E5DEFF] text-sm font-medium hover:text-white transition-colors">
                     {notice.title}
                     {notice.isNew && (
-                      <span className="ml-2 inline-flex items-center px-2 py-0.5 text-[10px] font-bold bg-[#F97316] text-white rounded-full">
+                      <span className="ml-2 inline-flex items-center px-2 py-0.5 text-[10px] font-bold bg-gradient-to-r from-[#F97316] to-[#D946EF] text-white rounded-full animate-pulse">
                         NEW
                       </span>
                     )}
@@ -165,4 +163,3 @@ export const Events = () => {
     </div>
   );
 };
-

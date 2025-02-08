@@ -1,16 +1,16 @@
 
 import { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Calendar, Book, Users, Phone, LogIn } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 const navItems = [
-  { label: 'Home', href: '/' },
-  { label: 'About Us', href: '/about' },
-  { label: 'Academic', href: '/academic' },
-  { label: 'Admission', href: '/admission' },
-  { label: 'Gallery', href: '#gallery' },
-  { label: 'Contact', href: '/enquiry' },
-  { label: 'Admin Login', href: '/login' }  // Added Admin Login
+  { label: 'Home', href: '/', icon: Users },
+  { label: 'About Us', href: '/about', icon: Users },
+  { label: 'Academic', href: '/academic', icon: Book },
+  { label: 'Admission', href: '/admission', icon: Users },
+  { label: 'Gallery', href: '#gallery', icon: Users },
+  { label: 'Contact', href: '/enquiry', icon: Phone },
+  { label: 'Admin Login', href: '/login', icon: LogIn }
 ];
 
 export const Navigation = () => {
@@ -52,7 +52,9 @@ export const Navigation = () => {
 
   return (
     <nav className={`fixed w-full z-50 transition-all duration-300 ${
-      scrolled ? 'bg-white shadow-md' : 'bg-white/95 backdrop-blur-md'
+      scrolled 
+        ? 'bg-white shadow-lg' 
+        : 'bg-gradient-to-r from-white/95 to-blue-50/95 backdrop-blur-md'
     }`}>
       <div className="container mx-auto px-4">
         <div className="flex justify-between h-20">
@@ -67,8 +69,12 @@ export const Navigation = () => {
                 className="h-16 w-16 object-contain transition-transform duration-300 group-hover:scale-110" 
               />
               <div className="flex flex-col">
-                <span className="text-xl font-bold text-sdblue transform transition-all duration-300 group-hover:translate-x-2">S.D. Academy</span>
-                <span className="text-sm text-gray-600 transform transition-all duration-300 group-hover:translate-x-1">& Tendercare Playway</span>
+                <span className="text-xl font-bold bg-gradient-to-r from-sdblue to-blue-600 bg-clip-text text-transparent transform transition-all duration-300 group-hover:translate-x-2">
+                  S.D. Academy
+                </span>
+                <span className="text-sm text-gray-600 transform transition-all duration-300 group-hover:translate-x-1">
+                  & Tendercare Playway
+                </span>
               </div>
             </button>
           </div>
@@ -79,14 +85,17 @@ export const Navigation = () => {
               <button
                 key={item.label}
                 onClick={() => handleNavClick(item.href)}
-                className={`text-gray-700 hover:text-sdblue px-3 py-2 text-sm font-medium transition-all duration-300 hover:-translate-y-1 hover:shadow-lg ${
-                  item.label === 'Admin Login' ? 'bg-sdblue text-white hover:bg-sdblue/90 hover:text-white rounded-md' : ''
+                className={`flex items-center gap-2 text-gray-700 hover:text-sdblue px-3 py-2 text-sm font-medium transition-all duration-300 hover:-translate-y-1 hover:shadow-lg rounded-md ${
+                  item.label === 'Admin Login' 
+                    ? 'bg-gradient-to-r from-sdblue to-blue-600 text-white hover:from-blue-600 hover:to-sdblue' 
+                    : ''
                 }`}
                 style={{
                   animationDelay: `${index * 100}ms`,
                   animation: 'fade-in 0.5s ease-out forwards'
                 }}
               >
+                <item.icon className="w-4 h-4" />
                 {item.label}
               </button>
             ))}
@@ -115,10 +124,13 @@ export const Navigation = () => {
             <button
               key={item.label}
               onClick={() => handleNavClick(item.href)}
-              className={`block w-full text-left px-3 py-2 text-base font-medium text-gray-700 hover:text-sdblue hover:bg-gray-50 rounded-md transition-colors ${
-                item.label === 'Admin Login' ? 'bg-sdblue text-white hover:bg-sdblue/90 hover:text-white' : ''
+              className={`flex items-center gap-2 w-full text-left px-3 py-2 text-base font-medium text-gray-700 hover:text-sdblue hover:bg-gray-50 rounded-md transition-colors ${
+                item.label === 'Admin Login' 
+                  ? 'bg-gradient-to-r from-sdblue to-blue-600 text-white hover:from-blue-600 hover:to-sdblue' 
+                  : ''
               }`}
             >
+              <item.icon className="w-4 h-4" />
               {item.label}
             </button>
           ))}

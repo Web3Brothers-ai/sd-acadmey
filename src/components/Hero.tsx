@@ -2,6 +2,7 @@
 import { Button } from "./ui/button";
 import { useEffect, useState } from "react";
 import { Events } from "./Events";
+import { ChevronRight } from "lucide-react";
 
 const backgroundImages = [
   'https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=1920&q=80',
@@ -37,7 +38,7 @@ export const Hero = () => {
   }, []);
 
   return (
-    <div className="relative h-screen w-full">
+    <div className="relative h-screen w-full overflow-hidden">
       {backgroundImages.map((url, index) => (
         <div
           key={url}
@@ -47,26 +48,29 @@ export const Hero = () => {
         >
           <img
             src={url}
-            alt={`Slide ${index + 1}`}
-            className="w-full h-full object-cover"
+            alt={`School Environment ${index + 1}`}
+            className="w-full h-full object-cover transform scale-105 transition-transform duration-10000 ease-linear"
+            style={{
+              transform: index === currentImageIndex ? 'scale(1.1)' : 'scale(1)',
+            }}
             loading={index === 0 ? "eager" : "lazy"}
             decoding="async"
           />
-          <div className="absolute inset-0 bg-black/50" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-black/30" />
         </div>
       ))}
 
       <div className="absolute inset-0 flex items-center justify-center z-10">
-        <div className="text-center space-y-6 px-4 mr-[250px] max-w-3xl">
+        <div className="text-center space-y-6 px-4 max-w-4xl mx-auto">
           <div
             className={`transform transition-all duration-1000 ${
               showTitle ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'
             }`}
           >
-            <h1 className="text-6xl md:text-7xl font-bold text-[#F1F0FB] mb-4 tracking-wider drop-shadow-2xl">
-              <span className="inline-block hover:scale-110 transition-transform duration-300 animate-text-shimmer">S.</span>
-              <span className="inline-block hover:scale-110 transition-transform duration-300 animate-text-shimmer ml-2">D.</span>
-              <span className="inline-block hover:scale-110 transition-transform duration-300 animate-text-shimmer ml-2">Academy</span>
+            <h1 className="text-6xl md:text-7xl font-bold text-white mb-4 tracking-wider drop-shadow-2xl">
+              <span className="inline-block hover:scale-110 transition-transform duration-300 animate-text-shimmer bg-gradient-to-r from-blue-400 to-blue-200 bg-clip-text text-transparent">S.</span>
+              <span className="inline-block hover:scale-110 transition-transform duration-300 animate-text-shimmer bg-gradient-to-r from-blue-400 to-blue-200 bg-clip-text text-transparent ml-2">D.</span>
+              <span className="inline-block hover:scale-110 transition-transform duration-300 animate-text-shimmer bg-gradient-to-r from-blue-400 to-blue-200 bg-clip-text text-transparent ml-2">Academy</span>
             </h1>
           </div>
 
@@ -75,7 +79,7 @@ export const Hero = () => {
               showSubtitle ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'
             }`}
           >
-            <p className="text-2xl md:text-3xl text-[#E5DEFF] font-light drop-shadow-lg">
+            <p className="text-2xl md:text-3xl text-blue-100 font-light drop-shadow-lg">
               Shaping Tomorrow's Leaders Today
             </p>
           </div>
@@ -85,18 +89,31 @@ export const Hero = () => {
               showButton ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'
             }`}
           >
-            <Button
-              size="lg"
-              className="bg-[#9b87f5]/80 hover:bg-[#9b87f5] text-white text-xl px-8 py-6 rounded-lg shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 backdrop-blur-sm"
-              onClick={() => document.getElementById('notices')?.scrollIntoView({ behavior: 'smooth' })}
-            >
-              Explore More
-            </Button>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <Button
+                size="lg"
+                className="bg-gradient-to-r from-sdblue to-blue-600 hover:from-blue-600 hover:to-sdblue text-white text-xl px-8 py-6 rounded-lg shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 backdrop-blur-sm"
+                onClick={() => document.getElementById('notices')?.scrollIntoView({ behavior: 'smooth' })}
+              >
+                Explore More
+                <ChevronRight className="ml-2 h-5 w-5" />
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                className="border-2 border-white text-white hover:bg-white/10 text-xl px-8 py-6 rounded-lg shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 backdrop-blur-sm"
+                onClick={() => window.location.href = '/admission'}
+              >
+                Apply Now
+              </Button>
+            </div>
           </div>
         </div>
       </div>
 
-      <Events />
+      <div className="absolute bottom-0 left-0 right-0 z-20">
+        <Events />
+      </div>
     </div>
   );
 };

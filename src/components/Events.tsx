@@ -2,6 +2,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Bell } from 'lucide-react';
+import { useToast } from '@/components/ui/use-toast';
 
 interface Notice {
   id: number;
@@ -15,6 +16,7 @@ export const Events = () => {
   const navigate = useNavigate();
   const [isPaused, setIsPaused] = useState(false);
   const [notices, setNotices] = useState<Notice[]>([]);
+  const { toast } = useToast();
 
   useEffect(() => {
     const storedNotices = JSON.parse(localStorage.getItem('scrollingNotices') || '[]');
@@ -39,18 +41,24 @@ export const Events = () => {
 
   const handleNoticeClick = (pdfUrl: string) => {
     if (!pdfUrl) {
-      console.error('Invalid PDF URL');
+      toast({
+        title: "Error",
+        description: "Invalid PDF URL",
+        variant: "destructive"
+      });
       return;
     }
 
-    // Create an anchor element
-    const link = document.createElement('a');
-    link.href = pdfUrl;
-    link.target = '_blank';
-    link.rel = 'noopener noreferrer';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    try {
+      window.open(pdfUrl, '_blank', 'noopener,noreferrer');
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to open PDF",
+        variant: "destructive"
+      });
+      console.error('Error opening PDF:', error);
+    }
   };
 
   return (

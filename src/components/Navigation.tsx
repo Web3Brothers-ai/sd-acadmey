@@ -1,6 +1,6 @@
+
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
-import { Button } from './ui/button';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 const navItems = [
@@ -17,7 +17,6 @@ export const Navigation = () => {
   const [scrolled, setScrolled] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-  const isAdmin = localStorage.getItem('isAdmin') === 'true';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -27,14 +26,6 @@ export const Navigation = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  const handleLoginClick = () => {
-    if (isAdmin) {
-      navigate('/admin/dashboard');
-    } else {
-      navigate('/login');
-    }
-  };
 
   const handleNavClick = (href: string) => {
     setIsOpen(false);
@@ -96,27 +87,16 @@ export const Navigation = () => {
                 {item.label}
               </button>
             ))}
-            <Button 
-              className="relative bg-sdblue hover:bg-sdblue/90 transition-all duration-300 hover:-translate-y-1 group overflow-hidden"
-              onClick={handleLoginClick}
-            >
-              <span className="relative z-10">
-                {isAdmin ? 'Dashboard' : 'Admin Login'}
-              </span>
-              <div className="absolute inset-0 border-2 border-white transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
-            </Button>
           </div>
 
           {/* Mobile menu button */}
           <div className="flex items-center md:hidden">
-            <Button
-              variant="ghost"
-              size="icon"
+            <button
               onClick={() => setIsOpen(!isOpen)}
-              className="inline-flex items-center justify-center"
+              className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-sdblue"
             >
               {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-            </Button>
+            </button>
           </div>
         </div>
       </div>
@@ -137,18 +117,8 @@ export const Navigation = () => {
               {item.label}
             </button>
           ))}
-          <Button 
-            className="w-full mt-4 bg-sdblue hover:bg-sdblue/90"
-            onClick={() => {
-              handleLoginClick();
-              setIsOpen(false);
-            }}
-          >
-            {isAdmin ? 'Dashboard' : 'Admin Login'}
-          </Button>
         </div>
       </div>
     </nav>
   );
 };
-

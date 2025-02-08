@@ -1,5 +1,5 @@
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 interface VideoTestimonial {
   id: number;
@@ -9,48 +9,62 @@ interface VideoTestimonial {
   class?: string;
 }
 
+const sampleTestimonials: VideoTestimonial[] = [
+  {
+    id: 1,
+    youtubeUrl: "https://www.youtube.com/embed/YE7VzlLtp-4",
+    type: "parent",
+    name: "Priya Sharma"
+  },
+  {
+    id: 2,
+    youtubeUrl: "https://www.youtube.com/embed/jNQXAC9IVRw",
+    type: "student",
+    name: "Rahul Kumar",
+    class: "10"
+  },
+  {
+    id: 3,
+    youtubeUrl: "https://www.youtube.com/embed/YE7VzlLtp-4",
+    type: "parent",
+    name: "Amit Patel"
+  }
+];
+
 export const VideoTestimonials = () => {
   const [hoveredVideo, setHoveredVideo] = useState<number | null>(null);
+  const [testimonials, setTestimonials] = useState<VideoTestimonial[]>([]);
   
-  // Get testimonials from localStorage or use demo data
-  const storedTestimonials = localStorage.getItem('videoTestimonials');
-  const testimonials: VideoTestimonial[] = storedTestimonials 
-    ? JSON.parse(storedTestimonials)
-    : [
-        {
-          id: 1,
-          youtubeUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-          type: "parent",
-          name: "Jane Smith"
-        },
-        {
-          id: 2,
-          youtubeUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-          type: "student",
-          name: "Tom Brown",
-          class: "10"
-        }
-      ];
+  useEffect(() => {
+    // Get testimonials from localStorage or use sample data
+    const storedTestimonials = localStorage.getItem('videoTestimonials');
+    if (!storedTestimonials) {
+      localStorage.setItem('videoTestimonials', JSON.stringify(sampleTestimonials));
+      setTestimonials(sampleTestimonials);
+    } else {
+      setTestimonials(JSON.parse(storedTestimonials));
+    }
+  }, []);
 
   const handleMouseEnter = (id: number) => {
     setHoveredVideo(id);
   };
 
-  const handleMouseLeave = (id: number) => {
+  const handleMouseLeave = () => {
     setHoveredVideo(null);
   };
 
   return (
-    <section className="py-20 bg-gray-50">
+    <section className="py-20 bg-gradient-to-br from-purple-50 to-orange-50">
       <div className="container mx-auto px-4">
-        <h2 className="text-4xl font-bold text-center text-sdblue mb-12">Video Testimonials</h2>
+        <h2 className="text-4xl font-bold text-center text-sdblue mb-12 animate-text-shimmer">Video Testimonials</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {testimonials.map((testimonial) => (
             <div 
               key={testimonial.id}
-              className="aspect-[16/9] relative rounded-lg overflow-hidden shadow-lg"
+              className="group aspect-[16/9] relative rounded-lg overflow-hidden shadow-lg transform transition-all duration-300 hover:scale-105 hover:shadow-xl"
               onMouseEnter={() => handleMouseEnter(testimonial.id)}
-              onMouseLeave={() => handleMouseLeave(testimonial.id)}
+              onMouseLeave={handleMouseLeave}
             >
               <iframe
                 src={testimonial.youtubeUrl}
@@ -59,7 +73,7 @@ export const VideoTestimonials = () => {
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
               />
-              <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-4">
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent text-white p-4 transform transition-transform duration-300 translate-y-full group-hover:translate-y-0">
                 <p className="font-medium">{testimonial.name}</p>
                 <p className="text-sm capitalize">
                   {testimonial.type}

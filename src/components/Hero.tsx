@@ -56,7 +56,7 @@ export const Hero = () => {
             loading={index === 0 ? "eager" : "lazy"}
             decoding="async"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-black/30" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent" />
         </div>
       ))}
 
@@ -68,9 +68,9 @@ export const Hero = () => {
             }`}
           >
             <h1 className="text-6xl md:text-7xl font-bold text-white mb-4 tracking-wider drop-shadow-2xl">
-              <span className="inline-block hover:scale-110 transition-transform duration-300 animate-text-shimmer bg-gradient-to-r from-blue-400 to-blue-200 bg-clip-text text-transparent">S.</span>
-              <span className="inline-block hover:scale-110 transition-transform duration-300 animate-text-shimmer bg-gradient-to-r from-blue-400 to-blue-200 bg-clip-text text-transparent ml-2">D.</span>
-              <span className="inline-block hover:scale-110 transition-transform duration-300 animate-text-shimmer bg-gradient-to-r from-blue-400 to-blue-200 bg-clip-text text-transparent ml-2">Academy</span>
+              <span className="inline-block hover:scale-110 transition-transform duration-300 animate-text-shimmer bg-gradient-to-r from-yellow-300 to-yellow-500 bg-clip-text text-transparent">S.</span>
+              <span className="inline-block hover:scale-110 transition-transform duration-300 animate-text-shimmer bg-gradient-to-r from-yellow-300 to-yellow-500 bg-clip-text text-transparent ml-2">D.</span>
+              <span className="inline-block hover:scale-110 transition-transform duration-300 animate-text-shimmer bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent ml-2">Academy</span>
             </h1>
           </div>
 
@@ -79,7 +79,7 @@ export const Hero = () => {
               showSubtitle ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'
             }`}
           >
-            <p className="text-2xl md:text-3xl text-blue-100 font-light drop-shadow-lg">
+            <p className="text-2xl md:text-3xl text-yellow-300 font-light drop-shadow-lg">
               Shaping Tomorrow's Leaders Today
             </p>
           </div>
@@ -92,7 +92,7 @@ export const Hero = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <Button
                 size="lg"
-                className="bg-gradient-to-r from-sdblue to-blue-600 hover:from-blue-600 hover:to-sdblue text-white text-xl px-8 py-6 rounded-lg shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 backdrop-blur-sm"
+                className="bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white text-xl px-8 py-6 rounded-lg shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 backdrop-blur-sm"
                 onClick={() => document.getElementById('notices')?.scrollIntoView({ behavior: 'smooth' })}
               >
                 Explore More
@@ -101,7 +101,7 @@ export const Hero = () => {
               <Button
                 size="lg"
                 variant="outline"
-                className="border-2 border-white text-white hover:bg-white/10 hover:text-white text-xl px-8 py-6 rounded-lg shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 backdrop-blur-sm"
+                className="border-2 border-yellow-400 text-yellow-400 hover:bg-yellow-400/10 hover:text-yellow-300 text-xl px-8 py-6 rounded-lg shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 backdrop-blur-sm"
                 onClick={() => window.location.href = '/admission'}
               >
                 Apply Now

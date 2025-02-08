@@ -42,46 +42,50 @@ const Notices = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-[#E5DEFF] to-[#FDE1D3]">
       <Navigation />
       <div className="container mx-auto px-4 pt-24 pb-12">
-        <h1 className="text-4xl font-bold text-sdblue mb-8">Notices & Announcements</h1>
+        <h1 className="text-4xl font-bold mb-8 text-center animate-text-shimmer bg-clip-text text-transparent bg-gradient-to-r from-[#8B5CF6] via-[#D946EF] to-[#8B5CF6]">
+          Notices & Announcements
+        </h1>
         
         <div className="grid gap-6">
           {notices.map((notice) => (
             <div 
               key={notice.id}
-              className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow"
+              className="bg-white/80 backdrop-blur-sm rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 p-6 border border-purple-100 hover:border-purple-200 transform hover:-translate-y-1"
             >
               {notice.imageUrl && (
-                <div className="mb-4">
+                <div className="mb-4 overflow-hidden rounded-lg">
                   <img 
                     src={notice.imageUrl} 
                     alt={notice.title}
-                    className={getImageClassName(notice.aspectRatio)}
+                    className={`${getImageClassName(notice.aspectRatio)} hover:scale-105 transition-transform duration-500`}
                   />
                 </div>
               )}
               <div className="flex justify-between items-start mb-4">
-                <h2 className="text-2xl font-semibold text-sdblue">{notice.title}</h2>
-                <span className="inline-block px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">
+                <h2 className="text-2xl font-semibold bg-gradient-to-r from-[#0EA5E9] to-[#8B5CF6] bg-clip-text text-transparent">
+                  {notice.title}
+                </h2>
+                <span className="inline-block px-3 py-1 bg-gradient-to-r from-[#F97316] to-[#FBBF24] text-white rounded-full text-sm font-medium shadow-sm">
                   {notice.category}
                 </span>
               </div>
               
-              <p className="text-gray-600 mb-4">{notice.description}</p>
+              <p className="text-gray-600 mb-4 leading-relaxed">{notice.description}</p>
               
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-                <div className="flex items-center text-gray-600">
-                  <span className="font-semibold mr-2">Date:</span>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm bg-purple-50/50 p-4 rounded-lg">
+                <div className="flex items-center text-gray-700">
+                  <span className="font-semibold mr-2 text-purple-600">Date:</span>
                   {notice.date}
                 </div>
-                <div className="flex items-center text-gray-600">
-                  <span className="font-semibold mr-2">Time:</span>
+                <div className="flex items-center text-gray-700">
+                  <span className="font-semibold mr-2 text-purple-600">Time:</span>
                   {notice.time}
                 </div>
-                <div className="flex items-center text-gray-600">
-                  <span className="font-semibold mr-2">Venue:</span>
+                <div className="flex items-center text-gray-700">
+                  <span className="font-semibold mr-2 text-purple-600">Venue:</span>
                   {notice.venue}
                 </div>
               </div>

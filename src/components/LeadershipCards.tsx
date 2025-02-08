@@ -7,7 +7,7 @@ const leaders = [
     title: 'Founder',
     name: 'Dr. HN Singh',
     message: 'Our vision is to create a learning environment that inspires innovation and leadership.',
-    image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=300&q=80'
+    image: '/lovable-uploads/ab688693-1b60-4daf-ad75-a60d8af64956.png'
   },
   {
     title: 'Principal',
@@ -19,7 +19,7 @@ const leaders = [
     title: 'Manager',
     name: 'Mr. Rajesh Singh',
     message: 'Ensuring smooth operations and maintaining high standards in all aspects of our institution.',
-    image: 'https://images.unsplash.com/photo-1542190891-2093d38760f2?auto=format&fit=crop&w=300&q=80'
+    image: '/lovable-uploads/a6c6ca92-d82f-4993-843f-3b24a338606f.png'
   }
 ];
 
@@ -48,7 +48,7 @@ export const LeadershipCards = () => {
                     <img 
                       src={leader.image} 
                       alt={leader.name}
-                      className="w-full h-full object-cover"
+                      className={`w-full h-full object-cover ${index === 0 ? 'grayscale' : ''}`}
                       loading="eager"
                       decoding="async"
                       fetchPriority="high"

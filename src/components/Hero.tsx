@@ -3,6 +3,7 @@ import { Button } from "./ui/button";
 import { useEffect, useState } from "react";
 import { Events } from "./Events";
 import { ChevronRight } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const backgroundImages = [
   'https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=1920&q=80',
@@ -12,6 +13,7 @@ const backgroundImages = [
 ];
 
 export const Hero = () => {
+  const navigate = useNavigate();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [showTitle, setShowTitle] = useState(false);
   const [showSubtitle, setShowSubtitle] = useState(false);
@@ -93,7 +95,7 @@ export const Hero = () => {
               <Button
                 size="lg"
                 className="bg-gradient-to-r from-[#0EA5E9] to-[#8B5CF6] hover:from-[#8B5CF6] hover:to-[#0EA5E9] text-white text-xl px-8 py-6 rounded-lg shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 backdrop-blur-sm"
-                onClick={() => document.getElementById('notices')?.scrollIntoView({ behavior: 'smooth' })}
+                onClick={() => navigate('/school-details')}
               >
                 Explore More
                 <ChevronRight className="ml-2 h-5 w-5" />
@@ -102,7 +104,7 @@ export const Hero = () => {
                 size="lg"
                 variant="outline"
                 className="border-2 border-[#FBBF24] text-[#FBBF24] hover:bg-[#FBBF24]/10 hover:text-[#FCD34D] text-xl px-8 py-6 rounded-lg shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 backdrop-blur-sm"
-                onClick={() => window.location.href = '/admission'}
+                onClick={() => navigate('/admission')}
               >
                 Apply Now
               </Button>
@@ -118,3 +120,4 @@ export const Hero = () => {
     </div>
   );
 };
+

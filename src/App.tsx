@@ -22,6 +22,7 @@ import AdminTeachers from "./pages/AdminTeachers";
 import AdminTestimonials from "./pages/AdminTestimonials";
 import DetailedAchievements from "./pages/DetailedAchievements";
 import DetailedGallery from "./pages/DetailedGallery";
+import SchoolDetails from "./pages/SchoolDetails";
 
 const queryClient = new QueryClient();
 
@@ -49,6 +50,7 @@ const App = () => (
           <Route path="/enquiry" element={<Enquiry />} />
           <Route path="/achievements" element={<DetailedAchievements />} />
           <Route path="/gallery" element={<DetailedGallery />} />
+          <Route path="/school-details" element={<SchoolDetails />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

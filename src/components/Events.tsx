@@ -20,6 +20,7 @@ export const Events = () => {
 
   useEffect(() => {
     const storedNotices = JSON.parse(localStorage.getItem('scrollingNotices') || '[]');
+    console.log('Stored notices:', storedNotices); // Debug log
     
     const updatedNotices = storedNotices.map((notice: Notice) => {
       const now = new Date().getTime();
@@ -40,6 +41,8 @@ export const Events = () => {
   }, []);
 
   const handleNoticeClick = (pdfUrl: string) => {
+    console.log('Attempting to open PDF URL:', pdfUrl); // Debug log
+    
     if (!pdfUrl) {
       toast({
         title: "Error",
@@ -49,15 +52,36 @@ export const Events = () => {
       return;
     }
 
+    // Validate URL format
     try {
-      window.open(pdfUrl, '_blank', 'noopener,noreferrer');
+      new URL(pdfUrl); // This will throw if URL is invalid
     } catch (error) {
+      console.error('Invalid URL format:', error);
+      toast({
+        title: "Error",
+        description: "Invalid PDF URL format",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    try {
+      const newWindow = window.open(pdfUrl, '_blank');
+      if (newWindow === null) {
+        // If window.open returns null, it was likely blocked by a popup blocker
+        toast({
+          title: "Error",
+          description: "Popup blocked. Please allow popups for this site.",
+          variant: "destructive"
+        });
+      }
+    } catch (error) {
+      console.error('Error opening PDF:', error);
       toast({
         title: "Error",
         description: "Failed to open PDF",
         variant: "destructive"
       });
-      console.error('Error opening PDF:', error);
     }
   };
 
@@ -141,3 +165,4 @@ export const Events = () => {
     </div>
   );
 };
+

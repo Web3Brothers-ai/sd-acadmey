@@ -57,11 +57,11 @@ export const Navigation = () => {
         : 'bg-gradient-to-r from-white/95 to-blue-50/95 backdrop-blur-md'
     }`}>
       <div className="container mx-auto px-4">
-        <div className="flex justify-between h-20">
-          <div className="flex items-center">
+        <div className="flex justify-between items-center h-20">
+          <div className="flex items-center flex-shrink-0">
             <button 
               onClick={() => handleNavClick('/')} 
-              className="flex-shrink-0 flex items-center gap-3 group"
+              className="flex items-center gap-3 group"
             >
               <img 
                 src="/lovable-uploads/74233a1b-ee7c-42d2-b3dc-5c32c52d8378.png"
@@ -80,7 +80,7 @@ export const Navigation = () => {
           </div>
 
           {/* Desktop navigation */}
-          <div className="hidden md:flex md:items-center md:space-x-6">
+          <div className="hidden md:flex md:items-center md:space-x-4">
             {navItems.map((item, index) => (
               <button
                 key={item.label}

@@ -56,9 +56,11 @@ export const Achievements = () => {
   }, []);
 
   return (
-    <section className="py-20 bg-gray-50">
+    <section className="py-20 bg-gradient-to-br from-[#F97316]/10 to-[#FBBF24]/10">
       <div className="container mx-auto px-4">
-        <h2 className="text-4xl font-bold text-center text-sdblue mb-12 animate-fade-in">Our Achievements</h2>
+        <h2 className="text-4xl font-bold text-center mb-12 animate-text-shimmer bg-gradient-to-r from-[#F97316] via-[#FBBF24] to-[#F97316] bg-clip-text text-transparent">
+          Our Achievements
+        </h2>
         <Carousel
           ref={emblaRef}
           className="w-full max-w-5xl mx-auto"
@@ -70,23 +72,23 @@ export const Achievements = () => {
           <CarouselContent>
             {achievements.map((achievement, index) => (
               <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-                <div className="relative h-[400px] overflow-hidden rounded-lg cursor-pointer group"
+                <div className="relative h-[400px] overflow-hidden rounded-lg cursor-pointer group transform transition-all duration-300 hover:scale-105"
                      onClick={() => navigate('/achievements')}>
                   <img 
                     src={achievement.image} 
                     alt={achievement.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent">
-                    <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0EA5E9]/90 via-[#8B5CF6]/50 to-transparent">
+                    <div className="absolute bottom-0 left-0 right-0 p-6 text-white transform transition-all duration-300 group-hover:translate-y-[-10px]">
                       <div className="mb-4 flex justify-center">
-                        <div className="w-16 h-16 bg-sdblue/90 rounded-full flex items-center justify-center">
+                        <div className="w-16 h-16 bg-gradient-to-r from-[#F97316] to-[#FBBF24] rounded-2xl flex items-center justify-center transform rotate-3">
                           <achievement.icon className="w-8 h-8 text-white" />
                         </div>
                       </div>
-                      <h3 className="text-3xl font-bold mb-2">{achievement.count}</h3>
+                      <h3 className="text-3xl font-bold mb-2 text-[#FBBF24]">{achievement.count}</h3>
                       <h4 className="text-xl font-semibold mb-2">{achievement.title}</h4>
-                      <p className="text-gray-200">{achievement.description}</p>
+                      <p className="text-gray-100">{achievement.description}</p>
                     </div>
                   </div>
                 </div>
@@ -98,7 +100,7 @@ export const Achievements = () => {
         <div className="text-center mt-8">
           <Button 
             onClick={() => navigate('/achievements')}
-            className="bg-sdblue hover:bg-sdblue/90"
+            className="bg-gradient-to-r from-[#F97316] to-[#FBBF24] hover:from-[#FBBF24] hover:to-[#F97316] text-white font-semibold py-2 px-6 rounded-lg transform transition-all duration-300 hover:scale-105 hover:shadow-lg"
           >
             View All Achievements
           </Button>

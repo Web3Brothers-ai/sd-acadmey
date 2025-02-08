@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { Card } from '@/components/ui/card';
 import { ChevronLeft, ChevronRight, Quote } from 'lucide-react';
@@ -41,24 +42,28 @@ export const Testimonials = () => {
   };
 
   return (
-    <section className="py-20 bg-gray-50">
+    <section className="py-20 bg-gradient-to-br from-[#8B5CF6]/10 to-[#D946EF]/10">
       <div className="container mx-auto px-4">
-        <h2 className="text-4xl font-bold text-center text-sdblue mb-12">What People Say</h2>
+        <h2 className="text-4xl font-bold text-center mb-12 animate-text-shimmer bg-gradient-to-r from-[#8B5CF6] via-[#D946EF] to-[#8B5CF6] bg-clip-text text-transparent">
+          What People Say
+        </h2>
         <div className="relative max-w-4xl mx-auto">
-          <Card className="p-8 bg-white shadow-lg">
-            <Quote className="w-12 h-12 text-sdgold mb-6 mx-auto" />
-            <p className="text-xl text-gray-700 text-center mb-6">{testimonials[currentIndex].text}</p>
+          <Card className="p-8 bg-gradient-to-br from-white to-purple-50 shadow-xl border-none backdrop-blur-sm">
+            <Quote className="w-16 h-16 mx-auto mb-6 text-transparent bg-gradient-to-r from-[#F97316] to-[#FBBF24] bg-clip-text" />
+            <p className="text-2xl text-gray-700 text-center mb-8 italic">{testimonials[currentIndex].text}</p>
             <div className="text-center">
-              <p className="font-semibold text-sdblue">{testimonials[currentIndex].author}</p>
-              <p className="text-gray-500">{testimonials[currentIndex].role}</p>
+              <p className="font-semibold text-xl bg-gradient-to-r from-[#0EA5E9] to-[#8B5CF6] bg-clip-text text-transparent">
+                {testimonials[currentIndex].author}
+              </p>
+              <p className="text-gray-500 mt-1">{testimonials[currentIndex].role}</p>
             </div>
           </Card>
-          <div className="flex justify-center mt-6 space-x-4">
+          <div className="flex justify-center mt-8 space-x-4">
             <Button
               variant="outline"
               size="icon"
               onClick={prevTestimonial}
-              className="rounded-full"
+              className="rounded-full bg-white hover:bg-gradient-to-r hover:from-[#0EA5E9] hover:to-[#8B5CF6] hover:text-white transition-all duration-300"
             >
               <ChevronLeft className="h-6 w-6" />
             </Button>
@@ -66,7 +71,7 @@ export const Testimonials = () => {
               variant="outline"
               size="icon"
               onClick={nextTestimonial}
-              className="rounded-full"
+              className="rounded-full bg-white hover:bg-gradient-to-r hover:from-[#0EA5E9] hover:to-[#8B5CF6] hover:text-white transition-all duration-300"
             >
               <ChevronRight className="h-6 w-6" />
             </Button>

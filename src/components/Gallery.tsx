@@ -64,41 +64,43 @@ export const Gallery = () => {
   };
 
   return (
-    <section className="py-20 bg-gray-50" id="gallery">
+    <section className="py-20 bg-gradient-to-br from-[#0EA5E9]/10 to-[#8B5CF6]/10" id="gallery">
       <div className="container mx-auto px-4">
-        <h2 className="text-4xl font-bold text-center text-sdblue mb-12">School Gallery</h2>
+        <h2 className="text-4xl font-bold text-center mb-12 animate-text-shimmer bg-gradient-to-r from-[#0EA5E9] via-[#8B5CF6] to-[#0EA5E9] bg-clip-text text-transparent">
+          School Gallery
+        </h2>
         
         <div className="relative max-w-4xl mx-auto">
-          <div className="aspect-[16/9] relative overflow-hidden rounded-lg">
+          <div className="aspect-[16/9] relative overflow-hidden rounded-2xl shadow-2xl">
             <img 
               src={homeImages[currentIndex]?.url} 
               alt={homeImages[currentIndex]?.caption}
-              className="w-full h-full object-cover transition-opacity duration-500"
+              className="w-full h-full object-cover transition-all duration-500 hover:scale-105"
               loading="eager"
               decoding="async"
               fetchPriority="high"
             />
-            <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-4">
-              <p className="text-center">{homeImages[currentIndex]?.caption}</p>
+            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent backdrop-blur-sm text-white p-6">
+              <p className="text-center text-lg font-medium">{homeImages[currentIndex]?.caption}</p>
             </div>
           </div>
           
           <Button
             variant="outline"
             size="icon"
-            className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white"
+            className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-gradient-to-r hover:from-[#0EA5E9] hover:to-[#8B5CF6] hover:text-white rounded-full transition-all duration-300"
             onClick={goToPrevious}
           >
-            <ChevronLeft className="h-4 w-4" />
+            <ChevronLeft className="h-6 w-6" />
           </Button>
           
           <Button
             variant="outline"
             size="icon"
-            className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white"
+            className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-gradient-to-r hover:from-[#0EA5E9] hover:to-[#8B5CF6] hover:text-white rounded-full transition-all duration-300"
             onClick={goToNext}
           >
-            <ChevronRight className="h-4 w-4" />
+            <ChevronRight className="h-6 w-6" />
           </Button>
         </div>
 
@@ -106,15 +108,15 @@ export const Gallery = () => {
           {homeImages.map((image, index) => (
             <div 
               key={index}
-              className={`aspect-square cursor-pointer transition-all duration-300 ${
-                currentIndex === index ? 'ring-2 ring-sdblue' : ''
+              className={`aspect-square cursor-pointer overflow-hidden rounded-xl transform transition-all duration-300 hover:scale-105 ${
+                currentIndex === index ? 'ring-2 ring-[#8B5CF6]' : ''
               }`}
               onClick={() => setCurrentIndex(index)}
             >
               <img 
                 src={image.url} 
                 alt={image.caption}
-                className="w-full h-full object-cover rounded-lg"
+                className="w-full h-full object-cover"
                 loading="lazy"
                 decoding="async"
               />
@@ -125,7 +127,7 @@ export const Gallery = () => {
         <div className="text-center mt-8">
           <Button 
             onClick={() => navigate('/gallery')}
-            className="bg-sdblue hover:bg-sdblue/90"
+            className="bg-gradient-to-r from-[#0EA5E9] to-[#8B5CF6] hover:from-[#8B5CF6] hover:to-[#0EA5E9] text-white font-semibold py-2 px-6 rounded-lg transform transition-all duration-300 hover:scale-105 hover:shadow-lg"
           >
             View All Photos
           </Button>

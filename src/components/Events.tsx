@@ -19,7 +19,6 @@ export const Events = () => {
   useEffect(() => {
     const storedNotices = JSON.parse(localStorage.getItem('scrollingNotices') || '[]');
     
-    // Check and update isNew status based on 2-day threshold
     const updatedNotices = storedNotices.map((notice: Notice) => {
       const now = new Date().getTime();
       const twoDaysAgo = now - (2 * 24 * 60 * 60 * 1000); // 2 days in milliseconds
@@ -39,9 +38,9 @@ export const Events = () => {
   }, []);
 
   const handleNoticeClick = (pdfUrl: string) => {
-    // Open PDF in new tab, ensuring it's a valid URL
-    if (pdfUrl && pdfUrl.startsWith('blob:')) {
-      window.open(pdfUrl, '_blank', 'noopener,noreferrer');
+    // Open PDF in new tab if URL is valid
+    if (pdfUrl) {
+      window.open(pdfUrl, '_blank');
     } else {
       console.error('Invalid PDF URL');
     }

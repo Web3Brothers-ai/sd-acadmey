@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Navigation } from '@/components/Navigation';
 import { Button } from '@/components/ui/button';
@@ -7,7 +6,7 @@ import { useToast } from '@/components/ui/use-toast';
 import { useNavigate } from 'react-router-dom';
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Textarea } from "@/components/ui/textarea";
-import { CalendarIcon, Clock, MapPin } from 'lucide-react';
+import { CalendarIcon, Clock, MapPin, ArrowLeft } from 'lucide-react';
 
 interface Notice {
   id: number;
@@ -84,9 +83,19 @@ export default function AdminNotices() {
     <div className="min-h-screen bg-gradient-to-br from-[#E5DEFF] to-[#FDE1D3]">
       <Navigation />
       <div className="max-w-4xl mx-auto px-4 pt-24 pb-12">
-        <h1 className="text-4xl font-bold mb-8 text-center animate-text-shimmer bg-clip-text text-transparent bg-gradient-to-r from-[#8B5CF6] via-[#D946EF] to-[#8B5CF6]">
-          Add New Notice
-        </h1>
+        <div className="flex items-center gap-4 mb-8">
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={() => navigate(-1)}
+            className="hover:bg-gray-100"
+          >
+            <ArrowLeft className="h-4 w-4" />
+          </Button>
+          <h1 className="text-4xl font-bold mb-8 text-center animate-text-shimmer bg-clip-text text-transparent bg-gradient-to-r from-[#8B5CF6] via-[#D946EF] to-[#8B5CF6]">
+            Add New Notice
+          </h1>
+        </div>
         
         <div className="bg-white/80 backdrop-blur-sm rounded-lg shadow-lg p-6 border border-purple-100">
           <form onSubmit={handleSubmit} className="space-y-6">

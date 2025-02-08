@@ -5,6 +5,8 @@ import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
 import { useState } from "react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import { ArrowLeft } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 interface Teacher {
   id: number;
@@ -15,6 +17,7 @@ interface Teacher {
 }
 
 export default function AdminTeachers() {
+  const navigate = useNavigate();
   const [image, setImage] = useState<File | null>(null);
   const [name, setName] = useState("");
   const [subject, setSubject] = useState("");
@@ -57,7 +60,17 @@ export default function AdminTeachers() {
     <div>
       <Navigation />
       <div className="max-w-4xl mx-auto px-4 pt-24 pb-12">
-        <h1 className="text-3xl font-bold text-sdblue mb-8">Manage Teachers</h1>
+        <div className="flex items-center gap-4 mb-8">
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={() => navigate(-1)}
+            className="hover:bg-gray-100"
+          >
+            <ArrowLeft className="h-4 w-4" />
+          </Button>
+          <h1 className="text-3xl font-bold text-sdblue">Manage Teachers</h1>
+        </div>
         
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>

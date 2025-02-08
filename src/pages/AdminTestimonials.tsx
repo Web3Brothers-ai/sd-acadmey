@@ -7,8 +7,11 @@ import { useState } from "react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
+import { ArrowLeft } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export default function AdminTestimonials() {
+  const navigate = useNavigate();
   const [youtubeUrl, setYoutubeUrl] = useState("");
   const [name, setName] = useState("");
   const [type, setType] = useState<"parent" | "student">("parent");
@@ -54,7 +57,17 @@ export default function AdminTestimonials() {
     <div>
       <Navigation />
       <div className="max-w-4xl mx-auto px-4 pt-24 pb-12">
-        <h1 className="text-3xl font-bold text-sdblue mb-8">Manage Video Testimonials</h1>
+        <div className="flex items-center gap-4 mb-8">
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={() => navigate(-1)}
+            className="hover:bg-gray-100"
+          >
+            <ArrowLeft className="h-4 w-4" />
+          </Button>
+          <h1 className="text-3xl font-bold text-sdblue mb-8">Manage Video Testimonials</h1>
+        </div>
         
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>

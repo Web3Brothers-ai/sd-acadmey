@@ -9,7 +9,8 @@ const navItems = [
   { label: 'Academic', href: '/academic' },
   { label: 'Admission', href: '/admission' },
   { label: 'Gallery', href: '#gallery' },
-  { label: 'Contact', href: '/enquiry' }
+  { label: 'Contact', href: '/enquiry' },
+  { label: 'Admin Login', href: '/login' }  // Added Admin Login
 ];
 
 export const Navigation = () => {
@@ -78,7 +79,9 @@ export const Navigation = () => {
               <button
                 key={item.label}
                 onClick={() => handleNavClick(item.href)}
-                className="text-gray-700 hover:text-sdblue px-3 py-2 text-sm font-medium transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                className={`text-gray-700 hover:text-sdblue px-3 py-2 text-sm font-medium transition-all duration-300 hover:-translate-y-1 hover:shadow-lg ${
+                  item.label === 'Admin Login' ? 'bg-sdblue text-white hover:bg-sdblue/90 hover:text-white rounded-md' : ''
+                }`}
                 style={{
                   animationDelay: `${index * 100}ms`,
                   animation: 'fade-in 0.5s ease-out forwards'
@@ -112,7 +115,9 @@ export const Navigation = () => {
             <button
               key={item.label}
               onClick={() => handleNavClick(item.href)}
-              className="block w-full text-left px-3 py-2 text-base font-medium text-gray-700 hover:text-sdblue hover:bg-gray-50 rounded-md transition-colors"
+              className={`block w-full text-left px-3 py-2 text-base font-medium text-gray-700 hover:text-sdblue hover:bg-gray-50 rounded-md transition-colors ${
+                item.label === 'Admin Login' ? 'bg-sdblue text-white hover:bg-sdblue/90 hover:text-white' : ''
+              }`}
             >
               {item.label}
             </button>

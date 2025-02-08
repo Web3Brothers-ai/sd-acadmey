@@ -9,33 +9,15 @@ interface Teacher {
   image: string;
 }
 
-const demoTeachers: Teacher[] = [
-  {
-    id: 1,
-    name: "John Smith",
-    subject: "Mathematics",
-    degree: "M.Sc Mathematics",
-    image: "https://images.unsplash.com/photo-1649972904349-6e44c42644a7"
-  },
-  {
-    id: 2,
-    name: "Sarah Johnson",
-    subject: "Science",
-    degree: "Ph.D Physics",
-    image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158"
-  },
-  {
-    id: 3,
-    name: "Michael Brown",
-    subject: "Computer Science",
-    degree: "M.Tech Computer Science",
-    image: "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7"
-  }
-];
-
 export const TeachersSection = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
-  const [teachers, setTeachers] = useState<Teacher[]>(demoTeachers);
+  const [teachers, setTeachers] = useState<Teacher[]>([]);
+
+  useEffect(() => {
+    // Get teachers from localStorage
+    const storedTeachers = JSON.parse(localStorage.getItem('teachers') || '[]');
+    setTeachers(storedTeachers);
+  }, []);
 
   useEffect(() => {
     const scrollContainer = scrollRef.current;
@@ -49,7 +31,9 @@ export const TeachersSection = () => {
       }
     };
 
+    // Only enable auto-scroll if there are more than 4 teachers
     const intervalId = teachers.length > 4 ? setInterval(scroll, 30) : null;
+
     return () => {
       if (intervalId) clearInterval(intervalId);
     };

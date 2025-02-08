@@ -8,7 +8,7 @@ interface Notice {
   title: string;
   pdfUrl: string;
   isNew?: boolean;
-  createdAt?: number;  // Added this property to match the interface
+  createdAt?: number;
 }
 
 export const Events = () => {
@@ -24,12 +24,10 @@ export const Events = () => {
       const now = new Date().getTime();
       const twoDaysAgo = now - (2 * 24 * 60 * 60 * 1000); // 2 days in milliseconds
       
-      // If notice has no creation time, consider it old
       if (!notice.createdAt) {
         return { ...notice, isNew: false };
       }
       
-      // Update isNew based on whether it's within 2 days
       return {
         ...notice,
         isNew: notice.createdAt > twoDaysAgo
@@ -41,7 +39,12 @@ export const Events = () => {
   }, []);
 
   const handleNoticeClick = (pdfUrl: string) => {
-    window.open(pdfUrl, '_blank');
+    // Open PDF in new tab, ensuring it's a valid URL
+    if (pdfUrl && pdfUrl.startsWith('blob:')) {
+      window.open(pdfUrl, '_blank', 'noopener,noreferrer');
+    } else {
+      console.error('Invalid PDF URL');
+    }
   };
 
   return (
@@ -57,16 +60,37 @@ export const Events = () => {
         onMouseLeave={() => setIsPaused(false)}
       >
         <div 
-          className={`transform transition-all duration-500 flex flex-col gap-0.5 ${
-            isPaused ? 'animate-none' : 'animate-scroll'
-          }`}
+          className={`transform flex flex-col gap-0.5`}
           style={{
-            animation: isPaused ? 'none' : 'scroll 30s linear infinite'
+            animation: isPaused ? 'none' : 'scroll 20s linear infinite',
+            willChange: 'transform'
           }}
         >
           {notices.map((notice) => (
             <div
               key={notice.id}
+              className="p-3 border-b border-white/10 hover:bg-white/5 transition-colors cursor-pointer"
+              onClick={() => handleNoticeClick(notice.pdfUrl)}
+            >
+              <div className="flex items-start gap-2">
+                <span className="text-white mt-1">♦</span>
+                <div className="flex-1">
+                  <p className="text-white text-sm">
+                    {notice.title}
+                    {notice.isNew && (
+                      <span className="ml-2 inline-flex items-center px-2 py-0.5 text-[10px] font-bold bg-[#F97316] text-white rounded-full">
+                        NEW
+                      </span>
+                    )}
+                  </p>
+                </div>
+              </div>
+            </div>
+          ))}
+          {/* Duplicate notices for continuous scrolling */}
+          {notices.map((notice) => (
+            <div
+              key={`${notice.id}-duplicate`}
               className="p-3 border-b border-white/10 hover:bg-white/5 transition-colors cursor-pointer"
               onClick={() => handleNoticeClick(notice.pdfUrl)}
             >

@@ -101,7 +101,7 @@ export const Hero = () => {
               <Button
                 size="lg"
                 variant="outline"
-                className="border-2 border-white text-white hover:bg-white/10 text-xl px-8 py-6 rounded-lg shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 backdrop-blur-sm"
+                className="border-2 border-white text-white hover:bg-white/10 hover:text-white text-xl px-8 py-6 rounded-lg shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 backdrop-blur-sm"
                 onClick={() => window.location.href = '/admission'}
               >
                 Apply Now

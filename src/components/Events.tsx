@@ -17,7 +17,26 @@ export const Events = () => {
 
   useEffect(() => {
     const storedNotices = JSON.parse(localStorage.getItem('scrollingNotices') || '[]');
-    setNotices(storedNotices);
+    
+    // Check and update isNew status based on 2-day threshold
+    const updatedNotices = storedNotices.map((notice: Notice) => {
+      const now = new Date().getTime();
+      const twoDaysAgo = now - (2 * 24 * 60 * 60 * 1000); // 2 days in milliseconds
+      
+      // If notice has no creation time, consider it old
+      if (!notice.createdAt) {
+        return { ...notice, isNew: false };
+      }
+      
+      // Update isNew based on whether it's within 2 days
+      return {
+        ...notice,
+        isNew: notice.createdAt > twoDaysAgo
+      };
+    });
+
+    setNotices(updatedNotices);
+    localStorage.setItem('scrollingNotices', JSON.stringify(updatedNotices));
   }, []);
 
   const handleNoticeClick = (pdfUrl: string) => {
@@ -83,3 +102,4 @@ export const Events = () => {
     </div>
   );
 };
+

@@ -20,6 +20,7 @@ interface Notice {
   title: string;
   pdfUrl: string;
   isNew?: boolean;
+  createdAt?: number;
 }
 
 export default function AdminDashboard() {
@@ -72,7 +73,8 @@ export default function AdminDashboard() {
       id: Date.now(),
       title: newNoticeTitle,
       pdfUrl,
-      isNew: true
+      isNew: true,
+      createdAt: new Date().getTime()
     };
 
     const updatedNotices = [...notices, newNotice];

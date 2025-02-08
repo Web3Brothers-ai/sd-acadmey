@@ -8,6 +8,7 @@ interface Notice {
   title: string;
   pdfUrl: string;
   isNew?: boolean;
+  createdAt?: number;  // Added this property to match the interface
 }
 
 export const Events = () => {
@@ -102,4 +103,3 @@ export const Events = () => {
     </div>
   );
 };
-

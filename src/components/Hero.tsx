@@ -60,7 +60,7 @@ export const Hero = () => {
         </div>
       ))}
 
-      <div className="absolute inset-0 flex items-center justify-center z-10">
+      <div className="absolute inset-0 flex items-center">
         <div className="text-center space-y-6 px-4 max-w-4xl mx-auto">
           <div
             className={`transform transition-all duration-1000 ${
@@ -111,7 +111,8 @@ export const Hero = () => {
         </div>
       </div>
 
-      <div className="absolute bottom-0 left-0 right-0 z-20">
+      {/* Sticky Notice Section */}
+      <div className="absolute top-0 right-0 h-full">
         <Events />
       </div>
     </div>

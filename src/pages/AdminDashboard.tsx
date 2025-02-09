@@ -8,6 +8,8 @@ import { Input } from '@/components/ui/input';
 import { useToast } from '@/components/ui/use-toast';
 import { ArrowLeft } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { supabase } from '@/integrations/supabase/client';
+import type { BeyondAcademicContent, EssentialInfoContent } from '@/types/content';
 
 interface EnquiryData {
   name: string;
@@ -31,6 +33,8 @@ export default function AdminDashboard() {
   const [notices, setNotices] = useState<Notice[]>([]);
   const [newNoticeTitle, setNewNoticeTitle] = useState('');
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [beyondAcademicContent, setBeyondAcademicContent] = useState<BeyondAcademicContent[]>([]);
+  const [essentialInfoContent, setEssentialInfoContent] = useState<EssentialInfoContent[]>([]);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -38,6 +42,30 @@ export default function AdminDashboard() {
     if (!isAdmin) {
       navigate('/login');
     }
+    
+    const fetchContent = async () => {
+      const { data: beyondData, error: beyondError } = await supabase
+        .from('beyond_academic_content')
+        .select('*');
+      
+      if (beyondError) {
+        console.error('Error fetching beyond academic content:', beyondError);
+      } else {
+        setBeyondAcademicContent(beyondData || []);
+      }
+
+      const { data: essentialData, error: essentialError } = await supabase
+        .from('essential_info_content')
+        .select('*');
+      
+      if (essentialError) {
+        console.error('Error fetching essential info content:', essentialError);
+      } else {
+        setEssentialInfoContent(essentialData || []);
+      }
+    };
+
+    fetchContent();
     
     const storedEnquiries = JSON.parse(localStorage.getItem('enquiries') || '[]');
     setEnquiries(storedEnquiries);
@@ -49,6 +77,102 @@ export default function AdminDashboard() {
   const handleLogout = () => {
     localStorage.removeItem('isAdmin');
     navigate('/login');
+  };
+
+  const handleImageUpload = async (file: File, section: string, contentId: string, contentType: 'beyond' | 'essential') => {
+    try {
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${crypto.randomUUID()}.${fileExt}`;
+      const filePath = `${section}/${fileName}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from('section_images')
+        .upload(filePath, file);
+
+      if (uploadError) {
+        throw uploadError;
+      }
+
+      const { data: { publicUrl } } = supabase.storage
+        .from('section_images')
+        .getPublicUrl(filePath);
+
+      const table = contentType === 'beyond' ? 'beyond_academic_content' : 'essential_info_content';
+      const { error: updateError } = await supabase
+        .from(table)
+        .update({ image_url: publicUrl })
+        .eq('id', contentId);
+
+      if (updateError) {
+        throw updateError;
+      }
+
+      toast({
+        title: "Success",
+        description: "Image uploaded successfully",
+      });
+
+      // Refresh content
+      const { data, error: fetchError } = await supabase
+        .from(table)
+        .select('*');
+      
+      if (fetchError) {
+        throw fetchError;
+      }
+
+      if (contentType === 'beyond') {
+        setBeyondAcademicContent(data || []);
+      } else {
+        setEssentialInfoContent(data || []);
+      }
+
+    } catch (error) {
+      console.error('Error uploading image:', error);
+      toast({
+        title: "Error",
+        description: "Failed to upload image",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const handleContentUpdate = async (id: string, content: string, type: 'beyond' | 'essential') => {
+    const table = type === 'beyond' ? 'beyond_academic_content' : 'essential_info_content';
+    try {
+      const { error } = await supabase
+        .from(table)
+        .update({ content })
+        .eq('id', id);
+
+      if (error) throw error;
+
+      toast({
+        title: "Success",
+        description: "Content updated successfully",
+      });
+
+      // Refresh content
+      const { data, error: fetchError } = await supabase
+        .from(table)
+        .select('*');
+      
+      if (fetchError) throw fetchError;
+
+      if (type === 'beyond') {
+        setBeyondAcademicContent(data || []);
+      } else {
+        setEssentialInfoContent(data || []);
+      }
+
+    } catch (error) {
+      console.error('Error updating content:', error);
+      toast({
+        title: "Error",
+        description: "Failed to update content",
+        variant: "destructive",
+      });
+    }
   };
 
   return (
@@ -104,26 +228,37 @@ export default function AdminDashboard() {
           <TabsContent value="beyond">
             <Card className="p-6">
               <h2 className="text-xl font-bold mb-4">Manage Beyond Academic Content</h2>
-              <div className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <h3 className="font-semibold mb-2">Sports & Games</h3>
+              <div className="space-y-6">
+                {beyondAcademicContent.map((content) => (
+                  <div key={content.id} className="space-y-4">
+                    <h3 className="font-semibold">{content.section_name}</h3>
+                    {content.image_url && (
+                      <img 
+                        src={content.image_url} 
+                        alt={content.section_name}
+                        className="w-32 h-32 object-cover rounded-lg"
+                      />
+                    )}
+                    <div className="flex gap-4">
+                      <Input
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => {
+                          const file = e.target.files?.[0];
+                          if (file) {
+                            handleImageUpload(file, content.section_name, content.id, 'beyond');
+                          }
+                        }}
+                      />
+                    </div>
                     <textarea 
                       className="w-full p-2 border rounded"
                       rows={4}
-                      placeholder="Enter sports & games details"
+                      value={content.content}
+                      onChange={(e) => handleContentUpdate(content.id, e.target.value, 'beyond')}
                     />
                   </div>
-                  <div>
-                    <h3 className="font-semibold mb-2">Dance & Music</h3>
-                    <textarea 
-                      className="w-full p-2 border rounded"
-                      rows={4}
-                      placeholder="Enter dance & music details"
-                    />
-                  </div>
-                </div>
-                <Button>Save Changes</Button>
+                ))}
               </div>
             </Card>
           </TabsContent>
@@ -131,26 +266,37 @@ export default function AdminDashboard() {
           <TabsContent value="essential">
             <Card className="p-6">
               <h2 className="text-xl font-bold mb-4">Manage Essential Information</h2>
-              <div className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <h3 className="font-semibold mb-2">School Uniform</h3>
+              <div className="space-y-6">
+                {essentialInfoContent.map((content) => (
+                  <div key={content.id} className="space-y-4">
+                    <h3 className="font-semibold">{content.section_name}</h3>
+                    {content.image_url && (
+                      <img 
+                        src={content.image_url} 
+                        alt={content.section_name}
+                        className="w-32 h-32 object-cover rounded-lg"
+                      />
+                    )}
+                    <div className="flex gap-4">
+                      <Input
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => {
+                          const file = e.target.files?.[0];
+                          if (file) {
+                            handleImageUpload(file, content.section_name, content.id, 'essential');
+                          }
+                        }}
+                      />
+                    </div>
                     <textarea 
                       className="w-full p-2 border rounded"
                       rows={4}
-                      placeholder="Enter uniform details"
+                      value={content.content}
+                      onChange={(e) => handleContentUpdate(content.id, e.target.value, 'essential')}
                     />
                   </div>
-                  <div>
-                    <h3 className="font-semibold mb-2">School Timing</h3>
-                    <textarea 
-                      className="w-full p-2 border rounded"
-                      rows={4}
-                      placeholder="Enter school timing details"
-                    />
-                  </div>
-                </div>
-                <Button>Save Changes</Button>
+                ))}
               </div>
             </Card>
           </TabsContent>

@@ -50,9 +50,19 @@ export default function BeyondAcademicPage() {
             return (
               <Card key={content.id} className="transform transition-all duration-300 hover:scale-105 hover:shadow-xl">
                 <CardContent className="p-6">
-                  <div className="w-16 h-16 bg-gradient-to-br from-[#8B5CF6] to-[#D946EF] rounded-2xl flex items-center justify-center mb-4 mx-auto">
-                    {IconComponent && <IconComponent className="w-8 h-8 text-white" />}
-                  </div>
+                  {content.image_url ? (
+                    <div className="w-32 h-32 mx-auto mb-4 overflow-hidden rounded-xl">
+                      <img 
+                        src={content.image_url} 
+                        alt={content.section_name}
+                        className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
+                      />
+                    </div>
+                  ) : (
+                    <div className="w-16 h-16 bg-gradient-to-br from-[#8B5CF6] to-[#D946EF] rounded-2xl flex items-center justify-center mb-4 mx-auto">
+                      {IconComponent && <IconComponent className="w-8 h-8 text-white" />}
+                    </div>
+                  )}
                   <h3 className="text-xl font-bold text-center mb-4">
                     {content.section_name}
                   </h3>

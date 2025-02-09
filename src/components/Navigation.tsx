@@ -1,6 +1,5 @@
-
 import { useState, useEffect } from 'react';
-import { Menu, X, Calendar, Book, Users, Phone, LogIn, ChevronDown } from 'lucide-react';
+import { Menu, X, Calendar, Book, Users, Phone, LogIn, ChevronDown, Award } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useIsMobile } from '@/hooks/use-mobile';
 
@@ -15,6 +14,17 @@ const navItems = [
       { label: 'Primary Section', href: '/academic/primary' },
       { label: 'Middle Section', href: '/academic/middle' },
       { label: 'Senior Section', href: '/academic/senior' }
+    ]
+  },
+  {
+    label: 'Results',
+    href: '/results',
+    icon: Award,
+    subItems: [
+      { label: 'Academic Results', href: '/results/academic' },
+      { label: 'Olympiad Results', href: '/results/olympiad' },
+      { label: 'Competition Results', href: '/results/competition' },
+      { label: 'Entrance Results', href: '/results/entrance' }
     ]
   },
   { label: 'Admission', href: '/admission', icon: Users },

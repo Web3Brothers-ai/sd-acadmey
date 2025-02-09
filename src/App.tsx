@@ -23,6 +23,11 @@ import AdminTestimonials from "./pages/AdminTestimonials";
 import DetailedAchievements from "./pages/DetailedAchievements";
 import DetailedGallery from "./pages/DetailedGallery";
 import SchoolDetails from "./pages/SchoolDetails";
+import Results from "./pages/Results";
+import AcademicResults from "./pages/AcademicResults";
+import OlympiadResults from "./pages/OlympiadResults";
+import CompetitionResults from "./pages/CompetitionResults";
+import EntranceResults from "./pages/EntranceResults";
 
 const queryClient = new QueryClient();
 
@@ -46,6 +51,11 @@ const App = () => (
           <Route path="/academic/primary" element={<PrimarySection />} />
           <Route path="/academic/middle" element={<MiddleSection />} />
           <Route path="/academic/senior" element={<SeniorSection />} />
+          <Route path="/results" element={<Results />} />
+          <Route path="/results/academic" element={<AcademicResults />} />
+          <Route path="/results/olympiad" element={<OlympiadResults />} />
+          <Route path="/results/competition" element={<CompetitionResults />} />
+          <Route path="/results/entrance" element={<EntranceResults />} />
           <Route path="/admission" element={<Admission />} />
           <Route path="/enquiry" element={<Enquiry />} />
           <Route path="/achievements" element={<DetailedAchievements />} />

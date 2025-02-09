@@ -9,7 +9,171 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      academic_results: {
+        Row: {
+          class_name: string
+          created_at: string | null
+          id: string
+          image_url: string | null
+          school_average: number
+          students_above_90: number
+          top_scorer_name: string
+          top_scorer_percentage: number
+          total_students: number
+          updated_at: string | null
+          year: number
+        }
+        Insert: {
+          class_name: string
+          created_at?: string | null
+          id?: string
+          image_url?: string | null
+          school_average: number
+          students_above_90: number
+          top_scorer_name: string
+          top_scorer_percentage: number
+          total_students: number
+          updated_at?: string | null
+          year: number
+        }
+        Update: {
+          class_name?: string
+          created_at?: string | null
+          id?: string
+          image_url?: string | null
+          school_average?: number
+          students_above_90?: number
+          top_scorer_name?: string
+          top_scorer_percentage?: number
+          total_students?: number
+          updated_at?: string | null
+          year?: number
+        }
+        Relationships: []
+      }
+      competition_results: {
+        Row: {
+          achievement_details: string | null
+          competition_name: string
+          created_at: string | null
+          first_place: string | null
+          id: string
+          image_url: string | null
+          participating_teams: number | null
+          special_awards: string[] | null
+          updated_at: string | null
+          year: number
+        }
+        Insert: {
+          achievement_details?: string | null
+          competition_name: string
+          created_at?: string | null
+          first_place?: string | null
+          id?: string
+          image_url?: string | null
+          participating_teams?: number | null
+          special_awards?: string[] | null
+          updated_at?: string | null
+          year: number
+        }
+        Update: {
+          achievement_details?: string | null
+          competition_name?: string
+          created_at?: string | null
+          first_place?: string | null
+          id?: string
+          image_url?: string | null
+          participating_teams?: number | null
+          special_awards?: string[] | null
+          updated_at?: string | null
+          year?: number
+        }
+        Relationships: []
+      }
+      entrance_results: {
+        Row: {
+          achievement_details: string | null
+          created_at: string | null
+          exam_name: string
+          id: string
+          image_url: string | null
+          qualified_students: number
+          rank_under_1000: number
+          rank_under_5000: number
+          top_rank: number | null
+          updated_at: string | null
+          year: number
+        }
+        Insert: {
+          achievement_details?: string | null
+          created_at?: string | null
+          exam_name: string
+          id?: string
+          image_url?: string | null
+          qualified_students: number
+          rank_under_1000: number
+          rank_under_5000: number
+          top_rank?: number | null
+          updated_at?: string | null
+          year: number
+        }
+        Update: {
+          achievement_details?: string | null
+          created_at?: string | null
+          exam_name?: string
+          id?: string
+          image_url?: string | null
+          qualified_students?: number
+          rank_under_1000?: number
+          rank_under_5000?: number
+          top_rank?: number | null
+          updated_at?: string | null
+          year?: number
+        }
+        Relationships: []
+      }
+      olympiad_results: {
+        Row: {
+          achievement_details: string | null
+          bronze_medals: number
+          competition_name: string
+          created_at: string | null
+          gold_medals: number
+          id: string
+          image_url: string | null
+          silver_medals: number
+          top_achiever: string | null
+          updated_at: string | null
+          year: number
+        }
+        Insert: {
+          achievement_details?: string | null
+          bronze_medals: number
+          competition_name: string
+          created_at?: string | null
+          gold_medals: number
+          id?: string
+          image_url?: string | null
+          silver_medals: number
+          top_achiever?: string | null
+          updated_at?: string | null
+          year: number
+        }
+        Update: {
+          achievement_details?: string | null
+          bronze_medals?: number
+          competition_name?: string
+          created_at?: string | null
+          gold_medals?: number
+          id?: string
+          image_url?: string | null
+          silver_medals?: number
+          top_achiever?: string | null
+          updated_at?: string | null
+          year?: number
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

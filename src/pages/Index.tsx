@@ -9,6 +9,7 @@ import { Testimonials } from "@/components/Testimonials";
 import { VideoTestimonials } from "@/components/VideoTestimonials";
 import { Facilities } from "@/components/Facilities";
 import { Achievements } from "@/components/Achievements";
+import { BeyondAcademic } from "@/components/BeyondAcademic";
 import { Footer } from "@/components/Footer";
 import { useScrollAnimation } from "@/utils/useScrollAnimation";
 import { useEffect, useCallback } from "react";
@@ -23,6 +24,7 @@ const Index = () => {
   const videoTestimonialsRef = useScrollAnimation();
   const galleryRef = useScrollAnimation();
   const facilitiesRef = useScrollAnimation();
+  const beyondAcademicRef = useScrollAnimation();
   const enquiryRef = useScrollAnimation();
 
   const scrollToElement = useCallback((selector: string) => {
@@ -78,6 +80,10 @@ const Index = () => {
       
       <div ref={facilitiesRef} className="transition-transform duration-300 will-change-transform">
         <Facilities />
+      </div>
+
+      <div ref={beyondAcademicRef} className="transition-transform duration-300 will-change-transform">
+        <BeyondAcademic />
       </div>
       
       <div ref={enquiryRef} className="transition-transform duration-300 will-change-transform">

@@ -33,10 +33,10 @@ const navItems = [
     href: '/beyond-academic',
     icon: Award,
     subItems: [
-      { label: 'Sports & Games', href: '/beyond-academic/sports' },
-      { label: 'Dance & Music', href: '/beyond-academic/arts' },
-      { label: 'Art & Craft', href: '/beyond-academic/craft' },
-      { label: 'Yoga & Meditation', href: '/beyond-academic/yoga' }
+      { label: 'Sports & Games', href: '/beyond-academic#sports' },
+      { label: 'Dance & Music', href: '/beyond-academic#arts' },
+      { label: 'Art & Craft', href: '/beyond-academic#craft' },
+      { label: 'Yoga & Meditation', href: '/beyond-academic#yoga' }
     ]
   },
   {
@@ -44,13 +44,13 @@ const navItems = [
     href: '/essential-info',
     icon: Info,
     subItems: [
-      { label: 'School Uniform', href: '/essential-info/uniform' },
-      { label: 'School Timing', href: '/essential-info/timing' },
-      { label: 'Transport', href: '/essential-info/transport' },
-      { label: 'Code of Conduct', href: '/essential-info/conduct' },
-      { label: 'SDA in Newspaper', href: '/essential-info/news' },
-      { label: 'Online Registration', href: '/essential-info/registration' },
-      { label: 'Job Entrance', href: '/essential-info/careers' }
+      { label: 'School Uniform', href: '/essential-info#uniform' },
+      { label: 'School Timing', href: '/essential-info#timing' },
+      { label: 'Transport', href: '/essential-info#transport' },
+      { label: 'Code of Conduct', href: '/essential-info#conduct' },
+      { label: 'SDA in Newspaper', href: '/essential-info#news' },
+      { label: 'Online Registration', href: '/essential-info#registration' },
+      { label: 'Job Entrance', href: '/essential-info#careers' }
     ]
   },
   { label: 'Admission', href: '/admission', icon: Users },

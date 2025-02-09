@@ -51,6 +51,30 @@ export type Database = {
         }
         Relationships: []
       }
+      beyond_academic_content: {
+        Row: {
+          content: string
+          created_at: string | null
+          id: string
+          section_name: string
+          updated_at: string | null
+        }
+        Insert: {
+          content: string
+          created_at?: string | null
+          id?: string
+          section_name: string
+          updated_at?: string | null
+        }
+        Update: {
+          content?: string
+          created_at?: string | null
+          id?: string
+          section_name?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       competition_results: {
         Row: {
           achievement_details: string | null
@@ -132,6 +156,30 @@ export type Database = {
         }
         Relationships: []
       }
+      essential_info_content: {
+        Row: {
+          content: string
+          created_at: string | null
+          id: string
+          section_name: string
+          updated_at: string | null
+        }
+        Insert: {
+          content: string
+          created_at?: string | null
+          id?: string
+          section_name: string
+          updated_at?: string | null
+        }
+        Update: {
+          content?: string
+          created_at?: string | null
+          id?: string
+          section_name?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       olympiad_results: {
         Row: {
           achievement_details: string | null
@@ -174,6 +222,24 @@ export type Database = {
         }
         Relationships: []
       }
+      user_roles: {
+        Row: {
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -182,7 +248,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "moderator" | "user"
     }
     CompositeTypes: {
       [_ in never]: never

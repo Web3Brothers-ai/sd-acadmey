@@ -28,6 +28,8 @@ import AcademicResults from "./pages/AcademicResults";
 import OlympiadResults from "./pages/OlympiadResults";
 import CompetitionResults from "./pages/CompetitionResults";
 import EntranceResults from "./pages/EntranceResults";
+import BeyondAcademicPage from "./pages/BeyondAcademicPage";
+import EssentialInfoPage from "./pages/EssentialInfoPage";
 
 const queryClient = new QueryClient();
 
@@ -61,6 +63,8 @@ const App = () => (
           <Route path="/achievements" element={<DetailedAchievements />} />
           <Route path="/gallery" element={<DetailedGallery />} />
           <Route path="/school-details" element={<SchoolDetails />} />
+          <Route path="/beyond-academic" element={<BeyondAcademicPage />} />
+          <Route path="/essential-info" element={<EssentialInfoPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

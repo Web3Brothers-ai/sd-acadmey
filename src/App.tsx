@@ -30,6 +30,7 @@ import CompetitionResults from "./pages/CompetitionResults";
 import EntranceResults from "./pages/EntranceResults";
 import BeyondAcademicPage from "./pages/BeyondAcademicPage";
 import EssentialInfoPage from "./pages/EssentialInfoPage";
+import EssentialInfoDetailPage from "./pages/EssentialInfoDetailPage";
 
 const queryClient = new QueryClient();
 
@@ -65,10 +66,7 @@ const App = () => (
           <Route path="/school-details" element={<SchoolDetails />} />
           <Route path="/beyond-academic" element={<BeyondAcademicPage />} />
           <Route path="/essential-info" element={<EssentialInfoPage />} />
-          <Route path="/essential-info/school-uniform" element={<EssentialInfoPage />} />
-          <Route path="/essential-info/school-timing" element={<EssentialInfoPage />} />
-          <Route path="/essential-info/transport" element={<EssentialInfoPage />} />
-          <Route path="/essential-info/code-of-conduct" element={<EssentialInfoPage />} />
+          <Route path="/essential-info/:slug" element={<EssentialInfoDetailPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

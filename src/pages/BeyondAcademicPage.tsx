@@ -27,7 +27,11 @@ export default function BeyondAcademicPage() {
         return;
       }
 
-      setContents(data || []);
+      if (data) {
+        setContents(data);
+      } else {
+        setContents([]);
+      }
     };
 
     fetchContent();

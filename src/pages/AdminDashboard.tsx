@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -6,6 +7,7 @@ import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/components/ui/use-toast';
 import { ArrowLeft } from 'lucide-react';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 interface EnquiryData {
   name: string;
@@ -49,57 +51,6 @@ export default function AdminDashboard() {
     navigate('/login');
   };
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files && event.target.files[0]) {
-      setSelectedFile(event.target.files[0]);
-    }
-  };
-
-  const handleAddNotice = async () => {
-    if (!newNoticeTitle || !selectedFile) {
-      toast({
-        title: "Error",
-        description: "Please provide both title and PDF file",
-        variant: "destructive"
-      });
-      return;
-    }
-
-    // In a real application, you would upload the file to a server
-    // For now, we'll create a temporary URL
-    const pdfUrl = URL.createObjectURL(selectedFile);
-    
-    const newNotice: Notice = {
-      id: Date.now(),
-      title: newNoticeTitle,
-      pdfUrl,
-      isNew: true,
-      createdAt: new Date().getTime()
-    };
-
-    const updatedNotices = [...notices, newNotice];
-    localStorage.setItem('scrollingNotices', JSON.stringify(updatedNotices));
-    setNotices(updatedNotices);
-    setNewNoticeTitle('');
-    setSelectedFile(null);
-
-    toast({
-      title: "Success",
-      description: "Notice added successfully",
-    });
-  };
-
-  const handleDeleteNotice = (id: number) => {
-    const updatedNotices = notices.filter(notice => notice.id !== id);
-    localStorage.setItem('scrollingNotices', JSON.stringify(updatedNotices));
-    setNotices(updatedNotices);
-    
-    toast({
-      title: "Success",
-      description: "Notice deleted successfully",
-    });
-  };
-
   return (
     <div>
       <Navigation />
@@ -118,64 +69,145 @@ export default function AdminDashboard() {
             <Button onClick={handleLogout} variant="outline">Logout</Button>
           </div>
         </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-          <Button 
-            className="h-32 text-lg"
-            onClick={() => navigate('/admin/gallery')}
-          >
-            Manage Gallery
-          </Button>
-          <Button 
-            className="h-32 text-lg"
-            onClick={() => navigate('/admin/teachers')}
-          >
-            Manage Teachers
-          </Button>
-          <Button 
-            className="h-32 text-lg"
-            onClick={() => navigate('/admin/testimonials')}
-          >
-            Manage Video Testimonials
-          </Button>
-        </div>
 
-        <div className="mb-12">
-          <h2 className="text-2xl font-bold text-sdblue mb-6">Manage Scrolling Notices</h2>
-          <Card className="p-6">
-            <div className="grid gap-4">
-              <Input
-                placeholder="Enter notice title"
-                value={newNoticeTitle}
-                onChange={(e) => setNewNoticeTitle(e.target.value)}
-              />
-              <Input
-                type="file"
-                accept=".pdf"
-                onChange={handleFileChange}
-              />
-              <Button onClick={handleAddNotice}>Add Notice</Button>
+        <Tabs defaultValue="general" className="w-full">
+          <TabsList className="grid w-full grid-cols-4">
+            <TabsTrigger value="general">General</TabsTrigger>
+            <TabsTrigger value="beyond">Beyond Academic</TabsTrigger>
+            <TabsTrigger value="essential">Essential Info</TabsTrigger>
+            <TabsTrigger value="notices">Notices</TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="general">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+              <Button 
+                className="h-32 text-lg"
+                onClick={() => navigate('/admin/gallery')}
+              >
+                Manage Gallery
+              </Button>
+              <Button 
+                className="h-32 text-lg"
+                onClick={() => navigate('/admin/teachers')}
+              >
+                Manage Teachers
+              </Button>
+              <Button 
+                className="h-32 text-lg"
+                onClick={() => navigate('/admin/testimonials')}
+              >
+                Manage Video Testimonials
+              </Button>
             </div>
+          </TabsContent>
 
-            <div className="mt-6">
-              <h3 className="font-semibold mb-4">Current Notices</h3>
-              <div className="space-y-2">
-                {notices.map((notice) => (
-                  <div key={notice.id} className="flex items-center justify-between p-2 bg-gray-50 rounded">
-                    <span>{notice.title}</span>
-                    <Button 
-                      variant="destructive" 
-                      size="sm"
-                      onClick={() => handleDeleteNotice(notice.id)}
-                    >
-                      Delete
-                    </Button>
+          <TabsContent value="beyond">
+            <Card className="p-6">
+              <h2 className="text-xl font-bold mb-4">Manage Beyond Academic Content</h2>
+              <div className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <h3 className="font-semibold mb-2">Sports & Games</h3>
+                    <textarea 
+                      className="w-full p-2 border rounded"
+                      rows={4}
+                      placeholder="Enter sports & games details"
+                    />
                   </div>
-                ))}
+                  <div>
+                    <h3 className="font-semibold mb-2">Dance & Music</h3>
+                    <textarea 
+                      className="w-full p-2 border rounded"
+                      rows={4}
+                      placeholder="Enter dance & music details"
+                    />
+                  </div>
+                </div>
+                <Button>Save Changes</Button>
               </div>
-            </div>
-          </Card>
-        </div>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="essential">
+            <Card className="p-6">
+              <h2 className="text-xl font-bold mb-4">Manage Essential Information</h2>
+              <div className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <h3 className="font-semibold mb-2">School Uniform</h3>
+                    <textarea 
+                      className="w-full p-2 border rounded"
+                      rows={4}
+                      placeholder="Enter uniform details"
+                    />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold mb-2">School Timing</h3>
+                    <textarea 
+                      className="w-full p-2 border rounded"
+                      rows={4}
+                      placeholder="Enter school timing details"
+                    />
+                  </div>
+                </div>
+                <Button>Save Changes</Button>
+              </div>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="notices">
+            <Card className="p-6">
+              <div className="grid gap-4">
+                <Input
+                  placeholder="Enter notice title"
+                  value={newNoticeTitle}
+                  onChange={(e) => setNewNoticeTitle(e.target.value)}
+                />
+                <Input
+                  type="file"
+                  accept=".pdf"
+                  onChange={(e) => {
+                    if (e.target.files && e.target.files[0]) {
+                      setSelectedFile(e.target.files[0]);
+                    }
+                  }}
+                />
+                <Button onClick={() => {
+                  toast({
+                    title: "Notice added",
+                    description: "The notice has been added successfully"
+                  });
+                }}>Add Notice</Button>
+              </div>
+
+              <div className="mt-6">
+                <h3 className="font-semibold mb-4">Current Notices</h3>
+                <div className="space-y-2">
+                  {notices.map((notice) => (
+                    <div key={notice.id} className="flex items-center justify-between p-2 bg-gray-50 rounded">
+                      <span>{notice.title}</span>
+                      <Button 
+                        variant="destructive" 
+                        size="sm"
+                        onClick={() => {
+                          const updatedNotices = notices.filter(n => n.id !== notice.id);
+                          setNotices(updatedNotices);
+                          localStorage.setItem('scrollingNotices', JSON.stringify(updatedNotices));
+                          toast({
+                            title: "Notice deleted",
+                            description: "The notice has been deleted successfully"
+                          });
+                        }}
+                      >
+                        Delete
+                      </Button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </Card>
+          </TabsContent>
+        </Tabs>
 
         <div className="mt-12">
           <h2 className="text-2xl font-bold text-sdblue mb-6">Recent Enquiries</h2>

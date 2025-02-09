@@ -1,5 +1,6 @@
+
 import { useState, useEffect } from 'react';
-import { Menu, X, Calendar, Book, Users, Phone, LogIn, ChevronDown, Award } from 'lucide-react';
+import { Menu, X, Calendar, Book, Users, Phone, LogIn, ChevronDown, Award, School, Info } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useIsMobile } from '@/hooks/use-mobile';
 
@@ -25,6 +26,31 @@ const navItems = [
       { label: 'Olympiad Results', href: '/results/olympiad' },
       { label: 'Competition Results', href: '/results/competition' },
       { label: 'Entrance Results', href: '/results/entrance' }
+    ]
+  },
+  {
+    label: 'Beyond Academic',
+    href: '/beyond-academic',
+    icon: Award,
+    subItems: [
+      { label: 'Sports & Games', href: '/beyond-academic/sports' },
+      { label: 'Dance & Music', href: '/beyond-academic/arts' },
+      { label: 'Art & Craft', href: '/beyond-academic/craft' },
+      { label: 'Yoga & Meditation', href: '/beyond-academic/yoga' }
+    ]
+  },
+  {
+    label: 'Essential Info',
+    href: '/essential-info',
+    icon: Info,
+    subItems: [
+      { label: 'School Uniform', href: '/essential-info/uniform' },
+      { label: 'School Timing', href: '/essential-info/timing' },
+      { label: 'Transport', href: '/essential-info/transport' },
+      { label: 'Code of Conduct', href: '/essential-info/conduct' },
+      { label: 'SDA in Newspaper', href: '/essential-info/news' },
+      { label: 'Online Registration', href: '/essential-info/registration' },
+      { label: 'Job Entrance', href: '/essential-info/careers' }
     ]
   },
   { label: 'Admission', href: '/admission', icon: Users },

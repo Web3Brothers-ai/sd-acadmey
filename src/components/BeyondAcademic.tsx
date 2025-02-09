@@ -1,7 +1,7 @@
 
 import { Card, CardContent } from "@/components/ui/card";
 import { 
-  Trophy, Music, Palette, Yoga, 
+  Trophy, Music, Palette, Activity, 
   Clock, Bus, ScrollText, Newspaper,
   FileSpreadsheet, UserPlus, School
 } from "lucide-react";
@@ -25,7 +25,7 @@ const beyondAcademicItems = [
   {
     title: "Yoga and Meditation",
     description: "Focus on mental and physical well-being",
-    icon: Yoga
+    icon: Activity
   }
 ];
 

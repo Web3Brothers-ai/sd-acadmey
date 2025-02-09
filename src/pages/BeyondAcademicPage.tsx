@@ -57,7 +57,8 @@ export default function BeyondAcademicPage() {
                   </p>
                 </CardContent>
               </Card>
-            ))}
+            );
+          })}
         </div>
       </div>
     </div>

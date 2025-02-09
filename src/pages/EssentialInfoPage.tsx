@@ -63,7 +63,8 @@ export default function EssentialInfoPage() {
                   </p>
                 </CardContent>
               </Card>
-            ))}
+            );
+          })}
         </div>
       </div>
     </div>

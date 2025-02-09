@@ -33,7 +33,7 @@ export default function EssentialInfoPage() {
         return;
       }
 
-      setContents(data);
+      setContents(data || []);
     };
 
     fetchContent();
